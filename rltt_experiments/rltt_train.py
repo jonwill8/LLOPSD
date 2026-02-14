@@ -1223,6 +1223,11 @@ def run_verl_training(args, verl_config: Dict[str, Any], sft_checkpoint: Optiona
                             if reward_extra_infos_dict:
                                 batch.non_tensor_batch.update({k: np.array(v) for k, v in reward_extra_infos_dict.items()})
 
+                            # Truncate response_mask and reward at first \boxed{...}
+                            from math_utils.reward import truncate_responses_at_first_boxed
+                            trunc_metrics = truncate_responses_at_first_boxed(batch, self.tokenizer)
+                            metrics.update(trunc_metrics)
+
                             if self.config.algorithm.use_kl_in_reward:
                                 batch, kl_metrics = apply_kl_penalty(
                                     batch, kl_ctrl=self.kl_ctrl_in_reward, kl_penalty=self.config.algorithm.kl_penalty

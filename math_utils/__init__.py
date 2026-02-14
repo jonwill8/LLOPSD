@@ -11,6 +11,8 @@ Two answer parsing modules are available:
 
 from .answer_parsing import (
     extract_boxed_answer,
+    extract_first_boxed_answer,
+    find_first_boxed_end,
     normalize_answer,
     normalize_for_math_verify,
     try_math_verify,
@@ -42,11 +44,14 @@ from .reward import (
     compute_reward,
     compute_math_reward,
     create_math_reward_func,
+    truncate_responses_at_first_boxed,
 )
 
 __all__ = [
     # Base answer parsing functions
     "extract_boxed_answer",
+    "extract_first_boxed_answer",
+    "find_first_boxed_end",
     "normalize_answer",
     "normalize_for_math_verify",
     "try_math_verify",
@@ -71,4 +76,5 @@ __all__ = [
     "compute_reward",
     "compute_math_reward",
     "create_math_reward_func",
+    "truncate_responses_at_first_boxed",
 ]

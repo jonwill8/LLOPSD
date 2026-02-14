@@ -443,6 +443,9 @@ class RLTTDataParallelPPOActor(DataParallelPPOActor):
             'responses', 'input_ids', 'attention_mask', 'position_ids',
             'advantages', 'old_log_probs'  # old_log_probs is always available
         ]
+        # Include response_mask if available (e.g., truncated at first \boxed{})
+        if 'response_mask' in data.batch.keys():
+            select_keys.append('response_mask')
 
         # ref_log_prob is only available when use_kl_loss is enabled in config
         # If not available, we'll use old_log_probs as the reference
@@ -500,7 +503,11 @@ class RLTTDataParallelPPOActor(DataParallelPPOActor):
                     responses = micro_data['responses']
                     response_length = responses.size(1)
                     attention_mask = micro_data['attention_mask']
-                    response_mask = attention_mask[:, -response_length:]
+                    # Use explicit response_mask if available (e.g., truncated at first \boxed{})
+                    if 'response_mask' in micro_data:
+                        response_mask = micro_data['response_mask']
+                    else:
+                        response_mask = attention_mask[:, -response_length:]
                     advantages = micro_data['advantages']
                     entropy_coeff = self.config.entropy_coeff
 

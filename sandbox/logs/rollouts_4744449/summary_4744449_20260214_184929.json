@@ -1,0 +1,29 @@
+{
+  "timestamp": "20260214_184929",
+  "job_id": "4744449",
+  "config": {
+    "model_path": "/scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking",
+    "test_file": "/scratch/gpfs/OLGARUS/jw4199/datasets/MATH-500/MATH-500.test.jsonl",
+    "num_questions": 100,
+    "max_new_tokens": 2048,
+    "loops": [
+      2,
+      4
+    ],
+    "seed": 42
+  },
+  "results": {
+    "2": {
+      "accuracy": 0.64,
+      "correct": 64,
+      "total": 100,
+      "elapsed_sec": 91.89846968650818
+    },
+    "4": {
+      "accuracy": 0.7,
+      "correct": 70,
+      "total": 100,
+      "elapsed_sec": 256.22519636154175
+    }
+  }
+}

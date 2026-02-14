@@ -75,6 +75,82 @@ def extract_boxed_answer(text: str) -> Optional[str]:
     return None
 
 
+def extract_first_boxed_answer(text: str) -> Optional[str]:
+    """Extract the answer from the FIRST \\boxed{...} in the solution text.
+
+    Same as extract_boxed_answer but uses the first occurrence instead of the last.
+
+    Args:
+        text: The full solution text containing \\boxed{answer}.
+
+    Returns:
+        The extracted answer string, or None if no boxed answer found.
+    """
+    if not text:
+        return None
+
+    pattern = r'\\boxed\{'
+    match = re.search(pattern, text)
+
+    if not match:
+        return None
+
+    start = match.end()
+
+    # Count braces to find matching closing brace
+    brace_count = 1
+    pos = start
+    while pos < len(text) and brace_count > 0:
+        if text[pos] == '{':
+            brace_count += 1
+        elif text[pos] == '}':
+            brace_count -= 1
+        pos += 1
+
+    if brace_count == 0:
+        return text[start:pos-1].strip()
+    return None
+
+
+def find_first_boxed_end(text: str) -> Optional[int]:
+    """Find the character index right after the closing } of the first \\boxed{...}.
+
+    This is used to determine where to truncate model output so that only tokens
+    up to and including the first boxed answer are kept.
+
+    Args:
+        text: The full solution text.
+
+    Returns:
+        Character index right after the closing } of the first \\boxed{...},
+        or None if no \\boxed{} found.
+    """
+    if not text:
+        return None
+
+    pattern = r'\\boxed\{'
+    match = re.search(pattern, text)
+
+    if not match:
+        return None
+
+    start = match.end()
+
+    # Count braces to find matching closing brace
+    brace_count = 1
+    pos = start
+    while pos < len(text) and brace_count > 0:
+        if text[pos] == '{':
+            brace_count += 1
+        elif text[pos] == '}':
+            brace_count -= 1
+        pos += 1
+
+    if brace_count == 0:
+        return pos  # pos is right after the closing }
+    return None
+
+
 def normalize_answer(answer: str) -> str:
     """Normalize an answer string for comparison.
 
