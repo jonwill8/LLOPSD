@@ -43,10 +43,10 @@ STUDENT_LOOPS=${STUDENT_LOOPS:-2}
 LOOP_MAPPING=${LOOP_MAPPING:-"shift"}          # shift, linear, fixed
 WEIGHT_SCHEDULE=${WEIGHT_SCHEDULE:-"uniform"}   # uniform, late_heavy, terminal_only
 WEIGHT_GAMMA=${WEIGHT_GAMMA:-1.0}
-DIVERGENCE=${DIVERGENCE:-"forward_kl"}         # forward_kl, reverse_kl, jsd
+DIVERGENCE=${DIVERGENCE:-"jsd"}         # forward_kl, reverse_kl, jsd
 TEACHER_CONTEXT=${TEACHER_CONTEXT:-"opsd"}
 TEACHER_MODE=${TEACHER_MODE:-"same"}           # frozen, ema, same
-EMA_DECAY=${EMA_DECAY:-0.999}
+EMA_DECAY=${EMA_DECAY:-0.99}
 
 # === KL penalty and RL hyperparameters ===
 BETA=${BETA:-0.001}
