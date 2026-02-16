@@ -633,8 +633,9 @@ def build_verl_config(args) -> Dict[str, Any]:
         tp_size = 1
         logger.warning(f"TP size {args.vllm_tensor_parallel_size} doesn't divide {n_gpus} GPUs, using TP=1")
 
-    # Compute total batch size
-    train_batch_size = args.num_prompts_per_batch * args.num_generations
+    # Dataloader batch size should be num_prompts_per_batch (not * num_generations)
+    # The generations happen during rollout, not in the dataloader
+    train_batch_size = args.num_prompts_per_batch
 
     # Determine rollout method
     use_vllm = args.use_vllm and not args.no_vllm

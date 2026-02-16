@@ -77,7 +77,7 @@ VLLM_GPU_MEM=${VLLM_GPU_MEM:-0.4}
 USE_VLLM=${USE_VLLM:-true}
 
 # === Logging ===
-WANDB_PROJECT=${WANDB_PROJECT:-sft-ouro-math}
+WANDB_PROJECT=${WANDB_PROJECT:-LLOPSD}
 
 # === Random seed ===
 SEED=${SEED:-42}

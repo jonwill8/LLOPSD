@@ -1,0 +1,217 @@
+{
+  "args": {
+    "model_path": "/scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking",
+    "total_ut_steps": 4,
+    "sft_checkpoint": null,
+    "use_latest_sft": false,
+    "no_sft_checkpoint": true,
+    "sft_output_dir": "/scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/sft_experiments/sft_ouro_math_output",
+    "train_file": "/scratch/gpfs/OLGARUS/jw4199/datasets/MATH/math_train.jsonl",
+    "beta": 0.001,
+    "num_generations": 8,
+    "num_prompts_per_batch": 32,
+    "temperature": 1.0,
+    "learning_rate": 1e-06,
+    "weight_decay": 0.1,
+    "max_grad_norm": 0.1,
+    "warmup_ratio": 0.1,
+    "gradient_accumulation_steps": 2,
+    "ppo_max_token_len": 16384,
+    "log_prob_max_token_len": 16384,
+    "max_prompt_length": 1024,
+    "max_completion_length": 2048,
+    "num_train_epochs": 1,
+    "max_steps": 3,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "no_lora": true,
+    "lora_target_modules": "attention",
+    "eval_steps": 5,
+    "val_batch_size": 64,
+    "val_max_new_tokens": 3072,
+    "math500_test_file": "/scratch/gpfs/OLGARUS/jw4199/datasets/MATH-500/MATH-500.test.jsonl",
+    "no_validation": true,
+    "skip_initial_validation": true,
+    "logging_steps": 1,
+    "save_steps": 1,
+    "wandb_project": "LLOPSD",
+    "no_wandb": false,
+    "use_vllm": true,
+    "no_vllm": false,
+    "vllm_gpu_memory_utilization": 0.45,
+    "vllm_tensor_parallel_size": 1,
+    "vllm_enforce_eager": false,
+    "n_gpus": 4,
+    "nnodes": 1,
+    "output_dir": "./grpo_output/4753492",
+    "seed": 42,
+    "debug": false,
+    "dataloader_num_workers": 4
+  },
+  "verl_config": {
+    "algorithm": {
+      "gamma": 1.0,
+      "lam": 1.0,
+      "adv_estimator": "grpo",
+      "norm_adv_by_std_in_grpo": true,
+      "use_kl_in_reward": true,
+      "kl_penalty": "kl",
+      "kl_ctrl": {
+        "type": "fixed",
+        "kl_coef": 0.001
+      }
+    },
+    "data": {
+      "train_batch_size": 32,
+      "val_batch_size": 64,
+      "max_prompt_length": 1024,
+      "max_response_length": 2048,
+      "filter_overlong_prompts": true,
+      "truncation": "error",
+      "sampler": null,
+      "shuffle": true,
+      "dataloader_num_workers": 4
+    },
+    "actor_rollout_ref": {
+      "model": {
+        "path": "/scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking",
+        "use_remove_padding": true,
+        "enable_gradient_checkpointing": true,
+        "trust_remote_code": true,
+        "lora_rank": 0,
+        "lora_alpha": 0,
+        "target_modules": "q_proj,k_proj,v_proj,o_proj",
+        "exclude_modules": null
+      },
+      "actor": {
+        "_target_": "verl.workers.config.FSDPActorConfig",
+        "strategy": "fsdp",
+        "ppo_epochs": 1,
+        "entropy_coeff": 0.0,
+        "use_kl_loss": false,
+        "kl_loss_coef": 0.001,
+        "kl_loss_type": "low_var_kl",
+        "ppo_mini_batch_size": 32,
+        "ppo_micro_batch_size": null,
+        "ppo_micro_batch_size_per_gpu": null,
+        "use_dynamic_bsz": true,
+        "ppo_max_token_len_per_gpu": 16384,
+        "ulysses_sequence_parallel_size": 1,
+        "entropy_from_logits_with_chunking": false,
+        "entropy_checkpointing": false,
+        "loss_agg_mode": "token-mean",
+        "optim": {
+          "_target_": "verl.workers.config.FSDPOptimizerConfig",
+          "optimizer": "AdamW8bit",
+          "optimizer_impl": "bitsandbytes.optim",
+          "lr": 1e-06,
+          "weight_decay": 0.1,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "override_optimizer_config": null
+        },
+        "fsdp_config": {
+          "_target_": "verl.workers.config.FSDPEngineConfig",
+          "param_offload": false,
+          "optimizer_offload": false,
+          "fsdp_size": -1,
+          "dtype": "bfloat16"
+        },
+        "checkpoint": {
+          "_target_": "verl.trainer.config.CheckpointConfig",
+          "save_contents": [
+            "model",
+            "optimizer",
+            "extra"
+          ],
+          "load_contents": [
+            "model",
+            "optimizer",
+            "extra"
+          ],
+          "async_save": false
+        }
+      },
+      "rollout": {
+        "_target_": "verl.workers.config.rollout.RolloutConfig",
+        "name": "vllm",
+        "mode": "sync",
+        "n": 8,
+        "tensor_model_parallel_size": 1,
+        "data_parallel_size": 1,
+        "pipeline_model_parallel_size": 1,
+        "load_format": "auto",
+        "gpu_memory_utilization": 0.45,
+        "enforce_eager": false,
+        "free_cache_engine": false,
+        "enable_prefix_caching": true,
+        "log_prob_micro_batch_size": null,
+        "log_prob_micro_batch_size_per_gpu": null,
+        "log_prob_max_token_len_per_gpu": 16384,
+        "log_prob_use_dynamic_bsz": true,
+        "temperature": 1.0,
+        "max_model_len": 3072,
+        "enable_chunked_prefill": true,
+        "prompt_length": 1024,
+        "response_length": 2048,
+        "multi_turn": {
+          "enable": false
+        }
+      },
+      "ref": {
+        "log_prob_micro_batch_size": null,
+        "log_prob_micro_batch_size_per_gpu": null,
+        "log_prob_max_token_len_per_gpu": 16384,
+        "log_prob_use_dynamic_bsz": true,
+        "ulysses_sequence_parallel_size": 1,
+        "entropy_from_logits_with_chunking": false,
+        "fsdp_config": {
+          "_target_": "verl.workers.config.FSDPEngineConfig",
+          "param_offload": false,
+          "dtype": "bfloat16"
+        }
+      },
+      "hybrid_engine": true
+    },
+    "critic": {
+      "enable": false
+    },
+    "trainer": {
+      "experiment_name": "GRPO-Ouro-2.6B-Thinking",
+      "project_name": "LLOPSD",
+      "logger": [
+        "wandb"
+      ],
+      "n_gpus_per_node": 4,
+      "nnodes": 1,
+      "total_epochs": 1,
+      "save_freq": 1,
+      "test_freq": -1,
+      "val_before_train": false,
+      "critic_warmup": 0,
+      "validation_data_dir": "./grpo_output/4753492/validation_outputs",
+      "device": "cuda",
+      "total_training_steps": null,
+      "resume_mode": "disable",
+      "esi_redundant_time": 0,
+      "balance_batch": false,
+      "default_local_dir": "./grpo_output/4753492",
+      "default_hdfs_dir": null,
+      "gradient_accumulation_steps": 2
+    },
+    "custom_reward_function": {
+      "path": "/scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/math_utils/reward.py",
+      "name": "compute_score"
+    },
+    "global_profiler": {
+      "steps": null,
+      "profile_continuous_steps": null
+    },
+    "reward_model": {
+      "enable": false,
+      "launch_reward_fn_async": false
+    }
+  }
+}

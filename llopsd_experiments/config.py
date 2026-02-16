@@ -152,9 +152,9 @@ class LLOPSDConfig:
 @dataclass
 class ActorConfig:
     """Actor (policy) model training configuration."""
-    # LLOPSD-specific (replaces GRPO's kl_loss)
-    use_kl_loss: bool = True
-    kl_loss_coef: float = 0.001
+    # KL regularization disabled: LLOPSD uses only distillation loss
+    use_kl_loss: bool = False
+    kl_loss_coef: float = 0.0
     kl_loss_type: str = "low_var_kl"
 
     # PPO mini-batch size (for gradient updates)
@@ -197,7 +197,6 @@ class LLOPSDTrainingConfig:
     output_dir: str = "./llopsd_output"
 
     # === LLOPSD-specific hyperparameters ===
-    beta: float = 0.001  # KL coefficient
     num_generations: int = 8  # Samples per prompt (same as rollout.n)
     num_prompts_per_batch: int = 128  # Unique prompts per batch
 
@@ -244,7 +243,7 @@ class DistributedConfig:
 class LoggingConfig:
     """Logging configuration."""
     use_wandb: bool = True
-    wandb_project: str = "llopsd-ouro-math"
+    wandb_project: str = "LLOPSD"
     wandb_run_name: Optional[str] = None
     wandb_offline: bool = True
 

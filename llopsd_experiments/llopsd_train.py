@@ -191,12 +191,6 @@ def parse_args():
 
     # === LLOPSD hyperparameters ===
     parser.add_argument(
-        "--beta",
-        type=float,
-        default=0.001,
-        help="KL penalty coefficient"
-    )
-    parser.add_argument(
         "--num_generations",
         type=int,
         default=8,
@@ -641,8 +635,8 @@ def build_verl_config(args) -> Dict[str, Any]:
     """Build verl configuration from command line arguments.
 
     LLOPSD uses the GRPO advantage estimator for computing advantages as metrics,
-    even though the actual loss is distillation-based. The KL regularization from
-    actor_rollout_ref is kept to prevent drift.
+    even though the actual loss is distillation-based. KL regularization is disabled
+    since training uses only the LLOPSD distillation loss.
     """
     # Determine number of GPUs
     n_gpus = args.n_gpus or torch.cuda.device_count()
@@ -657,8 +651,9 @@ def build_verl_config(args) -> Dict[str, Any]:
         tp_size = 1
         logger.warning(f"TP size {args.vllm_tensor_parallel_size} doesn't divide {n_gpus} GPUs, using TP=1")
 
-    # Compute total batch size
-    train_batch_size = args.num_prompts_per_batch * args.num_generations
+    # Dataloader batch size should be num_prompts_per_batch (not * num_generations)
+    # The generations happen during rollout, not in the dataloader
+    train_batch_size = args.num_prompts_per_batch
 
     # Determine rollout method
     use_vllm = args.use_vllm and not args.no_vllm
@@ -671,7 +666,7 @@ def build_verl_config(args) -> Dict[str, Any]:
         "algorithm": {
             "adv_estimator": "grpo",
             "use_kl_in_reward": False,
-            "kl_coef": args.beta,
+            "kl_coef": 0.0,
             "gamma": 1.0,  # Discount factor for GAE (1.0 = no discounting)
             "lam": 1.0,    # Lambda for GAE
         },
@@ -696,8 +691,7 @@ def build_verl_config(args) -> Dict[str, Any]:
                 "use_remove_padding": True,
                 "enable_gradient_checkpointing": not args.no_gradient_checkpointing,
                 "trust_remote_code": True,
-                # LoRA config - enables ref_in_actor for KL regularization
-                # The base model (without LoRA) serves as the frozen reference policy
+                # LoRA config
                 "lora_rank": 0 if args.no_lora else args.lora_r,
                 "lora_alpha": args.lora_alpha if not args.no_lora else 0,
                 "target_modules": get_lora_target_modules_for_verl(args.lora_target_modules),
@@ -708,8 +702,8 @@ def build_verl_config(args) -> Dict[str, Any]:
                 "strategy": "fsdp",
                 "ppo_epochs": 1,
                 "entropy_coeff": 0.0,
-                "use_kl_loss": True,  # KL regularization to prevent drift
-                "kl_loss_coef": args.beta,  # beta coefficient for KL term
+                "use_kl_loss": False,  # Disabled: LLOPSD uses only distillation loss
+                "kl_loss_coef": 0.0,
                 "kl_loss_type": "low_var_kl",
                 "ppo_mini_batch_size": min(128, train_batch_size),
                 "ppo_micro_batch_size": None,
@@ -897,7 +891,6 @@ def main():
     # Log configuration
     logger.info(f"Model: {args.model_path}")
     logger.info(f"Output: {args.output_dir}")
-    logger.info(f"Beta (KL coef): {args.beta}")
     logger.info(f"Num generations: {args.num_generations}")
     logger.info(f"Num prompts per batch: {args.num_prompts_per_batch}")
     logger.info(f"Gradient accumulation steps: {args.gradient_accumulation_steps}")
@@ -1015,6 +1008,16 @@ def run_verl_training(args, verl_config: Dict[str, Any], sft_checkpoint: Optiona
                 default_backend=self.config.trainer.logger,
                 config=OmegaConf.to_container(self.config, resolve=True),
             )
+
+            # Ensure WandB cleanup happens gracefully
+            import atexit
+            def cleanup_wandb():
+                try:
+                    if hasattr(tracking_logger, 'logger') and 'wandb' in tracking_logger.logger:
+                        tracking_logger.logger['wandb'].finish(exit_code=0, quiet=True)
+                except Exception as e:
+                    logger.warning(f"WandB cleanup warning (can be ignored): {e}")
+            atexit.register(cleanup_wandb)
 
             self.global_steps = 0
             self._load_checkpoint()
@@ -1292,6 +1295,12 @@ def run_verl_training(args, verl_config: Dict[str, Any], sft_checkpoint: Optiona
                             logger.info(f"  Total backprop time: {epoch_backprop_time:.1f}s")
                         logger.info(f"Final validation metrics: {last_val_metrics}")
                         progress_bar.close()
+                        # Graceful WandB shutdown
+                        try:
+                            if hasattr(tracking_logger, 'logger') and 'wandb' in tracking_logger.logger:
+                                tracking_logger.logger['wandb'].finish(exit_code=0, quiet=True)
+                        except Exception as e:
+                            logger.warning(f"WandB cleanup warning (can be ignored): {e}")
                         return
 
             # Final epoch summary
@@ -1300,6 +1309,12 @@ def run_verl_training(args, verl_config: Dict[str, Any], sft_checkpoint: Optiona
                 logger.info(f"  Total rollout time: {epoch_rollout_time:.1f}s")
                 logger.info(f"  Total backprop time: {epoch_backprop_time:.1f}s")
             progress_bar.close()
+            # Graceful WandB shutdown
+            try:
+                if hasattr(tracking_logger, 'logger') and 'wandb' in tracking_logger.logger:
+                    tracking_logger.logger['wandb'].finish(exit_code=0, quiet=True)
+            except Exception as e:
+                logger.warning(f"WandB cleanup warning (can be ignored): {e}")
 
     # Import custom LLOPSD worker
     try:

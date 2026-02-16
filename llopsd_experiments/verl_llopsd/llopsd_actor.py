@@ -76,6 +76,7 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
         teacher_mode: str = "same",
         teacher_module: Optional[nn.Module] = None,
         ema_decay: float = 0.999,
+        teacher_context: str = "opsd",
     ):
         """Initialize LLOPSD actor.
 
@@ -103,6 +104,9 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                 of actor_module will be created automatically.
             ema_decay: EMA decay factor tau for the "ema" teacher mode.
                 theta' <- tau * theta' + (1 - tau) * theta.
+            teacher_context: How to provide context to the teacher model.
+                One of "opsd" (privileged context from ground truth) or "same"
+                (same input as student).
         """
         super().__init__(config, actor_module, actor_optimizer)
 
@@ -117,6 +121,7 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
         self.divergence_type = divergence_type
         self.teacher_mode = teacher_mode
         self.ema_decay = ema_decay
+        self.teacher_context = teacher_context
 
         # -------------------------------------------------------------------
         # Validate teacher_mode
@@ -196,6 +201,7 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                 f"  student_weights         = {self.student_weights.tolist()}\n"
                 f"  divergence_type         = {self.divergence_type}\n"
                 f"  teacher_mode            = {self.teacher_mode}\n"
+                f"  teacher_context         = {self.teacher_context}\n"
                 f"  ema_decay               = {self.ema_decay}\n"
                 f"  model_supports_per_loop = {self.model_supports_per_loop}",
                 flush=True,
@@ -645,8 +651,13 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                         self.config.ppo_max_token_len_per_gpu
                         * self.ulysses_sequence_parallel_size
                     )
+                    # Convert DataProto to dict for rearrange_micro_batches
+                    mini_batch_dict = {
+                        **mini_batch_data.batch,
+                        **mini_batch_data.non_tensor_batch,
+                    }
                     micro_batches, _ = rearrange_micro_batches(
-                        batch=mini_batch_data, max_token_len=max_token_len
+                        batch=mini_batch_dict, max_token_len=max_token_len
                     )
                 else:
                     self.gradient_accumulation = (

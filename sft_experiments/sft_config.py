@@ -76,7 +76,7 @@ class LoggingConfig:
     """Offline logging configuration."""
     # Weights & Biases (offline mode)
     use_wandb: bool = True
-    wandb_project: str = "sft-ouro-math"
+    wandb_project: str = "LLOPSD"
     wandb_run_name: Optional[str] = None
     wandb_offline: bool = True
 

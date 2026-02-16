@@ -1,0 +1,468 @@
+/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+2026-02-15 05:08:29,101 - INFO - ============================================================
+2026-02-15 05:08:29,101 - INFO - RLTT Training - Reward Latent Thought Trajectories
+2026-02-15 05:08:29,101 - INFO - ============================================================
+2026-02-15 05:08:29,101 - INFO - 
+2026-02-15 05:08:29,101 - INFO - *** TRAINING MODE: FULL PARAMETER FINE-TUNING ***
+2026-02-15 05:08:29,101 - INFO - *** All model parameters will be updated during training ***
+2026-02-15 05:08:29,101 - INFO - 
+2026-02-15 05:08:29,101 - INFO - Model: /scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking
+2026-02-15 05:08:29,101 - INFO - Output: ./rltt_output/4753520
+2026-02-15 05:08:29,101 - INFO - Beta (KL coef): 0.001
+2026-02-15 05:08:29,101 - INFO - Num generations: 8
+2026-02-15 05:08:29,101 - INFO - Num prompts per batch: 32
+2026-02-15 05:08:29,101 - INFO - Gradient accumulation steps: 2
+2026-02-15 05:08:29,101 - INFO - Effective prompts per update: 64 (32 x 2)
+2026-02-15 05:08:29,101 - INFO - Learning rate: 1e-06
+2026-02-15 05:08:29,101 - INFO - Temperature: 1.0
+2026-02-15 05:08:29,101 - INFO - Max prompt length: 1024
+2026-02-15 05:08:29,101 - INFO - Max completion length: 2048
+2026-02-15 05:08:29,102 - INFO - Epochs: 1
+2026-02-15 05:08:29,102 - INFO - vLLM enabled: True
+2026-02-15 05:08:29,102 - INFO - PPO max token len: 8192
+2026-02-15 05:08:29,102 - INFO - Log-prob max token len: 8192
+2026-02-15 05:08:29,102 - INFO - Ref model offload: True
+2026-02-15 05:08:29,102 - INFO - 
+2026-02-15 05:08:29,102 - INFO - RLTT-specific settings:
+2026-02-15 05:08:29,102 - INFO -   Loop weighting: exit_pdf
+2026-02-15 05:08:29,102 - INFO -   Progressive alpha: 1.0
+2026-02-15 05:08:29,102 - INFO -   Total UT steps: 4
+2026-02-15 05:08:29,102 - INFO -   Use RLTT model: True
+2026-02-15 05:08:29,102 - INFO -   RLTT model path: /scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking-RLTT
+2026-02-15 05:08:29,102 - INFO - SFT checkpoint loading disabled - starting from fresh model weights
+2026-02-15 05:08:29,102 - INFO - Saved configuration to: ./rltt_output/4753520/config.json
+2026-02-15 05:08:29,102 - INFO - Using verl for 4-GPU training with full RLTT objective
+2026-02-15 05:08:29,102 - INFO - RLTTActorRolloutRefWorker enables multi-loop loss computation in verl
+/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+2026-02-15 05:08:40,083 - INFO - Setting up verl training with RLTT objective...
+2026-02-15 05:08:40,083 - INFO - Using RLTTActorRolloutRefWorker for multi-loop loss computation
+2026-02-15 05:08:40,083 - INFO - ============================================================
+2026-02-15 05:08:40,083 - INFO - FULL PARAMETER FINE-TUNING MODE
+2026-02-15 05:08:40,083 - INFO - All model parameters will be trained (no LoRA adapters)
+2026-02-15 05:08:40,083 - INFO - ============================================================
+2026-02-15 05:08:40,083 - INFO - Using RLTT-modified Ouro model: /scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking-RLTT
+2026-02-15 05:08:40,214 - INFO - Loading JSONL from /scratch/gpfs/OLGARUS/jw4199/datasets/MATH/math_train.jsonl
+2026-02-15 05:08:40,278 - INFO - Loaded 7500 examples
+2026-02-15 05:08:40,340 - INFO - Saved 7500 examples to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/data/train.parquet
+2026-02-15 05:08:40,343 - INFO - LR Schedule:
+2026-02-15 05:08:40,343 - INFO -   Scheduler type: constant
+2026-02-15 05:08:40,343 - INFO -   Total steps (batches): 3
+2026-02-15 05:08:40,343 - INFO -   Warmup steps (batches): 0 (10%)
+2026-02-15 05:08:40,344 - INFO -   Prompts per batch: 32
+2026-02-15 05:08:40,344 - INFO - Saved verl config to: ./rltt_output/4753520/verl_config.json
+2026-02-15 05:08:40,344 - INFO - RLTT Configuration:
+2026-02-15 05:08:40,344 - INFO -   Loop weighting: exit_pdf
+2026-02-15 05:08:40,344 - INFO -   Progressive alpha: 1.0
+2026-02-15 05:08:40,344 - INFO -   Total UT steps: 4
+2026-02-15 05:08:40,344 - INFO -   Log-prob chunk size: 2048
+2026-02-15 05:08:40,351 - INFO - Starting verl training with RLTT worker...
+[2026-02-15 05:08:40,560 W 1995070 1995070] network_util.cc:296: Failed to determine local IP via external connectivity to: 8.8.8.8:53, [2001:4860:4860::8888]:53, falling back to hostname resolution
+2026-02-15 05:08:45,332	INFO worker.py:2014 -- Started a local Ray instance. View the dashboard at [1m[32m127.0.0.1:8266 [39m[22m
+/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 7500 examples [00:00, 596855.71 examples/s]
+Filtering prompts longer than 1024 tokens (num_proc=16):   0%|          | 0/7500 [00:00<?, ? examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):   6%|▋         | 469/7500 [00:00<00:08, 855.80 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  13%|█▎        | 938/7500 [00:00<00:04, 1602.61 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  19%|█▉        | 1407/7500 [00:00<00:02, 2064.11 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  31%|███▏      | 2345/7500 [00:00<00:01, 3495.16 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  44%|████▍     | 3283/7500 [00:01<00:00, 4628.53 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  56%|█████▋    | 4221/7500 [00:01<00:00, 4308.32 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  94%|█████████▍| 7032/7500 [00:01<00:00, 8328.63 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16): 100%|██████████| 7500/7500 [00:01<00:00, 4688.33 examples/s]
+Parameter 'function'=<function RLHFDataset.maybe_filter_out_long_prompts.<locals>.<lambda> at 0x15028efdcc10> of the transform datasets.arrow_dataset.Dataset.filter@2.0.1 couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only shown once. Subsequent hashing failures won't be shown.
+2026-02-15 05:08:52,427 - WARNING - Parameter 'function'=<function RLHFDataset.maybe_filter_out_long_prompts.<locals>.<lambda> at 0x15028efdcc10> of the transform datasets.arrow_dataset.Dataset.filter@2.0.1 couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only shown once. Subsequent hashing failures won't be shown.
+Filtering prompts longer than 1024 tokens (num_proc=16):   0%|          | 0/7500 [00:00<?, ? examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):   6%|▋         | 469/7500 [00:00<00:07, 989.90 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  19%|█▉        | 1407/7500 [00:00<00:02, 2883.82 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  31%|███▏      | 2345/7500 [00:00<00:01, 3932.14 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  44%|████▍     | 3283/7500 [00:00<00:00, 5048.87 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  56%|█████▋    | 4220/7500 [00:01<00:00, 4125.66 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  75%|███████▌  | 5625/7500 [00:01<00:00, 5367.11 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16): 100%|██████████| 7500/7500 [00:01<00:00, 4933.08 examples/s]
+[36m(pid=2000109)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2000109)[0m   warnings.warn(
+[36m(pid=2000110)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2000110)[0m   warnings.warn(
+[36m(pid=2000111)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2000111)[0m   warnings.warn(
+[36m(pid=2000108)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2000108)[0m   warnings.warn(
+[36m(WorkerDict pid=2000109)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000109)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000110)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000110)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000111)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000111)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000108)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000108)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000109)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2000109)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000109)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000110)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2000110)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000110)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000111)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2000111)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000111)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000108)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2000108)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000108)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2000109)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000109)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000110)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000110)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000111)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000111)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000108)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2000108)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2000109)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2000110)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2000111)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2000108)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2000108)[0m Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2000108)[0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:02<00:00,  2.74s/it]
+[36m(WorkerDict pid=2000108)[0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:02<00:00,  2.74s/it]
+[36m(WorkerDict pid=2000108)[0m 
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:09.339000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:09.339000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:09.339000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:09.339000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:09.339000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:12.337000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:12.337000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:12.337000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:12.337000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:12.337000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:12.870000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:12.870000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:12.870000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:12.870000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:12.870000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:14.026000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:14.026000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:14.026000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:14.026000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:14.026000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:15.105000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:15.105000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:15.105000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:15.105000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:15.105000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:17.841000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:17.841000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:17.841000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:17.841000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:17.841000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:18.295000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:18.295000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:18.295000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:18.295000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:18.295000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:18.647000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:18.647000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:18.647000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:18.647000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:18.647000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:18.840000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:18.840000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:18.840000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:18.840000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:18.840000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:19.107000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:19.107000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:19.107000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:19.107000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:19.107000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.540000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.540000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.540000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.540000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.540000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:19.635000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:19.635000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:19.635000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:19.635000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000111)[0m [rank3]:W0215 05:10:19.635000 2000111 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.981000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.981000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.981000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.981000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:19.981000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:20.072000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:20.072000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:20.072000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:20.072000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000109)[0m [rank1]:W0215 05:10:20.072000 2000109 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:23.921000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:23.921000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:23.921000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:23.921000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000108)[0m [rank0]:W0215 05:10:23.921000 2000108 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:25.746000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:25.746000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:25.746000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:25.746000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2000110)[0m [rank2]:W0215 05:10:25.746000 2000110 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2000109)[0m 2026-02-15 05:10:35,610 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2000110)[0m 2026-02-15 05:10:35,615 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2000111)[0m 2026-02-15 05:10:35,617 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2000108)[0m 2026-02-15 05:10:35,616 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2000109)[0m 2026-02-15 05:10:35,757 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2000110)[0m 2026-02-15 05:10:35,762 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2000111)[0m 2026-02-15 05:10:35,764 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2000108)[0m 2026-02-15 05:10:35,763 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   2%|▏         | 1/51 [00:00<00:08,  5.60it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   4%|▍         | 2/51 [00:00<00:13,  3.77it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   6%|▌         | 3/51 [00:00<00:10,  4.73it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   8%|▊         | 4/51 [00:00<00:08,  5.44it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  10%|▉         | 5/51 [00:00<00:07,  5.90it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  12%|█▏        | 6/51 [00:01<00:07,  6.13it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  14%|█▎        | 7/51 [00:01<00:06,  6.31it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  16%|█▌        | 8/51 [00:01<00:06,  6.29it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 9/51 [00:01<00:06,  6.21it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  20%|█▉        | 10/51 [00:01<00:06,  6.34it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  22%|██▏       | 11/51 [00:01<00:06,  6.50it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  24%|██▎       | 12/51 [00:02<00:05,  6.53it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  25%|██▌       | 13/51 [00:02<00:05,  6.49it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  27%|██▋       | 14/51 [00:02<00:05,  6.55it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  29%|██▉       | 15/51 [00:02<00:05,  6.46it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  31%|███▏      | 16/51 [00:02<00:05,  6.43it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  33%|███▎      | 17/51 [00:02<00:05,  6.37it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  35%|███▌      | 18/51 [00:02<00:05,  6.26it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  37%|███▋      | 19/51 [00:03<00:05,  6.14it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  39%|███▉      | 20/51 [00:03<00:05,  6.00it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  41%|████      | 21/51 [00:03<00:04,  6.01it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  43%|████▎     | 22/51 [00:03<00:04,  5.92it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  45%|████▌     | 23/51 [00:03<00:04,  5.82it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  47%|████▋     | 24/51 [00:03<00:04,  5.86it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  49%|████▉     | 25/51 [00:04<00:04,  5.82it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  51%|█████     | 26/51 [00:04<00:04,  5.85it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  53%|█████▎    | 27/51 [00:04<00:04,  5.83it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  55%|█████▍    | 28/51 [00:04<00:04,  5.74it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  57%|█████▋    | 29/51 [00:04<00:03,  5.57it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  59%|█████▉    | 30/51 [00:05<00:03,  5.53it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  61%|██████    | 31/51 [00:05<00:03,  5.42it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  63%|██████▎   | 32/51 [00:05<00:03,  5.23it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  65%|██████▍   | 33/51 [00:05<00:03,  5.17it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 34/51 [00:05<00:03,  5.29it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  69%|██████▊   | 35/51 [00:06<00:02,  5.33it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  71%|███████   | 36/51 [00:06<00:02,  5.34it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  73%|███████▎  | 37/51 [00:06<00:02,  5.38it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  75%|███████▍  | 38/51 [00:06<00:02,  5.33it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  76%|███████▋  | 39/51 [00:06<00:02,  5.34it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  78%|███████▊  | 40/51 [00:06<00:02,  5.30it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  80%|████████  | 41/51 [00:07<00:01,  5.14it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  82%|████████▏ | 42/51 [00:07<00:02,  4.22it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  84%|████████▍ | 43/51 [00:07<00:02,  3.76it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  86%|████████▋ | 44/51 [00:08<00:01,  3.77it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  88%|████████▊ | 45/51 [00:08<00:01,  4.12it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|█████████ | 46/51 [00:08<00:01,  4.41it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  92%|█████████▏| 47/51 [00:08<00:00,  4.58it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  94%|█████████▍| 48/51 [00:08<00:00,  4.73it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  96%|█████████▌| 49/51 [00:09<00:00,  4.90it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  98%|█████████▊| 50/51 [00:09<00:00,  4.99it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 51/51 [00:09<00:00,  4.98it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 51/51 [00:09<00:00,  5.39it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):   0%|          | 0/51 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):   2%|▏         | 1/51 [00:00<00:11,  4.36it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):   4%|▍         | 2/51 [00:00<00:08,  5.84it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):   6%|▌         | 3/51 [00:00<00:07,  6.64it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):   8%|▊         | 4/51 [00:00<00:06,  7.06it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  10%|▉         | 5/51 [00:00<00:06,  7.25it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  12%|█▏        | 6/51 [00:00<00:05,  7.63it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  14%|█▎        | 7/51 [00:00<00:05,  7.87it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  16%|█▌        | 8/51 [00:01<00:05,  8.09it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  18%|█▊        | 9/51 [00:01<00:05,  8.21it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  20%|█▉        | 10/51 [00:01<00:04,  8.27it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  22%|██▏       | 11/51 [00:01<00:04,  8.31it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  24%|██▎       | 12/51 [00:01<00:04,  8.36it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  25%|██▌       | 13/51 [00:01<00:04,  8.45it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  27%|██▋       | 14/51 [00:01<00:04,  8.46it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  29%|██▉       | 15/51 [00:01<00:04,  8.47it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  31%|███▏      | 16/51 [00:02<00:04,  8.49it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  33%|███▎      | 17/51 [00:02<00:04,  8.45it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  35%|███▌      | 18/51 [00:02<00:03,  8.52it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  37%|███▋      | 19/51 [00:02<00:03,  8.54it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  39%|███▉      | 20/51 [00:02<00:03,  8.53it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  41%|████      | 21/51 [00:02<00:03,  8.53it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  43%|████▎     | 22/51 [00:02<00:03,  8.55it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  45%|████▌     | 23/51 [00:02<00:03,  8.49it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  47%|████▋     | 24/51 [00:02<00:03,  8.53it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  49%|████▉     | 25/51 [00:03<00:03,  8.51it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  51%|█████     | 26/51 [00:03<00:02,  8.49it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  53%|█████▎    | 27/51 [00:03<00:02,  8.57it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  55%|█████▍    | 28/51 [00:03<00:02,  8.54it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  57%|█████▋    | 29/51 [00:03<00:02,  8.58it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  59%|█████▉    | 30/51 [00:03<00:02,  8.44it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  61%|██████    | 31/51 [00:03<00:02,  8.19it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  63%|██████▎   | 32/51 [00:03<00:02,  8.08it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  65%|██████▍   | 33/51 [00:04<00:02,  7.98it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  67%|██████▋   | 34/51 [00:04<00:02,  7.60it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  69%|██████▊   | 35/51 [00:04<00:02,  7.21it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  71%|███████   | 36/51 [00:04<00:02,  6.95it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  73%|███████▎  | 37/51 [00:04<00:02,  6.90it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  75%|███████▍  | 38/51 [00:04<00:01,  6.72it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  76%|███████▋  | 39/51 [00:04<00:01,  6.76it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  78%|███████▊  | 40/51 [00:05<00:01,  6.57it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  80%|████████  | 41/51 [00:05<00:01,  6.80it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  82%|████████▏ | 42/51 [00:05<00:01,  7.12it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  84%|████████▍ | 43/51 [00:05<00:01,  7.31it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  86%|████████▋ | 44/51 [00:05<00:00,  7.48it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  88%|████████▊ | 45/51 [00:05<00:00,  7.56it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  90%|█████████ | 46/51 [00:05<00:00,  7.69it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  92%|█████████▏| 47/51 [00:06<00:00,  7.56it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  94%|█████████▍| 48/51 [00:06<00:00,  7.32it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  96%|█████████▌| 49/51 [00:06<00:00,  7.37it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL):  98%|█████████▊| 50/51 [00:06<00:00,  7.44it/s]
+[36m(WorkerDict pid=2000108)[0m Capturing CUDA graphs (decode, FULL): 100%|██████████| 51/51 [00:06<00:00,  7.48it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 51/51 [00:06<00:00,  7.74it/s]
+[36m(WorkerDict pid=2000108)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2000108)[0m   warnings.warn(
+[36m(WorkerDict pid=2000109)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2000109)[0m   warnings.warn(
+[36m(WorkerDict pid=2000111)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2000111)[0m   warnings.warn(
+[36m(WorkerDict pid=2000110)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2000110)[0m   warnings.warn(
+wandb: Tracking run with wandb version 0.23.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /scratch/gpfs/OLGARUS/jw4199/model_weights_path/wandb/offline-run-20260215_051057-51bq5xlo
+2026-02-15 05:11:00,134 - INFO - Gradient accumulation enabled: accumulating 2 rollout batches per update
+Training Progress:   0%|          | 0/3 [00:00<?, ?it/s]2026-02-15 05:13:18,210 - INFO - Step 1 (accum 1/2): rollout done in 137.8s
+2026-02-15 05:13:36,320 - INFO - Truncated 126/256 responses at first \boxed{}. Mean tokens dropped: 146.6
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:13:39,072:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:13:39,065:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:13:39,069:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:13:39,071:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:13:39,076:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:13:39,078:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:13:39,079:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:13:39,081:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:13:39,079:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:13:39,082:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:13:39,083:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:13:39,082:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/extra_state_world_size_4_rank_3.pt
+Training Progress:   0%|          | 0/3 [02:38<?, ?it/s, rollout=137.8s, backprop=0.0s, accum=1/2]Training Progress:  33%|███▎      | 1/3 [02:38<05:17, 159.00s/it, rollout=137.8s, backprop=0.0s, accum=1/2][36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:13:39,118:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_1/actor/huggingface
+2026-02-15 05:15:43,141 - INFO - Step 2 (accum 2/2): rollout done in 124.0s
+2026-02-15 05:16:01,314 - INFO - Truncated 134/256 responses at first \boxed{}. Mean tokens dropped: 156.5
+2026-02-15 05:18:22,071 - INFO - Step 2: backprop done in 140.7s (accumulated 2 batches, 512 samples, total rollout time: 261.8s)
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:18:24,872:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:18:24,861:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:18:24,870:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:18:24,835:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:18:25,829:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:18:25,831:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:18:25,878:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:18:25,879:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:18:25,875:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:18:25,877:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:18:25,878:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/huggingface
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:18:26,141:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:18:26,143:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_2/actor/extra_state_world_size_4_rank_2.pt
+Training Progress:  33%|███▎      | 1/3 [07:26<05:17, 159.00s/it, rollout=124.0s, backprop=140.7s, accum=0/2]Training Progress:  67%|██████▋   | 2/3 [07:26<03:54, 234.31s/it, rollout=124.0s, backprop=140.7s, accum=0/2]2026-02-15 05:20:25,427 - INFO - Step 3 (accum 1/2): rollout done in 119.2s
+2026-02-15 05:20:42,497 - INFO - Truncated 145/256 responses at first \boxed{}. Mean tokens dropped: 90.5
+2026-02-15 05:21:52,609 - INFO - Step 3: backprop done in 70.1s (accumulated 1 batches, 256 samples, total rollout time: 119.2s)
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:21:55,267:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:21:55,263:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:21:55,261:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:21:55,235:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:21:56,309:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000109)[0m INFO:2026-02-15 05:21:56,311:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:21:56,330:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000110)[0m INFO:2026-02-15 05:21:56,331:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:21:56,312:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000111)[0m INFO:2026-02-15 05:21:56,314:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:21:56,300:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:21:56,302:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2000108)[0m INFO:2026-02-15 05:21:56,347:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/global_step_3/actor/huggingface
+Training Progress:  67%|██████▋   | 2/3 [10:56<03:54, 234.31s/it, rollout=119.2s, backprop=70.1s, accum=0/2] Training Progress: 100%|██████████| 3/3 [10:56<00:00, 223.34s/it, rollout=119.2s, backprop=70.1s, accum=0/2]2026-02-15 05:21:56,438 - INFO - Epoch 1 Timing Summary:
+2026-02-15 05:21:56,439 - INFO -   Total rollout time: 381.1s
+2026-02-15 05:21:56,439 - INFO -   Total backprop time: 210.8s
+2026-02-15 05:21:56,439 - INFO - Final validation metrics: None
+Training Progress: 100%|██████████| 3/3 [10:56<00:00, 218.77s/it, rollout=119.2s, backprop=70.1s, accum=0/2]
+2026-02-15 05:21:56,440 - INFO - RLTT verl training completed successfully!
+2026-02-15 05:21:56,440 - INFO - Output directory: ./rltt_output/4753520
+Exception ignored in: <function Tracking.__del__ at 0x1502d40bbeb0>
+2026-02-15 05:21:56,615 - WARNING - socket.send() raised exception.
+Traceback (most recent call last):
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tracking.py", line 160, in __del__
+2026-02-15 05:21:56,616 - WARNING - socket.send() raised exception.
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 4097, in finish
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 400, in wrapper
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 445, in wrapper
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 2275, in finish
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 400, in wrapper
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 2288, in _finish
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/lib/telemetry.py", line 42, in __exit__
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 752, in _telemetry_callback
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 765, in _telemetry_flush
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/interface/interface_shared.py", line 103, in _publish_telemetry
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/interface/interface_sock.py", line 46, in _publish
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 136, in run
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/concurrent/futures/_base.py", line 458, in result
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 219, in _wrap
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 38, in publish
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 64, in _send_server_request
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/asyncio/streams.py", line 371, in drain
+  File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+ConnectionResetError: Connection lost
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,653 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,654 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,655 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,656 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,656 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,656 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,656 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:56,656 - WARNING - socket.send() raised exception.
+[36m(WorkerDict pid=2000109)[0m [rank1]:[W215 05:21:57.251234974 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+2026-02-15 05:21:57,185 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,186 - WARNING - socket.send() raised exception.
+[36m(WorkerDict pid=2000110)[0m [rank2]:[W215 05:21:57.214593875 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[36m(WorkerDict pid=2000111)[0m [rank3]:[W215 05:21:57.214600119 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[36m(WorkerDict pid=2000108)[0m [rank0]:[W215 05:21:57.248873173 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+2026-02-15 05:21:57,186 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.
+2026-02-15 05:21:57,187 - WARNING - socket.send() raised exception.

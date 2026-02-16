@@ -1,0 +1,174 @@
+{
+  "algorithm": {
+    "adv_estimator": "grpo",
+    "use_kl_in_reward": false,
+    "kl_coef": 0.001,
+    "gamma": 1.0,
+    "lam": 1.0
+  },
+  "data": {
+    "train_batch_size": 32,
+    "val_batch_size": 32,
+    "max_prompt_length": 1024,
+    "max_response_length": 2048,
+    "filter_overlong_prompts": true,
+    "truncation": "error",
+    "sampler": null,
+    "shuffle": true,
+    "dataloader_num_workers": 4,
+    "train_files": [
+      "/scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/data/train.parquet"
+    ],
+    "val_files": [
+      "/scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/rltt_experiments/rltt_output/4753520/data/train.parquet"
+    ]
+  },
+  "actor_rollout_ref": {
+    "model": {
+      "path": "/scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking-RLTT",
+      "use_remove_padding": true,
+      "enable_gradient_checkpointing": true,
+      "trust_remote_code": true,
+      "lora_rank": 0,
+      "lora_alpha": 0,
+      "target_modules": "q_proj,k_proj,v_proj,o_proj",
+      "exclude_modules": null
+    },
+    "actor": {
+      "_target_": "verl.workers.config.FSDPActorConfig",
+      "strategy": "fsdp",
+      "ppo_epochs": 1,
+      "entropy_coeff": 0.0,
+      "use_kl_loss": true,
+      "kl_loss_coef": 0.001,
+      "kl_loss_type": "low_var_kl",
+      "ppo_mini_batch_size": 32,
+      "ppo_micro_batch_size": null,
+      "ppo_micro_batch_size_per_gpu": 2,
+      "use_dynamic_bsz": true,
+      "ppo_max_token_len_per_gpu": 8192,
+      "ulysses_sequence_parallel_size": 1,
+      "entropy_from_logits_with_chunking": false,
+      "entropy_checkpointing": false,
+      "loss_agg_mode": "token-mean",
+      "grad_clip": 0.1,
+      "optim": {
+        "_target_": "verl.workers.config.FSDPOptimizerConfig",
+        "optimizer": "AdamW8bit",
+        "optimizer_impl": "bitsandbytes.optim",
+        "lr": 1e-06,
+        "weight_decay": 0.1,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "override_optimizer_config": null,
+        "lr_warmup_steps_ratio": 0.1,
+        "warmup_style": "constant",
+        "total_training_steps": 3,
+        "min_lr_ratio": 0.0,
+        "lr_scheduler_type": "constant"
+      },
+      "fsdp_config": {
+        "_target_": "verl.workers.config.FSDPEngineConfig",
+        "param_offload": false,
+        "optimizer_offload": false,
+        "fsdp_size": -1,
+        "dtype": "bfloat16"
+      },
+      "checkpoint": {
+        "_target_": "verl.trainer.config.CheckpointConfig",
+        "save_contents": [
+          "model",
+          "optimizer",
+          "extra"
+        ],
+        "load_contents": [
+          "model",
+          "optimizer",
+          "extra"
+        ],
+        "async_save": false
+      }
+    },
+    "rollout": {
+      "_target_": "verl.workers.config.rollout.RolloutConfig",
+      "name": "vllm",
+      "mode": "sync",
+      "n": 8,
+      "tensor_model_parallel_size": 1,
+      "data_parallel_size": 1,
+      "pipeline_model_parallel_size": 1,
+      "load_format": "auto",
+      "gpu_memory_utilization": 0.45,
+      "enforce_eager": false,
+      "free_cache_engine": false,
+      "enable_prefix_caching": true,
+      "log_prob_micro_batch_size": null,
+      "log_prob_micro_batch_size_per_gpu": null,
+      "log_prob_max_token_len_per_gpu": 8192,
+      "log_prob_use_dynamic_bsz": true,
+      "temperature": 1.0,
+      "max_model_len": 3072,
+      "enable_chunked_prefill": true,
+      "prompt_length": 1024,
+      "response_length": 2048,
+      "multi_turn": {
+        "enable": false
+      }
+    },
+    "ref": {
+      "log_prob_micro_batch_size": null,
+      "log_prob_micro_batch_size_per_gpu": null,
+      "log_prob_max_token_len_per_gpu": 8192,
+      "log_prob_use_dynamic_bsz": true,
+      "fsdp_config": {
+        "_target_": "verl.workers.config.FSDPEngineConfig",
+        "param_offload": true
+      }
+    },
+    "hybrid_engine": true,
+    "loop_weighting": "exit_pdf",
+    "progressive_alpha": 1.0,
+    "total_ut_steps": 4,
+    "rltt_logprob_chunk_size": 2048
+  },
+  "critic": {
+    "enable": false
+  },
+  "trainer": {
+    "experiment_name": "RLTT-Ouro-2.6B-Thinking-exit_pdf",
+    "project_name": "LLOPSD",
+    "logger": [
+      "wandb"
+    ],
+    "n_gpus_per_node": 4,
+    "nnodes": 1,
+    "total_epochs": 1,
+    "save_freq": 1,
+    "test_freq": -1,
+    "val_before_train": false,
+    "critic_warmup": 0,
+    "validation_data_dir": "./rltt_output/4753520/validation_outputs",
+    "device": "cuda",
+    "total_training_steps": 3,
+    "resume_mode": "disable",
+    "esi_redundant_time": 0,
+    "balance_batch": false,
+    "default_local_dir": "./rltt_output/4753520",
+    "default_hdfs_dir": null,
+    "gradient_accumulation_steps": 2
+  },
+  "custom_reward_function": {
+    "path": "/scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/math_utils/reward.py",
+    "name": "compute_score"
+  },
+  "global_profiler": {
+    "steps": null,
+    "profile_continuous_steps": null
+  },
+  "reward_model": {
+    "enable": false,
+    "launch_reward_fn_async": false
+  }
+}

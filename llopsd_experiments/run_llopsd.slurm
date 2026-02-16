@@ -48,9 +48,8 @@ TEACHER_CONTEXT=${TEACHER_CONTEXT:-"opsd"}
 TEACHER_MODE=${TEACHER_MODE:-"same"}           # frozen, ema, same
 EMA_DECAY=${EMA_DECAY:-0.99}
 
-# === KL penalty and RL hyperparameters ===
-BETA=${BETA:-0.001}
-NUM_GENERATIONS=${NUM_GENERATIONS:-8}
+# === RL hyperparameters ===
+NUM_GENERATIONS=${NUM_GENERATIONS:-1}
 NUM_PROMPTS_PER_BATCH=${NUM_PROMPTS_PER_BATCH:-32}
 TEMPERATURE=${TEMPERATURE:-1}
 
@@ -65,11 +64,11 @@ LR_SCHEDULER_TYPE=${LR_SCHEDULER_TYPE:-constant}  # cosine or constant (both inc
 GRAD_ACCUM_STEPS=${GRAD_ACCUM_STEPS:-2}
 # Max tokens per micro-batch during actor update (with dynamic batching)
 # Controls memory usage during backprop. Lower = less memory but slower.
-PPO_MAX_TOKEN_LEN=${PPO_MAX_TOKEN_LEN:-8192} #change back to 16384 for 8 GPU
+PPO_MAX_TOKEN_LEN=${PPO_MAX_TOKEN_LEN:-8192} 
 # Max tokens per micro-batch during log-prob computation (rollout/ref)
 # Controls memory usage during forward pass for log-prob calculation.
 # Lower = less memory but slower.
-LOG_PROB_MAX_TOKEN_LEN=${LOG_PROB_MAX_TOKEN_LEN:-8192} #change back to 16384 for 8 GPU
+LOG_PROB_MAX_TOKEN_LEN=${LOG_PROB_MAX_TOKEN_LEN:-8192} 
 # Number of dataloader workers (reduce to save CPU RAM if OOM)
 DATALOADER_NUM_WORKERS=${DATALOADER_NUM_WORKERS:-4}
 
@@ -78,8 +77,8 @@ MAX_PROMPT_LENGTH=${MAX_PROMPT_LENGTH:-1024}
 MAX_COMPLETION_LENGTH=${MAX_COMPLETION_LENGTH:-2048}
 
 # === Training duration ===
-NUM_EPOCHS=${NUM_EPOCHS:-5}
-MAX_STEPS=${MAX_STEPS:--1}
+NUM_EPOCHS=${NUM_EPOCHS:-1}
+MAX_STEPS=${MAX_STEPS:-250}
 
 # === Training Mode: LoRA vs Full Fine-tuning ===
 # USE_LORA=true  -> LoRA fine-tuning (default, memory efficient)
@@ -123,8 +122,8 @@ SFT_OUTPUT_DIR=${SFT_OUTPUT_DIR:-""}
 
 # === Logging ===
 LOGGING_STEPS=${LOGGING_STEPS:-1}
-SAVE_STEPS=${SAVE_STEPS:-10}
-WANDB_PROJECT=${WANDB_PROJECT:-llopsd-ouro-math}
+SAVE_STEPS=${SAVE_STEPS:-20}
+WANDB_PROJECT=${WANDB_PROJECT:-LLOPSD}
 
 # === vLLM configuration ===
 VLLM_GPU_MEM=${VLLM_GPU_MEM:-0.45}
@@ -276,7 +275,6 @@ echo "  Train file: $TRAIN_FILE"
 echo "  Output dir: $OUTPUT_DIR"
 echo ""
 echo "RL Hyperparameters:"
-echo "  Beta (KL coef): $BETA"
 echo "  Num generations per prompt: $NUM_GENERATIONS"
 echo "  Num prompts per batch: $NUM_PROMPTS_PER_BATCH"
 echo "  Temperature: $TEMPERATURE"
@@ -439,7 +437,6 @@ python llopsd_train.py \
     --ema_decay "$EMA_DECAY" \
     --train_file "$TRAIN_FILE" \
     --output_dir "$OUTPUT_DIR" \
-    --beta "$BETA" \
     --num_generations "$NUM_GENERATIONS" \
     --num_prompts_per_batch "$NUM_PROMPTS_PER_BATCH" \
     --temperature "$TEMPERATURE" \

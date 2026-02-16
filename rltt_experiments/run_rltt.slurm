@@ -43,7 +43,7 @@
 #   "progressive" - Option B: later loops get more weight (ω_t = t^α / Σs^α)
 #   "exit_pdf"    - Option C: use model's native exit probability distribution
 #   "learned"     - Option D: jointly optimize weights during training
-LOOP_WEIGHTING=${LOOP_WEIGHTING:-"uniform"}
+LOOP_WEIGHTING=${LOOP_WEIGHTING:-"exit_pdf"}
 # Alpha exponent for progressive weighting (only used if LOOP_WEIGHTING=progressive)
 # α = 0: uniform weights
 # α = 1: linear weights (1, 2, 3, 4)
@@ -99,8 +99,8 @@ MAX_PROMPT_LENGTH=${MAX_PROMPT_LENGTH:-1024}
 MAX_COMPLETION_LENGTH=${MAX_COMPLETION_LENGTH:-2048}
 
 # === Training duration ===
-NUM_EPOCHS=${NUM_EPOCHS:-5}
-MAX_STEPS=${MAX_STEPS:--1}
+NUM_EPOCHS=${NUM_EPOCHS:-1}
+MAX_STEPS=${MAX_STEPS:-250}
 
 # === Training Mode: LoRA vs Full Fine-tuning ===
 # USE_LORA=true  -> LoRA fine-tuning (default, memory efficient)
@@ -125,7 +125,7 @@ LORA_ALPHA=${LORA_ALPHA:-64}
 LORA_TARGET_MODULES=${LORA_TARGET_MODULES:-attention}
 
 # === Ouro model configuration ===
-TOTAL_UT_STEPS=${TOTAL_UT_STEPS:-4}
+TOTAL_UT_STEPS=${TOTAL_UT_STEPS:-2}
 
 # === Validation configuration ===
 EVAL_STEPS=${EVAL_STEPS:-5}
@@ -144,8 +144,8 @@ SFT_OUTPUT_DIR=${SFT_OUTPUT_DIR:-""}
 
 # === Logging ===
 LOGGING_STEPS=${LOGGING_STEPS:-1}
-SAVE_STEPS=${SAVE_STEPS:-10}
-WANDB_PROJECT=${WANDB_PROJECT:-rltt-ouro-math}
+SAVE_STEPS=${SAVE_STEPS:-20}
+WANDB_PROJECT=${WANDB_PROJECT:-LLOPSD}
 
 # === vLLM configuration ===
 VLLM_GPU_MEM=${VLLM_GPU_MEM:-0.45}

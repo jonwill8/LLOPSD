@@ -272,7 +272,7 @@ def main():
     trainer_args.use_vllm = not args.no_vllm
     trainer_args.vllm_gpu_memory_utilization = args.vllm_gpu_memory_utilization if args.vllm_gpu_memory_utilization else 0.5
     trainer_args.no_wandb = args.no_wandb
-    trainer_args.wandb_project = args.wandb_project if args.wandb_project else "sft-ouro-math"
+    trainer_args.wandb_project = args.wandb_project if args.wandb_project else "LLOPSD"
     trainer_args.prompt_key = args.prompt_key
     trainer_args.response_key = args.response_key
     trainer_args.no_validation = args.no_validation

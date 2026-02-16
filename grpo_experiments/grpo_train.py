@@ -198,7 +198,14 @@ def parse_args():
         "--warmup_ratio",
         type=float,
         default=0.1,
-        help="Warmup ratio"
+        help="Warmup ratio (fraction of total steps for warmup). One step = one prompt batch."
+    )
+    parser.add_argument(
+        "--lr_scheduler_type",
+        type=str,
+        default="constant",
+        choices=["cosine", "constant"],  # verl only supports these two (both include warmup)
+        help="Learning rate scheduler type (both include warmup)"
     )
 
     # === Batch sizes ===
@@ -566,8 +573,9 @@ def build_verl_config(args) -> Dict[str, Any]:
         tp_size = 1
         logger.warning(f"TP size {args.vllm_tensor_parallel_size} doesn't divide {n_gpus} GPUs, using TP=1")
 
-    # Compute total batch size
-    train_batch_size = args.num_prompts_per_batch * args.num_generations
+    # Dataloader batch size should be num_prompts_per_batch (not * num_generations)
+    # The generations happen during rollout, not in the dataloader
+    train_batch_size = args.num_prompts_per_batch
 
     # Determine rollout method
     use_vllm = args.use_vllm and not args.no_vllm
@@ -1560,7 +1568,7 @@ def run_verl_training(args, verl_config: Dict[str, Any], sft_checkpoint: Optiona
     warmup_steps = int(total_training_steps * args.warmup_ratio)
 
     logger.info(f"LR Schedule:")
-    logger.info(f"  Scheduler type: constant (with warmup)")
+    logger.info(f"  Scheduler type: {args.lr_scheduler_type}")
     logger.info(f"  Total steps (batches): {total_training_steps}")
     logger.info(f"  Warmup steps (batches): {warmup_steps} ({args.warmup_ratio*100:.0f}%)")
     logger.info(f"  Prompts per batch: {args.num_prompts_per_batch}")
@@ -1570,9 +1578,10 @@ def run_verl_training(args, verl_config: Dict[str, Any], sft_checkpoint: Optiona
 
     # Update optim config with scheduler settings (verl format)
     verl_config["actor_rollout_ref"]["actor"]["optim"]["lr_warmup_steps_ratio"] = args.warmup_ratio
+    verl_config["actor_rollout_ref"]["actor"]["optim"]["warmup_style"] = args.lr_scheduler_type
     verl_config["actor_rollout_ref"]["actor"]["optim"]["total_training_steps"] = total_training_steps
-    verl_config["actor_rollout_ref"]["actor"]["optim"]["min_lr_ratio"] = 0.0  # decay to 0 for cosine
-    verl_config["actor_rollout_ref"]["actor"]["optim"]["lr_scheduler_type"] = "constant"
+    verl_config["actor_rollout_ref"]["actor"]["optim"]["min_lr_ratio"] = 0.0
+    verl_config["actor_rollout_ref"]["actor"]["optim"]["lr_scheduler_type"] = args.lr_scheduler_type
 
     # Save final config
     config_path = os.path.join(args.output_dir, "verl_config.json")

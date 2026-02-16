@@ -109,7 +109,7 @@ class ActorConfig:
     max_grad_norm: float = 0.1
 
     # Schedule
-    lr_scheduler_type: str = "cosine"
+    lr_scheduler_type: str = "constant"
     warmup_ratio: float = 0.1
 
     # FSDP settings
@@ -181,7 +181,7 @@ class DistributedConfig:
 class LoggingConfig:
     """Logging configuration."""
     use_wandb: bool = True
-    wandb_project: str = "grpo-ouro-math-verl"
+    wandb_project: str = "LLOPSD"
     wandb_run_name: Optional[str] = None
     wandb_offline: bool = True
 

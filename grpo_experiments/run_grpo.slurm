@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=128G
 #SBATCH --gres=gpu:4
-#SBATCH --time=72:00:00
+#SBATCH --time=60:00:00
 
 # Adjust partition/account as needed
 #SBATCH --partition=ailab
@@ -44,6 +44,7 @@ LEARNING_RATE=${LEARNING_RATE:-1e-6}
 WEIGHT_DECAY=${WEIGHT_DECAY:-0.1}
 MAX_GRAD_NORM=${MAX_GRAD_NORM:-0.1}
 WARMUP_RATIO=${WARMUP_RATIO:-0.1}
+LR_SCHEDULER_TYPE=${LR_SCHEDULER_TYPE:-constant}  # cosine or constant (both include warmup)
 
 # === Batch sizes ===
 GRAD_ACCUM_STEPS=${GRAD_ACCUM_STEPS:-2}
@@ -63,8 +64,8 @@ MAX_PROMPT_LENGTH=${MAX_PROMPT_LENGTH:-1024}
 MAX_COMPLETION_LENGTH=${MAX_COMPLETION_LENGTH:-2048}
 
 # === Training duration ===
-NUM_EPOCHS=${NUM_EPOCHS:-5}
-MAX_STEPS=${MAX_STEPS:--1}
+NUM_EPOCHS=${NUM_EPOCHS:-1}
+MAX_STEPS=${MAX_STEPS:-250}
 
 # === Training Mode: LoRA vs Full Fine-tuning ===
 # USE_LORA=true  -> LoRA fine-tuning (default, memory efficient)
@@ -88,7 +89,7 @@ LORA_ALPHA=${LORA_ALPHA:-64}
 LORA_TARGET_MODULES=${LORA_TARGET_MODULES:-"attention"}
 
 # === Ouro model configuration ===
-TOTAL_UT_STEPS=${TOTAL_UT_STEPS:-4}
+TOTAL_UT_STEPS=${TOTAL_UT_STEPS:-2}
 
 # === Validation configuration ===
 # Note: For few-shot validation, run evaluate_checkpoint.py separately on saved checkpoints
@@ -109,8 +110,8 @@ SFT_OUTPUT_DIR=${SFT_OUTPUT_DIR:-""}
 
 # === Logging ===
 LOGGING_STEPS=${LOGGING_STEPS:-1}
-SAVE_STEPS=${SAVE_STEPS:-10}
-WANDB_PROJECT=${WANDB_PROJECT:-grpo-ouro-math-verl}
+SAVE_STEPS=${SAVE_STEPS:-20}
+WANDB_PROJECT=${WANDB_PROJECT:-LLOPSD}
 
 # === vLLM configuration ===
 VLLM_GPU_MEM=${VLLM_GPU_MEM:-0.45}
@@ -268,6 +269,7 @@ echo "  Learning rate: $LEARNING_RATE"
 echo "  Weight decay: $WEIGHT_DECAY"
 echo "  Max grad norm: $MAX_GRAD_NORM"
 echo "  Warmup ratio: $WARMUP_RATIO"
+echo "  LR scheduler: $LR_SCHEDULER_TYPE"
 echo "  Epochs: $NUM_EPOCHS"
 echo "  Total batch size: $COMPUTED_BATCH_SIZE ($NUM_PROMPTS_PER_BATCH prompts x $NUM_GENERATIONS gens)"
 echo "  Dynamic batch sizing: enabled (ppo_max_token_len=$PPO_MAX_TOKEN_LEN)"
@@ -392,6 +394,7 @@ python grpo_train.py \
     --weight_decay "$WEIGHT_DECAY" \
     --max_grad_norm "$MAX_GRAD_NORM" \
     --warmup_ratio "$WARMUP_RATIO" \
+    --lr_scheduler_type "$LR_SCHEDULER_TYPE" \
     --num_train_epochs "$NUM_EPOCHS" \
     --max_steps "$MAX_STEPS" \
     --gradient_accumulation_steps "$GRAD_ACCUM_STEPS" \

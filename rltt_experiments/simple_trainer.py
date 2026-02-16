@@ -307,7 +307,7 @@ class SimpleRLTTTrainer:
         self.use_wandb = WANDB_AVAILABLE and not args.no_wandb
         if self.use_wandb:
             wandb.init(
-                project=getattr(args, 'wandb_project', 'rltt-ouro-math'),
+                project=getattr(args, 'wandb_project', 'LLOPSD'),
                 name=f"simple-rltt-{os.path.basename(args.output_dir)}",
                 config=vars(args),
                 mode="offline" if os.environ.get("WANDB_MODE") == "offline" else "online",

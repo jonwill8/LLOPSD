@@ -202,7 +202,7 @@ class DistributedConfig:
 class LoggingConfig:
     """Logging configuration."""
     use_wandb: bool = True
-    wandb_project: str = "rltt-ouro-math"
+    wandb_project: str = "LLOPSD"
     wandb_run_name: Optional[str] = None
     wandb_offline: bool = True
 
