@@ -12,10 +12,12 @@ import sys
 
 import ray
 import torch
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 from verl.workers.fsdp_workers import ActorRolloutRefWorker
 from verl.single_controller.base.decorator import register, Dispatch
+from verl.utils.config import omega_conf_to_dataclass
+from verl.utils.fs import copy_to_local
 import verl.utils.py_functional as verl_py_functional
 
 from .llopsd_actor import LLOPSDDataParallelPPOActor
@@ -69,11 +71,11 @@ class LLOPSDActorRolloutRefWorker(ActorRolloutRefWorker):
     Teacher modes:
     - "same": Self-distillation. The actor model is used as its own teacher
       (with torch.no_grad). This is the default and fully supported mode.
-    - "frozen": Intended for a frozen copy of the initial model as teacher.
-      In v1, falls back to "same" mode with a warning due to FSDP constraints
-      on maintaining separate model copies.
-    - "ema": Intended for an exponential moving average teacher. In v1, falls
-      back to "same" mode with a warning due to FSDP constraints.
+    - "frozen": A separate FSDP-wrapped copy of the initial model weights,
+      loaded from disk with CPU offloading. Never updated during training.
+    - "ema": An exponential moving average of the student parameters, built
+      as a separate FSDP-wrapped model with CPU offloading. Updated after
+      each optimizer step via tau*teacher + (1-tau)*student.
     """
 
     def __init__(self, config: DictConfig, role: str):
@@ -86,6 +88,7 @@ class LLOPSDActorRolloutRefWorker(ActorRolloutRefWorker):
         super().__init__(config, role)
 
         # Extract LLOPSD-specific configuration
+        self.total_ut_steps = config.get('total_ut_steps', None)
         self.teacher_loops = config.get('teacher_loops', 2)
         self.student_loops = config.get('student_loops', 1)
         self.loop_mapping_strategy = config.get('loop_mapping_strategy', 'shift')
@@ -126,6 +129,14 @@ class LLOPSDActorRolloutRefWorker(ActorRolloutRefWorker):
         # convert_to_regular_types function at module level
         super().init_model()
 
+        # Override total_ut_steps on the loaded model config (safety belt in case
+        # override_config didn't apply, e.g. when loading from SFT checkpoint)
+        if self.total_ut_steps is not None and self._is_actor:
+            if hasattr(self.actor_module_fsdp, 'config') and hasattr(self.actor_module_fsdp.config, 'total_ut_steps'):
+                self.actor_module_fsdp.config.total_ut_steps = self.total_ut_steps
+                if self.rank == 0:
+                    print(f"Set actor model.config.total_ut_steps = {self.total_ut_steps}")
+
         # Replace standard actor with LLOPSD actor
         if self._is_actor:
             print(f"[LLOPSD WORKER DEBUG] Replacing actor with LLOPSDDataParallelPPOActor on rank {self.rank}", flush=True)
@@ -138,33 +149,11 @@ class LLOPSDActorRolloutRefWorker(ActorRolloutRefWorker):
                 # Self-distillation: actor uses its own weights as teacher (with no_grad)
                 # teacher_module=None signals the actor to reuse self.actor_module
                 teacher_module = None
-            elif self.teacher_mode == "frozen":
-                # Frozen teacher: ideally a separate copy of the initial weights.
-                # With FSDP, maintaining a separate full model copy is non-trivial
-                # (deepcopy of FSDP modules is problematic). For v1, we fall back
-                # to self-distillation and log a warning.
-                teacher_module = None
-                if self.rank == 0:
-                    print(
-                        "[LLOPSD WARNING] teacher_mode='frozen' requested, but full frozen "
-                        "teacher requires a separate model copy which is not supported with "
-                        "FSDP in v1. Falling back to 'same' mode (self-distillation with "
-                        "torch.no_grad). The actor model will serve as its own teacher.",
-                        flush=True,
-                    )
-            elif self.teacher_mode == "ema":
-                # EMA teacher: ideally an exponential moving average of the actor weights.
-                # With FSDP, maintaining a separate EMA model copy is non-trivial.
-                # For v1, we fall back to self-distillation and log a warning.
-                teacher_module = None
-                if self.rank == 0:
-                    print(
-                        f"[LLOPSD WARNING] teacher_mode='ema' (decay={self.ema_decay}) requested, "
-                        "but EMA teacher requires a separate model copy which is not supported "
-                        "with FSDP in v1. Falling back to 'same' mode (self-distillation with "
-                        "torch.no_grad). The actor model will serve as its own teacher.",
-                        flush=True,
-                    )
+            elif self.teacher_mode in ("frozen", "ema"):
+                # Build a separate FSDP-wrapped model from disk for the teacher.
+                # Uses verl's ref model mechanism: FSDP with CPU offloading to
+                # minimize GPU memory overhead.
+                teacher_module = self._build_teacher_module()
             else:
                 if self.rank == 0:
                     print(
@@ -250,3 +239,62 @@ class LLOPSDActorRolloutRefWorker(ActorRolloutRefWorker):
             print(f"  Total params:     {global_total:,}")
             print(f"  Trainable params: {global_trainable:,} ({trainable_pct:.2f}%)")
             print(f"  Frozen params:    {global_frozen:,} ({frozen_pct:.2f}%)")
+
+    def _build_teacher_module(self):
+        """Build a separate FSDP-wrapped teacher model for frozen/EMA modes.
+
+        Uses verl's _build_model_optimizer with role="ref" to create an
+        FSDP-sharded copy with CPU offloading. This keeps GPU memory
+        overhead near zero (params are offloaded to CPU and brought to
+        GPU on-demand during forward passes).
+
+        Returns:
+            The FSDP-wrapped teacher module with all parameters frozen.
+        """
+        model_path = self.config.model.path
+        use_shm = self.config.model.get("use_shm", False)
+        local_path = copy_to_local(model_path, use_shm=use_shm)
+
+        # Reconstruct override_model_config (same as parent uses)
+        override_model_config = OmegaConf.to_container(
+            OmegaConf.create(self.config.model.get("override_config", {}))
+        )
+
+        if self.rank == 0:
+            print(
+                f"[LLOPSD] Building {self.teacher_mode} teacher model from: {model_path}",
+                flush=True,
+            )
+
+        teacher_fsdp = self._build_model_optimizer(
+            model_path=local_path,
+            fsdp_config=omega_conf_to_dataclass(self.config.ref.fsdp_config),
+            optim_config=None,
+            override_model_config=override_model_config,
+            use_remove_padding=self.config.model.get("use_remove_padding", False),
+            use_fused_kernels=self.config.model.get("use_fused_kernels", False),
+            trust_remote_code=self.config.model.get("trust_remote_code", False),
+            use_liger=self.config.model.get("use_liger", False),
+            role="ref",
+        )[0]
+
+        # Freeze all parameters
+        for param in teacher_fsdp.parameters():
+            param.requires_grad = False
+        teacher_fsdp.eval()
+
+        # Set total_ut_steps on teacher config
+        if self.total_ut_steps is not None:
+            if hasattr(teacher_fsdp, 'config') and hasattr(teacher_fsdp.config, 'total_ut_steps'):
+                teacher_fsdp.config.total_ut_steps = self.total_ut_steps
+                if self.rank == 0:
+                    print(f"[LLOPSD] Set teacher model.config.total_ut_steps = {self.total_ut_steps}")
+
+        if self.rank == 0:
+            print(
+                f"[LLOPSD] {self.teacher_mode.upper()} teacher model built successfully "
+                f"(FSDP with CPU offload)",
+                flush=True,
+            )
+
+        return teacher_fsdp

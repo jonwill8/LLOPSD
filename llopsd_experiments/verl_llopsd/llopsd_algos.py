@@ -28,7 +28,7 @@ def compute_loop_mapping(student_loops: int, teacher_loops: int, strategy: str =
     Args:
         student_loops: R~ (number of student loops). Must be >= 1.
         teacher_loops: R (number of teacher loops). Must be >= student_loops.
-        strategy: One of "shift", "linear", or "fixed".
+        strategy: One of "shift", "linear", "offset_linear", or "fixed".
 
     Returns:
         List of length R~ where element r maps student loop r to teacher loop phi(r).
@@ -41,6 +41,11 @@ def compute_loop_mapping(student_loops: int, teacher_loops: int, strategy: str =
         linear: phi(r) = round(r * (R-1) / (R~-1)).
                 Linearly interpolates student loops across the full teacher range.
                 E.g., (R, R~) = (4, 2): [0->0, 1->3]
+                Special case: if R~ == 1, maps to the last teacher loop.
+        offset_linear: phi(r) = round(1 + r * (R-2) / (R~-1)).
+                Linearly interpolates student loops across [1, R-1], skipping
+                teacher loop 0.
+                E.g., (R, R~) = (4, 2): [0->1, 1->3]
                 Special case: if R~ == 1, maps to the last teacher loop.
         fixed:  phi(r) = R-1 for all r.
                 Every student loop distills from the final teacher loop.
@@ -75,6 +80,13 @@ def compute_loop_mapping(student_loops: int, teacher_loops: int, strategy: str =
         else:
             mapping = [round(r * (R - 1) / (R_tilde - 1)) for r in range(R_tilde)]
 
+    elif strategy == "offset_linear":
+        # Linearly interpolate student loops onto [1, R-1], skipping teacher loop 0
+        if R_tilde == 1:
+            mapping = [R - 1]
+        else:
+            mapping = [round(1 + r * (R - 2) / (R_tilde - 1)) for r in range(R_tilde)]
+
     elif strategy == "fixed":
         # Every student loop maps to the final teacher loop
         mapping = [R - 1] * R_tilde
@@ -82,7 +94,7 @@ def compute_loop_mapping(student_loops: int, teacher_loops: int, strategy: str =
     else:
         raise ValueError(
             f"Unknown loop mapping strategy: '{strategy}'. "
-            f"Supported strategies: 'shift', 'linear', 'fixed'."
+            f"Supported strategies: 'shift', 'linear', 'offset_linear', 'fixed'."
         )
 
     return mapping
@@ -367,6 +379,8 @@ def compute_llopsd_loss(
         # Log per-loop mean divergence (averaged over valid tokens and batch)
         loop_mean_div = _masked_mean(div_per_token, response_mask)
         metrics[f"llopsd/div_loop_{r}"] = loop_mean_div.item()
+        # Also log by teacher loop index for cross-reference
+        metrics[f"llopsd/div_teacher_loop_{phi_r}"] = loop_mean_div.item()
 
     # Normalize by response length per sample: (1/|y|) * total_weighted_div
     # Avoid division by zero for samples with no response tokens

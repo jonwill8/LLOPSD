@@ -696,6 +696,10 @@ def build_verl_config(args) -> Dict[str, Any]:
                 "lora_alpha": args.lora_alpha if not args.no_lora else 0,
                 "target_modules": get_lora_target_modules_for_verl(args.lora_target_modules),
                 "exclude_modules": None,
+                # Override model config values (applied by verl during model loading)
+                "override_config": {
+                    "total_ut_steps": args.total_ut_steps,
+                },
             },
             "actor": {
                 "_target_": "verl.workers.config.FSDPActorConfig",

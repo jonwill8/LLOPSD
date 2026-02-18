@@ -301,6 +301,9 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
 
         where tau = self.ema_decay, theta' = teacher params, theta = student params.
         This should only be called when teacher_mode == "ema".
+
+        For FSDP-wrapped models, we use summon_full_params to access the
+        unsharded parameters for the update, then let FSDP re-shard.
         """
         if self.teacher_mode != "ema":
             return
@@ -311,15 +314,39 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
             return
 
         tau = self.ema_decay
-        with torch.no_grad():
-            for teacher_param, student_param in zip(
-                self._teacher_module.parameters(),
-                self.actor_module.parameters(),
-            ):
-                student_data = student_param.data
-                if teacher_param.device != student_data.device:
-                    student_data = student_data.to(device=teacher_param.device)
-                teacher_param.data.mul_(tau).add_(student_data, alpha=(1.0 - tau))
+
+        # Check if models are FSDP-wrapped
+        student_is_fsdp = isinstance(self.actor_module, FSDP)
+        teacher_is_fsdp = isinstance(self._teacher_module, FSDP)
+
+        if student_is_fsdp or teacher_is_fsdp:
+            # FSDP path: summon full params for both models so we can do
+            # element-wise EMA update on unsharded parameters.
+            from torch.distributed.fsdp import FullyShardedDataParallel as FSDP_cls
+
+            with torch.no_grad():
+                # Use writeback=True on teacher so the updated params are written back
+                with FSDP_cls.summon_full_params(self.actor_module, writeback=False):
+                    with FSDP_cls.summon_full_params(self._teacher_module, writeback=True):
+                        for teacher_param, student_param in zip(
+                            self._teacher_module.parameters(),
+                            self.actor_module.parameters(),
+                        ):
+                            student_data = student_param.data
+                            if teacher_param.device != student_data.device:
+                                student_data = student_data.to(device=teacher_param.device)
+                            teacher_param.data.mul_(tau).add_(student_data, alpha=(1.0 - tau))
+        else:
+            # Non-FSDP path (e.g., single GPU)
+            with torch.no_grad():
+                for teacher_param, student_param in zip(
+                    self._teacher_module.parameters(),
+                    self.actor_module.parameters(),
+                ):
+                    student_data = student_param.data
+                    if teacher_param.device != student_data.device:
+                        student_data = student_data.to(device=teacher_param.device)
+                    teacher_param.data.mul_(tau).add_(student_data, alpha=(1.0 - tau))
 
     # ======================================================================
     # Forward passes: student and teacher
@@ -348,22 +375,44 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
             if config_obj is not None:
                 config_obj.total_ut_steps = original_value
 
+    @staticmethod
+    def _compute_entropy(logits: torch.Tensor, mask: torch.Tensor) -> float:
+        """Compute mean entropy over masked response tokens.
+
+        Args:
+            logits: (batch_size, seq_len, vocab_size) temperature-scaled logits.
+            mask: (batch_size, seq_len) binary response mask.
+
+        Returns:
+            Scalar mean entropy (nats) over valid tokens.
+        """
+        with torch.no_grad():
+            log_p = torch.nn.functional.log_softmax(logits, dim=-1)
+            p = log_p.exp()
+            # Per-token entropy: -sum_v p(v) * log p(v), shape (batch, seq_len)
+            ent = -(p * log_p).sum(dim=-1)
+            # Masked mean
+            return (ent * mask).sum().item() / mask.sum().clamp(min=1).item()
+
     def _forward_student_micro_batch(
         self,
         micro_batch: Dict[str, torch.Tensor],
         temperature: float,
-    ) -> List[torch.Tensor]:
+        response_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[List[torch.Tensor], List[float]]:
         """Run the student forward pass with R~ loops and collect per-loop logits.
 
         Args:
             micro_batch: Dict with keys 'input_ids', 'attention_mask',
                 'position_ids', 'responses', and optionally 'multi_modal_inputs'.
             temperature: Temperature for logit scaling.
+            response_mask: Optional (batch_size, response_length) mask for
+                entropy computation.
 
         Returns:
-            List of R~ tensors, each of shape (batch_size, response_length, vocab_size).
-            These are the student logits at each loop iteration, sliced to the
-            response portion and divided by temperature.
+            Tuple of:
+              - List of R~ tensors, each (batch_size, response_length, vocab_size).
+              - List of R~ scalar entropies (one per loop).
         """
         response_length = micro_batch["responses"].size(-1)
         multi_modal_inputs = {}
@@ -373,6 +422,8 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                     [inputs[key] for inputs in micro_batch["multi_modal_inputs"]],
                     dim=0,
                 )
+
+        per_loop_entropies: List[float] = []
 
         with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
             input_ids = micro_batch["input_ids"]
@@ -413,6 +464,8 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                     logits = logits[
                         :, -response_length - 1 : -1, :
                     ]  # (bs, response_length, vocab)
+                    if response_mask is not None:
+                        per_loop_entropies.append(self._compute_entropy(logits, response_mask))
                     per_loop_logits.append(logits)
                     per_loop_logits_raw[i] = None  # Allow GC
 
@@ -438,16 +491,19 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
 
                     logits = output.logits / temperature
                     logits = logits[:, -response_length - 1 : -1, :]
+                    if response_mask is not None:
+                        per_loop_entropies.append(self._compute_entropy(logits, response_mask))
                     per_loop_logits.append(logits)
                     del output
 
-        return per_loop_logits
+        return per_loop_logits, per_loop_entropies
 
     def _forward_teacher_micro_batch(
         self,
         micro_batch: Dict[str, torch.Tensor],
         temperature: float,
-    ) -> List[torch.Tensor]:
+        response_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[List[torch.Tensor], Dict[int, float]]:
         """Run the teacher forward pass with R loops and collect per-loop logits.
 
         All computation is performed under torch.no_grad().  Only the logits at
@@ -459,12 +515,15 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                 'position_ids', 'responses', and optionally 'multi_modal_inputs'.
                 The input_ids may include privileged context for the teacher.
             temperature: Temperature for logit scaling.
+            response_mask: Optional (batch_size, response_length) mask for
+                entropy computation.
 
         Returns:
-            List of R tensors (some may be None for unmapped loops), each of
-            shape (batch_size, response_length, vocab_size).  Indexed by teacher
-            loop index.  Only the entries referenced by self.loop_mapping are
-            guaranteed to be non-None.
+            Tuple of:
+              - List of R tensors (some may be None for unmapped loops), each
+                (batch_size, response_length, vocab_size). Indexed by teacher
+                loop index.
+              - Dict mapping teacher loop index -> entropy (only for needed loops).
         """
         teacher_module = self._get_teacher_module()
         response_length = micro_batch["responses"].size(-1)
@@ -479,6 +538,7 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
 
         # Determine which teacher loop indices we actually need
         needed_teacher_indices = set(self.loop_mapping)
+        per_loop_entropies: Dict[int, float] = {}
 
         with torch.no_grad(), torch.autocast(
             device_type="cuda", dtype=torch.bfloat16
@@ -519,6 +579,8 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                     if i in needed_teacher_indices:
                         logits = per_loop_logits_raw[i] / temperature
                         logits = logits[:, -response_length - 1 : -1, :]
+                        if response_mask is not None:
+                            per_loop_entropies[i] = self._compute_entropy(logits, response_mask)
                         per_loop_logits.append(logits.detach())
                     else:
                         per_loop_logits.append(None)
@@ -552,10 +614,12 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
 
                     logits = output.logits / temperature
                     logits = logits[:, -response_length - 1 : -1, :]
+                    if response_mask is not None:
+                        per_loop_entropies[t_idx] = self._compute_entropy(logits, response_mask)
                     per_loop_logits[t_idx] = logits.detach()
                     del output
 
-        return per_loop_logits
+        return per_loop_logits, per_loop_entropies
 
     # ======================================================================
     # Main training entry point
@@ -718,8 +782,10 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                     # -------------------------------------------------------
                     # Student forward pass (R~ loops) -- WITH gradients
                     # -------------------------------------------------------
-                    student_per_loop_logits = self._forward_student_micro_batch(
-                        micro_dict, temperature
+                    student_per_loop_logits, student_entropies = (
+                        self._forward_student_micro_batch(
+                            micro_dict, temperature, response_mask=response_mask,
+                        )
                     )
 
                     # -------------------------------------------------------
@@ -751,8 +817,10 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                                     "to enable privileged teacher context."
                                 )
 
-                    teacher_per_loop_logits = self._forward_teacher_micro_batch(
-                        teacher_micro_dict, temperature
+                    teacher_per_loop_logits, teacher_entropies = (
+                        self._forward_teacher_micro_batch(
+                            teacher_micro_dict, temperature, response_mask=response_mask,
+                        )
                     )
 
                     # -------------------------------------------------------
@@ -791,6 +859,15 @@ class LLOPSDDataParallelPPOActor(DataParallelPPOActor):
                         "llopsd/total_loss": loss.detach().item(),
                     }
                     step_metrics.update(llopsd_metrics)
+
+                    # Per-loop entropy metrics for student
+                    for r, ent in enumerate(student_entropies):
+                        step_metrics[f"llopsd/student_entropy_loop_{r}"] = ent
+
+                    # Per-loop entropy metrics for teacher (keyed by teacher loop index)
+                    for t_idx, ent in teacher_entropies.items():
+                        step_metrics[f"llopsd/teacher_entropy_loop_{t_idx}"] = ent
+
                     append_to_dict(metrics, step_metrics)
 
                 # -----------------------------------------------------------

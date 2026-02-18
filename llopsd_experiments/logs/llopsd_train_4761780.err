@@ -1,0 +1,964 @@
+/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+2026-02-17 06:33:51,480 - INFO - ============================================================
+2026-02-17 06:33:51,480 - INFO - LLOPSD Training - Latent-Loop On-Policy Self-Distillation
+2026-02-17 06:33:51,480 - INFO - ============================================================
+2026-02-17 06:33:51,480 - INFO - 
+2026-02-17 06:33:51,480 - INFO - *** TRAINING MODE: FULL PARAMETER FINE-TUNING ***
+2026-02-17 06:33:51,480 - INFO - *** All model parameters will be updated during training ***
+2026-02-17 06:33:51,480 - INFO - 
+2026-02-17 06:33:51,480 - INFO - Model: /scratch/gpfs/OLGARUS/jw4199/model_weights_path/Ouro-2.6B-Thinking
+2026-02-17 06:33:51,480 - INFO - Output: ./llopsd_output/4761780
+2026-02-17 06:33:51,480 - INFO - Num generations: 1
+2026-02-17 06:33:51,480 - INFO - Num prompts per batch: 32
+2026-02-17 06:33:51,480 - INFO - Gradient accumulation steps: 2
+2026-02-17 06:33:51,480 - INFO - Effective prompts per update: 64 (32 x 2)
+2026-02-17 06:33:51,480 - INFO - Learning rate: 1e-06
+2026-02-17 06:33:51,480 - INFO - Temperature: 1.0
+2026-02-17 06:33:51,480 - INFO - Max prompt length: 1024
+2026-02-17 06:33:51,480 - INFO - Max completion length: 2048
+2026-02-17 06:33:51,480 - INFO - Epochs: 1
+2026-02-17 06:33:51,480 - INFO - vLLM enabled: True
+2026-02-17 06:33:51,480 - INFO - PPO max token len: 8192
+2026-02-17 06:33:51,480 - INFO - Log-prob max token len: 8192
+2026-02-17 06:33:51,480 - INFO - Ref model offload: False
+2026-02-17 06:33:51,480 - INFO - 
+2026-02-17 06:33:51,480 - INFO - LLOPSD-specific settings:
+2026-02-17 06:33:51,480 - INFO -   Teacher loops: 4
+2026-02-17 06:33:51,480 - INFO -   Student loops: 2
+2026-02-17 06:33:51,480 - INFO -   Loop mapping: shift
+2026-02-17 06:33:51,480 - INFO -   Weight schedule: uniform
+2026-02-17 06:33:51,480 - INFO -   Weight gamma: 1.0
+2026-02-17 06:33:51,480 - INFO -   Divergence: jsd
+2026-02-17 06:33:51,480 - INFO -   Teacher context: opsd
+2026-02-17 06:33:51,480 - INFO -   Teacher mode: same
+2026-02-17 06:33:51,480 - INFO -   Total UT steps: 4
+2026-02-17 06:33:51,480 - INFO - SFT checkpoint loading disabled - starting from fresh model weights
+2026-02-17 06:33:51,481 - INFO - Saved configuration to: ./llopsd_output/4761780/config.json
+2026-02-17 06:33:51,481 - INFO - Using verl for 4-GPU training with LLOPSD distillation objective
+2026-02-17 06:33:51,481 - INFO - LLOPSDActorRolloutRefWorker enables loop-aware teacher-student distillation in verl
+/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+2026-02-17 06:34:02,482 - INFO - Setting up verl training with LLOPSD distillation objective...
+2026-02-17 06:34:02,482 - INFO - Using LLOPSDActorRolloutRefWorker for loop-aware teacher-student distillation
+2026-02-17 06:34:02,482 - INFO - ============================================================
+2026-02-17 06:34:02,482 - INFO - FULL PARAMETER FINE-TUNING MODE
+2026-02-17 06:34:02,482 - INFO - All model parameters will be trained (no LoRA adapters)
+2026-02-17 06:34:02,482 - INFO - ============================================================
+2026-02-17 06:34:02,598 - INFO - Loading JSONL from /scratch/gpfs/OLGARUS/jw4199/datasets/MATH/math_train.jsonl
+2026-02-17 06:34:02,658 - INFO - Loaded 7500 examples
+2026-02-17 06:34:02,721 - INFO - Saved 7500 examples to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/data/train.parquet
+2026-02-17 06:34:02,724 - INFO - LR Schedule:
+2026-02-17 06:34:02,724 - INFO -   Scheduler type: constant
+2026-02-17 06:34:02,724 - INFO -   Total steps (batches): 250
+2026-02-17 06:34:02,725 - INFO -   Warmup steps (batches): 25 (10%)
+2026-02-17 06:34:02,726 - INFO -   Prompts per batch: 32
+2026-02-17 06:34:02,728 - INFO - Saved verl config to: ./llopsd_output/4761780/verl_config.json
+2026-02-17 06:34:02,728 - INFO - LLOPSD Configuration:
+2026-02-17 06:34:02,728 - INFO -   Teacher loops: 4
+2026-02-17 06:34:02,728 - INFO -   Student loops: 2
+2026-02-17 06:34:02,728 - INFO -   Loop mapping: shift
+2026-02-17 06:34:02,728 - INFO -   Weight schedule: uniform
+2026-02-17 06:34:02,728 - INFO -   Weight gamma: 1.0
+2026-02-17 06:34:02,728 - INFO -   Divergence: jsd
+2026-02-17 06:34:02,728 - INFO -   Teacher context: opsd
+2026-02-17 06:34:02,728 - INFO -   Teacher mode: same
+2026-02-17 06:34:02,735 - INFO - Starting verl training with LLOPSD worker...
+[2026-02-17 06:34:02,790 W 2670659 2670659] network_util.cc:296: Failed to determine local IP via external connectivity to: 8.8.8.8:53, [2001:4860:4860::8888]:53, falling back to hostname resolution
+2026-02-17 06:34:06,934	INFO worker.py:2014 -- Started a local Ray instance. View the dashboard at [1m[32m127.0.0.1:8265 [39m[22m
+/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 7500 examples [00:00, 560236.51 examples/s]
+Filtering prompts longer than 1024 tokens (num_proc=16):   0%|          | 0/7500 [00:00<?, ? examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):   6%|▋         | 469/7500 [00:00<00:08, 870.75 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  19%|█▉        | 1407/7500 [00:00<00:02, 2332.66 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  25%|██▌       | 1876/7500 [00:00<00:02, 2739.56 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  31%|███▏      | 2345/7500 [00:00<00:01, 3073.94 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  63%|██████▎   | 4690/7500 [00:01<00:00, 7092.53 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  75%|███████▌  | 5628/7500 [00:01<00:00, 5358.62 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16): 100%|██████████| 7500/7500 [00:01<00:00, 4810.56 examples/s]
+Filtering prompts longer than 1024 tokens (num_proc=16):   0%|          | 0/7500 [00:00<?, ? examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):   6%|▋         | 469/7500 [00:00<00:07, 917.39 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  13%|█▎        | 938/7500 [00:00<00:03, 1688.42 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  19%|█▉        | 1407/7500 [00:00<00:02, 2263.42 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  38%|███▊      | 2814/7500 [00:00<00:01, 4249.05 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  50%|█████     | 3752/7500 [00:01<00:00, 4312.67 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  63%|██████▎   | 4688/7500 [00:01<00:00, 5298.76 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16):  88%|████████▊ | 6563/7500 [00:01<00:00, 8249.37 examples/s]Filtering prompts longer than 1024 tokens (num_proc=16): 100%|██████████| 7500/7500 [00:01<00:00, 4957.44 examples/s]
+[36m(pid=2675687)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2675687)[0m   warnings.warn(
+[36m(pid=2675689)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2675689)[0m   warnings.warn(
+[36m(pid=2675690)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2675690)[0m   warnings.warn(
+[36m(pid=2675688)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=2675688)[0m   warnings.warn(
+[36m(WorkerDict pid=2675687)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675687)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675689)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675689)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675690)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675690)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675688)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675688)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675687)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2675687)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675689)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2675689)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675690)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2675690)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675688)[0m `torch_dtype` is deprecated! Use `dtype` instead!
+[36m(WorkerDict pid=2675688)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroForCausalLM is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675687)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675689)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675690)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675688)[0m Flash Attention 2 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in OuroModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", dtype=torch.float16)`
+[36m(WorkerDict pid=2675687)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675687)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675689)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675689)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675690)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675690)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675688)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/verl/utils/tokenizer.py:30: UserWarning: tokenizer.pad_token_id is None. Now set to 0
+[36m(WorkerDict pid=2675688)[0m   warnings.warn(f"tokenizer.pad_token_id is None. Now set to {tokenizer.eos_token_id}", stacklevel=1)
+[36m(WorkerDict pid=2675687)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2675689)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2675690)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2675688)[0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[36m(WorkerDict pid=2675687)[0m Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2675687)[0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:08<00:00,  8.65s/it]
+[36m(WorkerDict pid=2675687)[0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:08<00:00,  8.65s/it]
+[36m(WorkerDict pid=2675687)[0m 
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:35.587000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:35.587000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:35.587000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:35.587000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:35.587000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:36.443000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:36.443000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:36.443000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:36.443000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:36.443000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:36.906000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:36.906000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:36.906000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:36.906000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:36.906000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.113000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.113000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.113000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.113000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.113000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.209000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.209000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.209000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.209000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:40.209000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:41.034000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:41.034000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:41.034000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:41.034000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:41.034000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:43.037000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:43.037000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:43.037000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:43.037000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:43.037000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:43.884000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:43.884000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:43.884000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:43.884000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:43.884000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:44.935000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:44.935000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:44.935000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:44.935000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:44.935000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:45.023000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:45.023000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:45.023000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:45.023000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675688)[0m [rank1]:W0217 06:35:45.023000 2675688 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:46.657000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:46.657000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:46.657000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1017, in iterate_over_candidates
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:46.657000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0]     with open(os.path.join(subdir, path), "rb") as f:
+[36m(WorkerDict pid=2675687)[0m [rank0]:W0217 06:35:46.657000 2675687 site-packages/torch/_inductor/codecache.py:1021] [0/0] FileNotFoundError: [Errno 2] No such file or directory: '/scratch/gpfs/OLGARUS/jw4199/model_weights_path/tmp/torchinductor_jw4199/aotautograd/afagvi3ljxpgcaqh2ejmgzcz7sjwrifih3msbblk3ah53x2izoni/.2675688.23162087052352.tmp'
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.080000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.080000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.080000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.080000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.080000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.525000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.525000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.525000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.525000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:47.525000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:47.861000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:47.861000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:47.861000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:47.861000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675690)[0m [rank3]:W0217 06:35:47.861000 2675690 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:48.350000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] fx graph cache unable to load compiled graph
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:48.350000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] Traceback (most recent call last):
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:48.350000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]   File "/home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 1019, in iterate_over_candidates
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:48.350000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0]     yield pickle.loads(content), content
+[36m(WorkerDict pid=2675689)[0m [rank2]:W0217 06:35:48.350000 2675689 site-packages/torch/_inductor/codecache.py:1021] [0/0] EOFError: Ran out of input
+[36m(WorkerDict pid=2675687)[0m 2026-02-17 06:35:58,433 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2675689)[0m 2026-02-17 06:35:58,430 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2675690)[0m 2026-02-17 06:35:58,428 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2675688)[0m 2026-02-17 06:35:58,432 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(WorkerDict pid=2675687)[0m 2026-02-17 06:35:58,582 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2675689)[0m 2026-02-17 06:35:58,576 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2675690)[0m 2026-02-17 06:35:58,576 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2675688)[0m 2026-02-17 06:35:58,579 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   2%|▏         | 1/51 [00:00<00:15,  3.32it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   4%|▍         | 2/51 [00:00<00:12,  4.05it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   6%|▌         | 3/51 [00:00<00:09,  4.96it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   8%|▊         | 4/51 [00:00<00:08,  5.60it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  10%|▉         | 5/51 [00:00<00:07,  6.00it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  12%|█▏        | 6/51 [00:01<00:07,  6.20it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  14%|█▎        | 7/51 [00:01<00:06,  6.36it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  16%|█▌        | 8/51 [00:01<00:06,  6.53it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 9/51 [00:01<00:06,  6.56it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  20%|█▉        | 10/51 [00:01<00:06,  6.61it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  22%|██▏       | 11/51 [00:01<00:06,  6.65it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  24%|██▎       | 12/51 [00:01<00:05,  6.53it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  25%|██▌       | 13/51 [00:02<00:05,  6.37it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  27%|██▋       | 14/51 [00:02<00:05,  6.38it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  29%|██▉       | 15/51 [00:02<00:05,  6.35it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  31%|███▏      | 16/51 [00:02<00:05,  6.19it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  33%|███▎      | 17/51 [00:02<00:05,  6.12it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  35%|███▌      | 18/51 [00:02<00:05,  6.11it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  37%|███▋      | 19/51 [00:03<00:05,  5.92it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  39%|███▉      | 20/51 [00:03<00:05,  5.94it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  41%|████      | 21/51 [00:03<00:05,  5.86it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  43%|████▎     | 22/51 [00:03<00:05,  5.76it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  45%|████▌     | 23/51 [00:03<00:04,  5.63it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  47%|████▋     | 24/51 [00:04<00:07,  3.83it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  49%|████▉     | 25/51 [00:04<00:06,  3.79it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  51%|█████     | 26/51 [00:04<00:06,  4.03it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  53%|█████▎    | 27/51 [00:05<00:05,  4.02it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  55%|█████▍    | 28/51 [00:05<00:05,  4.49it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  57%|█████▋    | 29/51 [00:05<00:04,  4.89it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  59%|█████▉    | 30/51 [00:05<00:04,  5.12it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  61%|██████    | 31/51 [00:05<00:03,  5.30it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  63%|██████▎   | 32/51 [00:05<00:03,  5.46it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  65%|██████▍   | 33/51 [00:06<00:03,  5.36it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 34/51 [00:06<00:03,  5.41it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  69%|██████▊   | 35/51 [00:06<00:02,  5.34it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  71%|███████   | 36/51 [00:06<00:02,  5.18it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  73%|███████▎  | 37/51 [00:06<00:02,  5.18it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  75%|███████▍  | 38/51 [00:07<00:02,  5.02it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  76%|███████▋  | 39/51 [00:07<00:02,  5.00it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  78%|███████▊  | 40/51 [00:07<00:02,  4.94it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  80%|████████  | 41/51 [00:07<00:02,  4.86it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  82%|████████▏ | 42/51 [00:07<00:01,  4.91it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  84%|████████▍ | 43/51 [00:08<00:01,  4.89it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  86%|████████▋ | 44/51 [00:08<00:01,  4.84it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  88%|████████▊ | 45/51 [00:08<00:01,  4.87it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|█████████ | 46/51 [00:08<00:01,  4.73it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  92%|█████████▏| 47/51 [00:08<00:00,  4.72it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  94%|█████████▍| 48/51 [00:09<00:00,  4.64it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  96%|█████████▌| 49/51 [00:09<00:00,  4.10it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  98%|█████████▊| 50/51 [00:09<00:00,  4.28it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 51/51 [00:09<00:00,  4.42it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 51/51 [00:09<00:00,  5.14it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):   0%|          | 0/51 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):   2%|▏         | 1/51 [00:00<00:07,  7.12it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):   4%|▍         | 2/51 [00:00<00:06,  7.32it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):   6%|▌         | 3/51 [00:00<00:06,  7.53it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):   8%|▊         | 4/51 [00:00<00:06,  7.53it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  10%|▉         | 5/51 [00:00<00:06,  7.41it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  12%|█▏        | 6/51 [00:00<00:06,  7.45it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  14%|█▎        | 7/51 [00:00<00:05,  7.63it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  16%|█▌        | 8/51 [00:01<00:05,  7.55it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  18%|█▊        | 9/51 [00:01<00:05,  7.34it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  20%|█▉        | 10/51 [00:01<00:05,  7.47it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  22%|██▏       | 11/51 [00:01<00:05,  7.65it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  24%|██▎       | 12/51 [00:01<00:05,  7.66it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  25%|██▌       | 13/51 [00:01<00:04,  7.93it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  27%|██▋       | 14/51 [00:01<00:04,  7.99it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  29%|██▉       | 15/51 [00:01<00:04,  8.17it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  31%|███▏      | 16/51 [00:02<00:04,  8.08it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  33%|███▎      | 17/51 [00:02<00:04,  7.65it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  35%|███▌      | 18/51 [00:02<00:04,  7.78it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  37%|███▋      | 19/51 [00:02<00:04,  7.88it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  39%|███▉      | 20/51 [00:02<00:03,  7.89it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  41%|████      | 21/51 [00:02<00:04,  7.09it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  43%|████▎     | 22/51 [00:02<00:04,  7.23it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  45%|████▌     | 23/51 [00:03<00:03,  7.40it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  47%|████▋     | 24/51 [00:03<00:03,  7.44it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  49%|████▉     | 25/51 [00:03<00:03,  7.46it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  51%|█████     | 26/51 [00:03<00:03,  7.67it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  53%|█████▎    | 27/51 [00:03<00:03,  7.81it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  55%|█████▍    | 28/51 [00:03<00:02,  7.74it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  57%|█████▋    | 29/51 [00:03<00:02,  7.69it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  59%|█████▉    | 30/51 [00:03<00:02,  7.76it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  61%|██████    | 31/51 [00:04<00:02,  7.86it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  63%|██████▎   | 32/51 [00:04<00:02,  7.72it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  65%|██████▍   | 33/51 [00:04<00:02,  7.73it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  67%|██████▋   | 34/51 [00:04<00:02,  7.95it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  69%|██████▊   | 35/51 [00:04<00:01,  8.03it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  71%|███████   | 36/51 [00:04<00:01,  8.11it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  73%|███████▎  | 37/51 [00:04<00:01,  7.77it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  75%|███████▍  | 38/51 [00:04<00:01,  7.93it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  76%|███████▋  | 39/51 [00:05<00:01,  8.10it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  78%|███████▊  | 40/51 [00:05<00:01,  8.02it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  80%|████████  | 41/51 [00:05<00:01,  8.04it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  82%|████████▏ | 42/51 [00:05<00:01,  8.08it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  84%|████████▍ | 43/51 [00:05<00:00,  8.11it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  86%|████████▋ | 44/51 [00:05<00:00,  8.09it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  88%|████████▊ | 45/51 [00:05<00:00,  8.02it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  90%|█████████ | 46/51 [00:05<00:00,  8.01it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  92%|█████████▏| 47/51 [00:06<00:00,  7.96it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  94%|█████████▍| 48/51 [00:06<00:00,  7.81it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  96%|█████████▌| 49/51 [00:06<00:00,  7.83it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL):  98%|█████████▊| 50/51 [00:06<00:00,  7.86it/s]
+[36m(WorkerDict pid=2675687)[0m Capturing CUDA graphs (decode, FULL): 100%|██████████| 51/51 [00:06<00:00,  7.87it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 51/51 [00:06<00:00,  7.76it/s]
+[36m(WorkerDict pid=2675690)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2675690)[0m   warnings.warn(
+[36m(WorkerDict pid=2675689)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2675689)[0m   warnings.warn(
+[36m(WorkerDict pid=2675688)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2675688)[0m   warnings.warn(
+[36m(WorkerDict pid=2675687)[0m /home/jw4199/miniconda3/envs/ouro_vllm/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:675: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+[36m(WorkerDict pid=2675687)[0m   warnings.warn(
+wandb: Tracking run with wandb version 0.23.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /scratch/gpfs/OLGARUS/jw4199/model_weights_path/wandb/offline-run-20260217_063619-638vxwzx
+2026-02-17 06:36:22,205 - INFO - Gradient accumulation enabled: accumulating 2 rollout batches per update
+Training Progress:   0%|          | 0/250 [00:00<?, ?it/s]2026-02-17 06:37:14,840 - INFO - Step 1 (accum 1/2): rollout done in 52.4s
+2026-02-17 06:37:17,889 - INFO - Truncated 13/32 responses at first \boxed{}. Mean tokens dropped: 130.6
+Training Progress:   0%|          | 0/250 [00:55<?, ?it/s, rollout=52.4s, backprop=0.0s, accum=1/2]Training Progress:   0%|          | 1/250 [00:55<3:51:16, 55.73s/it, rollout=52.4s, backprop=0.0s, accum=1/2]2026-02-17 06:37:56,102 - INFO - Step 2 (accum 2/2): rollout done in 38.2s
+2026-02-17 06:37:58,504 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 185.8
+2026-02-17 06:38:40,862 - INFO - Step 2: backprop done in 42.4s (accumulated 2 batches, 64 samples, total rollout time: 90.6s)
+Training Progress:   0%|          | 1/250 [02:18<3:51:16, 55.73s/it, rollout=38.2s, backprop=42.4s, accum=0/2]Training Progress:   1%|          | 2/250 [02:18<4:56:28, 71.73s/it, rollout=38.2s, backprop=42.4s, accum=0/2]2026-02-17 06:39:19,173 - INFO - Step 3 (accum 1/2): rollout done in 38.3s
+2026-02-17 06:39:21,434 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 62.3
+Training Progress:   1%|          | 2/250 [02:59<4:56:28, 71.73s/it, rollout=38.3s, backprop=0.0s, accum=1/2] Training Progress:   1%|          | 3/250 [02:59<3:56:43, 57.51s/it, rollout=38.3s, backprop=0.0s, accum=1/2]2026-02-17 06:39:57,603 - INFO - Step 4 (accum 2/2): rollout done in 36.2s
+2026-02-17 06:40:00,043 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 52.6
+2026-02-17 06:40:41,171 - INFO - Step 4: backprop done in 41.1s (accumulated 2 batches, 64 samples, total rollout time: 74.5s)
+Training Progress:   1%|          | 3/250 [04:18<3:56:43, 57.51s/it, rollout=36.2s, backprop=41.1s, accum=0/2]Training Progress:   2%|▏         | 4/250 [04:18<4:31:44, 66.28s/it, rollout=36.2s, backprop=41.1s, accum=0/2]2026-02-17 06:41:16,701 - INFO - Step 5 (accum 1/2): rollout done in 35.5s
+2026-02-17 06:41:18,947 - INFO - Truncated 22/32 responses at first \boxed{}. Mean tokens dropped: 57.2
+Training Progress:   2%|▏         | 4/250 [04:56<4:31:44, 66.28s/it, rollout=35.5s, backprop=0.0s, accum=1/2] Training Progress:   2%|▏         | 5/250 [04:56<3:48:40, 56.00s/it, rollout=35.5s, backprop=0.0s, accum=1/2]2026-02-17 06:41:54,741 - INFO - Step 6 (accum 2/2): rollout done in 35.8s
+2026-02-17 06:41:56,808 - INFO - Truncated 23/32 responses at first \boxed{}. Mean tokens dropped: 152.3
+2026-02-17 06:42:34,359 - INFO - Step 6: backprop done in 37.5s (accumulated 2 batches, 64 samples, total rollout time: 71.3s)
+Training Progress:   2%|▏         | 5/250 [06:12<3:48:40, 56.00s/it, rollout=35.8s, backprop=37.5s, accum=0/2]Training Progress:   2%|▏         | 6/250 [06:12<4:14:43, 62.64s/it, rollout=35.8s, backprop=37.5s, accum=0/2]2026-02-17 06:43:12,536 - INFO - Step 7 (accum 1/2): rollout done in 38.1s
+2026-02-17 06:43:14,986 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 141.8
+Training Progress:   2%|▏         | 6/250 [06:52<4:14:43, 62.64s/it, rollout=38.1s, backprop=0.0s, accum=1/2] Training Progress:   3%|▎         | 7/250 [06:52<3:44:24, 55.41s/it, rollout=38.1s, backprop=0.0s, accum=1/2]2026-02-17 06:43:51,273 - INFO - Step 8 (accum 2/2): rollout done in 36.3s
+2026-02-17 06:43:53,691 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 25.0
+2026-02-17 06:44:33,862 - INFO - Step 8: backprop done in 40.2s (accumulated 2 batches, 64 samples, total rollout time: 74.3s)
+Training Progress:   3%|▎         | 7/250 [08:11<3:44:24, 55.41s/it, rollout=36.3s, backprop=40.2s, accum=0/2]Training Progress:   3%|▎         | 8/250 [08:11<4:13:36, 62.88s/it, rollout=36.3s, backprop=40.2s, accum=0/2]2026-02-17 06:45:11,363 - INFO - Step 9 (accum 1/2): rollout done in 37.5s
+2026-02-17 06:45:13,964 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 58.3
+Training Progress:   3%|▎         | 8/250 [08:51<4:13:36, 62.88s/it, rollout=37.5s, backprop=0.0s, accum=1/2] Training Progress:   4%|▎         | 9/250 [08:51<3:43:57, 55.76s/it, rollout=37.5s, backprop=0.0s, accum=1/2]2026-02-17 06:45:50,242 - INFO - Step 10 (accum 2/2): rollout done in 36.3s
+2026-02-17 06:45:52,301 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 83.5
+2026-02-17 06:46:32,557 - INFO - Step 10: backprop done in 40.2s (accumulated 2 batches, 64 samples, total rollout time: 73.8s)
+Training Progress:   4%|▎         | 9/250 [10:10<3:43:57, 55.76s/it, rollout=36.3s, backprop=40.2s, accum=0/2]Training Progress:   4%|▍         | 10/250 [10:10<4:11:13, 62.81s/it, rollout=36.3s, backprop=40.2s, accum=0/2]2026-02-17 06:47:10,049 - INFO - Step 11 (accum 1/2): rollout done in 37.5s
+2026-02-17 06:47:12,474 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 76.0
+Training Progress:   4%|▍         | 10/250 [10:50<4:11:13, 62.81s/it, rollout=37.5s, backprop=0.0s, accum=1/2] Training Progress:   4%|▍         | 11/250 [10:50<3:42:16, 55.80s/it, rollout=37.5s, backprop=0.0s, accum=1/2]2026-02-17 06:47:51,191 - INFO - Step 12 (accum 2/2): rollout done in 38.7s
+2026-02-17 06:47:53,393 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 189.0
+2026-02-17 06:48:35,073 - INFO - Step 12: backprop done in 41.7s (accumulated 2 batches, 64 samples, total rollout time: 76.2s)
+Training Progress:   4%|▍         | 11/250 [12:13<3:42:16, 55.80s/it, rollout=38.7s, backprop=41.7s, accum=0/2]Training Progress:   5%|▍         | 12/250 [12:13<4:13:51, 64.00s/it, rollout=38.7s, backprop=41.7s, accum=0/2]2026-02-17 06:49:14,163 - INFO - Step 13 (accum 1/2): rollout done in 38.9s
+2026-02-17 06:49:16,749 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 34.3
+Training Progress:   5%|▍         | 12/250 [12:54<4:13:51, 64.00s/it, rollout=38.9s, backprop=0.0s, accum=1/2] Training Progress:   5%|▌         | 13/250 [12:54<3:45:54, 57.19s/it, rollout=38.9s, backprop=0.0s, accum=1/2]2026-02-17 06:49:52,248 - INFO - Step 14 (accum 2/2): rollout done in 35.5s
+2026-02-17 06:49:54,324 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 52.6
+2026-02-17 06:50:35,256 - INFO - Step 14: backprop done in 40.9s (accumulated 2 batches, 64 samples, total rollout time: 74.4s)
+Training Progress:   5%|▌         | 13/250 [14:13<3:45:54, 57.19s/it, rollout=35.5s, backprop=40.9s, accum=0/2]Training Progress:   6%|▌         | 14/250 [14:13<4:10:24, 63.66s/it, rollout=35.5s, backprop=40.9s, accum=0/2]2026-02-17 06:51:12,911 - INFO - Step 15 (accum 1/2): rollout done in 37.5s
+2026-02-17 06:51:15,251 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 124.9
+Training Progress:   6%|▌         | 14/250 [14:53<4:10:24, 63.66s/it, rollout=37.5s, backprop=0.0s, accum=1/2] Training Progress:   6%|▌         | 15/250 [14:53<3:41:16, 56.49s/it, rollout=37.5s, backprop=0.0s, accum=1/2]2026-02-17 06:51:50,214 - INFO - Step 16 (accum 2/2): rollout done in 35.0s
+2026-02-17 06:51:52,533 - INFO - Truncated 25/32 responses at first \boxed{}. Mean tokens dropped: 98.6
+2026-02-17 06:52:31,515 - INFO - Step 16: backprop done in 39.0s (accumulated 2 batches, 64 samples, total rollout time: 72.5s)
+Training Progress:   6%|▌         | 15/250 [16:09<3:41:16, 56.49s/it, rollout=35.0s, backprop=39.0s, accum=0/2]Training Progress:   6%|▋         | 16/250 [16:09<4:03:32, 62.45s/it, rollout=35.0s, backprop=39.0s, accum=0/2]2026-02-17 06:53:08,753 - INFO - Step 17 (accum 1/2): rollout done in 37.2s
+2026-02-17 06:53:11,512 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 35.7
+Training Progress:   6%|▋         | 16/250 [16:49<4:03:32, 62.45s/it, rollout=37.2s, backprop=0.0s, accum=1/2] Training Progress:   7%|▋         | 17/250 [16:49<3:36:17, 55.70s/it, rollout=37.2s, backprop=0.0s, accum=1/2]2026-02-17 06:53:46,274 - INFO - Step 18 (accum 2/2): rollout done in 34.7s
+2026-02-17 06:53:48,507 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 38.3
+2026-02-17 06:54:31,869 - INFO - Step 18: backprop done in 43.4s (accumulated 2 batches, 64 samples, total rollout time: 72.0s)
+Training Progress:   7%|▋         | 17/250 [18:09<3:36:17, 55.70s/it, rollout=34.7s, backprop=43.4s, accum=0/2]Training Progress:   7%|▋         | 18/250 [18:09<4:04:00, 63.10s/it, rollout=34.7s, backprop=43.4s, accum=0/2]2026-02-17 06:55:06,533 - INFO - Step 19 (accum 1/2): rollout done in 34.7s
+2026-02-17 06:55:08,777 - INFO - Truncated 24/32 responses at first \boxed{}. Mean tokens dropped: 67.0
+Training Progress:   7%|▋         | 18/250 [18:46<4:04:00, 63.10s/it, rollout=34.7s, backprop=0.0s, accum=1/2] Training Progress:   8%|▊         | 19/250 [18:46<3:32:40, 55.24s/it, rollout=34.7s, backprop=0.0s, accum=1/2]2026-02-17 06:55:46,296 - INFO - Step 20 (accum 2/2): rollout done in 37.5s
+2026-02-17 06:55:49,146 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 78.2
+2026-02-17 06:56:32,629 - INFO - Step 20: backprop done in 43.5s (accumulated 2 batches, 64 samples, total rollout time: 72.2s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 06:56:36,136:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 06:56:36,108:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 06:56:36,263:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 06:56:36,255:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 06:56:37,142:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 06:56:37,144:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 06:56:37,270:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 06:56:37,272:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 06:56:37,452:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 06:56:37,453:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/extra_state_world_size_4_rank_0.pt
+Training Progress:   8%|▊         | 19/250 [20:15<3:32:40, 55.24s/it, rollout=37.5s, backprop=43.5s, accum=0/2]Training Progress:   8%|▊         | 20/250 [20:15<4:10:19, 65.30s/it, rollout=37.5s, backprop=43.5s, accum=0/2][36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 06:56:37,505:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/huggingface
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 06:56:37,522:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 06:56:37,524:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_20/actor/extra_state_world_size_4_rank_3.pt
+2026-02-17 06:57:15,569 - INFO - Step 21 (accum 1/2): rollout done in 38.0s
+2026-02-17 06:57:17,762 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 92.9
+Training Progress:   8%|▊         | 20/250 [20:55<4:10:19, 65.30s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:   8%|▊         | 21/250 [20:55<3:40:30, 57.78s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 06:57:54,015 - INFO - Step 22 (accum 2/2): rollout done in 36.2s
+2026-02-17 06:57:56,059 - INFO - Truncated 24/32 responses at first \boxed{}. Mean tokens dropped: 86.6
+2026-02-17 06:58:36,681 - INFO - Step 22: backprop done in 40.6s (accumulated 2 batches, 64 samples, total rollout time: 74.3s)
+Training Progress:   8%|▊         | 21/250 [22:14<3:40:30, 57.78s/it, rollout=36.2s, backprop=40.6s, accum=0/2]Training Progress:   9%|▉         | 22/250 [22:14<4:03:39, 64.12s/it, rollout=36.2s, backprop=40.6s, accum=0/2]2026-02-17 06:59:12,790 - INFO - Step 23 (accum 1/2): rollout done in 36.1s
+2026-02-17 06:59:14,843 - INFO - Truncated 22/32 responses at first \boxed{}. Mean tokens dropped: 80.9
+Training Progress:   9%|▉         | 22/250 [22:52<4:03:39, 64.12s/it, rollout=36.1s, backprop=0.0s, accum=1/2] Training Progress:   9%|▉         | 23/250 [22:52<3:33:06, 56.33s/it, rollout=36.1s, backprop=0.0s, accum=1/2]2026-02-17 06:59:52,035 - INFO - Step 24 (accum 2/2): rollout done in 37.2s
+2026-02-17 06:59:54,076 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 91.6
+2026-02-17 07:00:33,552 - INFO - Step 24: backprop done in 39.5s (accumulated 2 batches, 64 samples, total rollout time: 73.3s)
+Training Progress:   9%|▉         | 23/250 [24:11<3:33:06, 56.33s/it, rollout=37.2s, backprop=39.5s, accum=0/2]Training Progress:  10%|▉         | 24/250 [24:11<3:57:34, 63.07s/it, rollout=37.2s, backprop=39.5s, accum=0/2]2026-02-17 07:01:13,899 - INFO - Step 25 (accum 1/2): rollout done in 40.2s
+2026-02-17 07:01:16,793 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 27.9
+Training Progress:  10%|▉         | 24/250 [24:54<3:57:34, 63.07s/it, rollout=40.2s, backprop=0.0s, accum=1/2] Training Progress:  10%|█         | 25/250 [24:54<3:34:06, 57.09s/it, rollout=40.2s, backprop=0.0s, accum=1/2]2026-02-17 07:01:52,277 - INFO - Step 26 (accum 2/2): rollout done in 35.5s
+2026-02-17 07:01:55,042 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 14.1
+2026-02-17 07:02:42,675 - INFO - Step 26: backprop done in 47.6s (accumulated 2 batches, 64 samples, total rollout time: 75.7s)
+Training Progress:  10%|█         | 25/250 [26:20<3:34:06, 57.09s/it, rollout=35.5s, backprop=47.6s, accum=0/2]Training Progress:  10%|█         | 26/250 [26:20<4:05:23, 65.73s/it, rollout=35.5s, backprop=47.6s, accum=0/2]2026-02-17 07:03:20,777 - INFO - Step 27 (accum 1/2): rollout done in 38.1s
+2026-02-17 07:03:23,028 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 51.6
+Training Progress:  10%|█         | 26/250 [27:00<4:05:23, 65.73s/it, rollout=38.1s, backprop=0.0s, accum=1/2] Training Progress:  11%|█         | 27/250 [27:00<3:36:00, 58.12s/it, rollout=38.1s, backprop=0.0s, accum=1/2]2026-02-17 07:03:59,642 - INFO - Step 28 (accum 2/2): rollout done in 36.6s
+2026-02-17 07:04:01,777 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 61.9
+2026-02-17 07:04:43,535 - INFO - Step 28: backprop done in 41.8s (accumulated 2 batches, 64 samples, total rollout time: 74.7s)
+Training Progress:  11%|█         | 27/250 [28:21<3:36:00, 58.12s/it, rollout=36.6s, backprop=41.8s, accum=0/2]Training Progress:  11%|█         | 28/250 [28:21<3:59:53, 64.83s/it, rollout=36.6s, backprop=41.8s, accum=0/2]2026-02-17 07:05:20,910 - INFO - Step 29 (accum 1/2): rollout done in 37.4s
+2026-02-17 07:05:23,005 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 72.0
+Training Progress:  11%|█         | 28/250 [29:00<3:59:53, 64.83s/it, rollout=37.4s, backprop=0.0s, accum=1/2] Training Progress:  12%|█▏        | 29/250 [29:00<3:30:47, 57.23s/it, rollout=37.4s, backprop=0.0s, accum=1/2]2026-02-17 07:06:00,130 - INFO - Step 30 (accum 2/2): rollout done in 37.1s
+2026-02-17 07:06:02,559 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 64.8
+2026-02-17 07:06:42,566 - INFO - Step 30: backprop done in 40.0s (accumulated 2 batches, 64 samples, total rollout time: 74.5s)
+Training Progress:  12%|█▏        | 29/250 [30:20<3:30:47, 57.23s/it, rollout=37.1s, backprop=40.0s, accum=0/2]Training Progress:  12%|█▏        | 30/250 [30:20<3:54:23, 63.93s/it, rollout=37.1s, backprop=40.0s, accum=0/2]2026-02-17 07:07:20,585 - INFO - Step 31 (accum 1/2): rollout done in 38.0s
+2026-02-17 07:07:23,213 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 104.5
+Training Progress:  12%|█▏        | 30/250 [31:01<3:54:23, 63.93s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  12%|█▏        | 31/250 [31:01<3:27:50, 56.94s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 07:07:59,785 - INFO - Step 32 (accum 2/2): rollout done in 36.6s
+2026-02-17 07:08:02,080 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 156.8
+2026-02-17 07:08:45,582 - INFO - Step 32: backprop done in 43.5s (accumulated 2 batches, 64 samples, total rollout time: 74.6s)
+Training Progress:  12%|█▏        | 31/250 [32:23<3:27:50, 56.94s/it, rollout=36.6s, backprop=43.5s, accum=0/2]Training Progress:  13%|█▎        | 32/250 [32:23<3:54:36, 64.57s/it, rollout=36.6s, backprop=43.5s, accum=0/2]2026-02-17 07:09:25,449 - INFO - Step 33 (accum 1/2): rollout done in 39.9s
+2026-02-17 07:09:28,176 - INFO - Truncated 15/32 responses at first \boxed{}. Mean tokens dropped: 115.7
+Training Progress:  13%|█▎        | 32/250 [33:05<3:54:36, 64.57s/it, rollout=39.9s, backprop=0.0s, accum=1/2] Training Progress:  13%|█▎        | 33/250 [33:05<3:29:40, 57.98s/it, rollout=39.9s, backprop=0.0s, accum=1/2]2026-02-17 07:10:03,709 - INFO - Step 34 (accum 2/2): rollout done in 35.5s
+2026-02-17 07:10:06,418 - INFO - Truncated 22/32 responses at first \boxed{}. Mean tokens dropped: 190.8
+2026-02-17 07:10:47,537 - INFO - Step 34: backprop done in 41.1s (accumulated 2 batches, 64 samples, total rollout time: 75.4s)
+Training Progress:  13%|█▎        | 33/250 [34:25<3:29:40, 57.98s/it, rollout=35.5s, backprop=41.1s, accum=0/2]Training Progress:  14%|█▎        | 34/250 [34:25<3:51:48, 64.39s/it, rollout=35.5s, backprop=41.1s, accum=0/2]2026-02-17 07:11:25,051 - INFO - Step 35 (accum 1/2): rollout done in 37.5s
+2026-02-17 07:11:27,272 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 25.1
+Training Progress:  14%|█▎        | 34/250 [35:05<3:51:48, 64.39s/it, rollout=37.5s, backprop=0.0s, accum=1/2] Training Progress:  14%|█▍        | 35/250 [35:05<3:24:13, 56.99s/it, rollout=37.5s, backprop=0.0s, accum=1/2]2026-02-17 07:12:04,648 - INFO - Step 36 (accum 2/2): rollout done in 37.4s
+2026-02-17 07:12:06,820 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 62.9
+2026-02-17 07:12:45,304 - INFO - Step 36: backprop done in 38.5s (accumulated 2 batches, 64 samples, total rollout time: 74.9s)
+Training Progress:  14%|█▍        | 35/250 [36:23<3:24:13, 56.99s/it, rollout=37.4s, backprop=38.5s, accum=0/2]Training Progress:  14%|█▍        | 36/250 [36:23<3:45:47, 63.31s/it, rollout=37.4s, backprop=38.5s, accum=0/2]2026-02-17 07:13:23,156 - INFO - Step 37 (accum 1/2): rollout done in 37.8s
+2026-02-17 07:13:25,387 - INFO - Truncated 22/32 responses at first \boxed{}. Mean tokens dropped: 153.7
+Training Progress:  14%|█▍        | 36/250 [37:03<3:45:47, 63.31s/it, rollout=37.8s, backprop=0.0s, accum=1/2] Training Progress:  15%|█▍        | 37/250 [37:03<3:20:00, 56.34s/it, rollout=37.8s, backprop=0.0s, accum=1/2]2026-02-17 07:14:02,094 - INFO - Step 38 (accum 2/2): rollout done in 36.7s
+2026-02-17 07:14:04,849 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 105.6
+2026-02-17 07:14:44,583 - INFO - Step 38: backprop done in 39.7s (accumulated 2 batches, 64 samples, total rollout time: 74.5s)
+Training Progress:  15%|█▍        | 37/250 [38:22<3:20:00, 56.34s/it, rollout=36.7s, backprop=39.7s, accum=0/2]Training Progress:  15%|█▌        | 38/250 [38:22<3:43:17, 63.20s/it, rollout=36.7s, backprop=39.7s, accum=0/2]2026-02-17 07:15:21,798 - INFO - Step 39 (accum 1/2): rollout done in 37.2s
+2026-02-17 07:15:24,220 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 41.6
+Training Progress:  15%|█▌        | 38/250 [39:02<3:43:17, 63.20s/it, rollout=37.2s, backprop=0.0s, accum=1/2] Training Progress:  16%|█▌        | 39/250 [39:02<3:17:23, 56.13s/it, rollout=37.2s, backprop=0.0s, accum=1/2]2026-02-17 07:16:00,005 - INFO - Step 40 (accum 2/2): rollout done in 35.8s
+2026-02-17 07:16:02,088 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 53.6
+2026-02-17 07:16:45,236 - INFO - Step 40: backprop done in 43.1s (accumulated 2 batches, 64 samples, total rollout time: 73.0s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:16:47,846:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:16:47,892:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:16:47,911:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:16:47,914:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:16:48,901:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:16:48,902:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:16:48,948:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/huggingface
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:16:48,932:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:16:48,934:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/extra_state_world_size_4_rank_2.pt
+Training Progress:  16%|█▌        | 39/250 [40:27<3:17:23, 56.13s/it, rollout=35.8s, backprop=43.1s, accum=0/2]Training Progress:  16%|█▌        | 40/250 [40:27<3:46:46, 64.79s/it, rollout=35.8s, backprop=43.1s, accum=0/2][36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:16:49,211:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:16:49,212:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:16:49,177:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:16:49,178:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_40/actor/extra_state_world_size_4_rank_1.pt
+2026-02-17 07:17:25,863 - INFO - Step 41 (accum 1/2): rollout done in 36.6s
+2026-02-17 07:17:27,924 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 4.5
+Training Progress:  16%|█▌        | 40/250 [41:05<3:46:46, 64.79s/it, rollout=36.6s, backprop=0.0s, accum=1/2] Training Progress:  16%|█▋        | 41/250 [41:05<3:18:25, 56.96s/it, rollout=36.6s, backprop=0.0s, accum=1/2]2026-02-17 07:18:04,449 - INFO - Step 42 (accum 2/2): rollout done in 36.5s
+2026-02-17 07:18:06,743 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 193.8
+2026-02-17 07:18:45,143 - INFO - Step 42: backprop done in 38.4s (accumulated 2 batches, 64 samples, total rollout time: 73.1s)
+Training Progress:  16%|█▋        | 41/250 [42:22<3:18:25, 56.96s/it, rollout=36.5s, backprop=38.4s, accum=0/2]Training Progress:  17%|█▋        | 42/250 [42:22<3:38:32, 63.04s/it, rollout=36.5s, backprop=38.4s, accum=0/2]2026-02-17 07:19:22,002 - INFO - Step 43 (accum 1/2): rollout done in 36.9s
+2026-02-17 07:19:24,584 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 120.5
+Training Progress:  17%|█▋        | 42/250 [43:02<3:38:32, 63.04s/it, rollout=36.9s, backprop=0.0s, accum=1/2] Training Progress:  17%|█▋        | 43/250 [43:02<3:13:03, 55.96s/it, rollout=36.9s, backprop=0.0s, accum=1/2]2026-02-17 07:19:59,979 - INFO - Step 44 (accum 2/2): rollout done in 35.4s
+2026-02-17 07:20:02,384 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 79.1
+2026-02-17 07:20:42,066 - INFO - Step 44: backprop done in 39.7s (accumulated 2 batches, 64 samples, total rollout time: 72.2s)
+Training Progress:  17%|█▋        | 43/250 [44:19<3:13:03, 55.96s/it, rollout=35.4s, backprop=39.7s, accum=0/2]Training Progress:  18%|█▊        | 44/250 [44:19<3:34:19, 62.42s/it, rollout=35.4s, backprop=39.7s, accum=0/2]2026-02-17 07:21:18,846 - INFO - Step 45 (accum 1/2): rollout done in 36.8s
+2026-02-17 07:21:21,091 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 72.2
+Training Progress:  18%|█▊        | 44/250 [44:58<3:34:19, 62.42s/it, rollout=36.8s, backprop=0.0s, accum=1/2] Training Progress:  18%|█▊        | 45/250 [44:58<3:09:16, 55.40s/it, rollout=36.8s, backprop=0.0s, accum=1/2]2026-02-17 07:21:58,991 - INFO - Step 46 (accum 2/2): rollout done in 37.9s
+2026-02-17 07:22:01,741 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 204.5
+2026-02-17 07:22:44,054 - INFO - Step 46: backprop done in 42.3s (accumulated 2 batches, 64 samples, total rollout time: 74.6s)
+Training Progress:  18%|█▊        | 45/250 [46:21<3:09:16, 55.40s/it, rollout=37.9s, backprop=42.3s, accum=0/2]Training Progress:  18%|█▊        | 46/250 [46:21<3:36:27, 63.67s/it, rollout=37.9s, backprop=42.3s, accum=0/2]2026-02-17 07:23:20,930 - INFO - Step 47 (accum 1/2): rollout done in 36.9s
+2026-02-17 07:23:23,020 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 132.8
+Training Progress:  18%|█▊        | 46/250 [47:00<3:36:27, 63.67s/it, rollout=36.9s, backprop=0.0s, accum=1/2] Training Progress:  19%|█▉        | 47/250 [47:00<3:10:20, 56.26s/it, rollout=36.9s, backprop=0.0s, accum=1/2]2026-02-17 07:23:59,510 - INFO - Step 48 (accum 2/2): rollout done in 36.5s
+2026-02-17 07:24:01,966 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 67.8
+2026-02-17 07:24:43,748 - INFO - Step 48: backprop done in 41.8s (accumulated 2 batches, 64 samples, total rollout time: 73.4s)
+Training Progress:  19%|█▉        | 47/250 [48:21<3:10:20, 56.26s/it, rollout=36.5s, backprop=41.8s, accum=0/2]Training Progress:  19%|█▉        | 48/250 [48:21<3:34:06, 63.60s/it, rollout=36.5s, backprop=41.8s, accum=0/2]2026-02-17 07:25:20,695 - INFO - Step 49 (accum 1/2): rollout done in 36.9s
+2026-02-17 07:25:22,717 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 78.1
+Training Progress:  19%|█▉        | 48/250 [49:00<3:34:06, 63.60s/it, rollout=36.9s, backprop=0.0s, accum=1/2] Training Progress:  20%|█▉        | 49/250 [49:00<3:08:18, 56.21s/it, rollout=36.9s, backprop=0.0s, accum=1/2]2026-02-17 07:26:01,072 - INFO - Step 50 (accum 2/2): rollout done in 38.3s
+2026-02-17 07:26:04,123 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 100.9
+2026-02-17 07:26:48,001 - INFO - Step 50: backprop done in 43.8s (accumulated 2 batches, 64 samples, total rollout time: 75.3s)
+Training Progress:  20%|█▉        | 49/250 [50:25<3:08:18, 56.21s/it, rollout=38.3s, backprop=43.8s, accum=0/2]Training Progress:  20%|██        | 50/250 [50:25<3:36:26, 64.93s/it, rollout=38.3s, backprop=43.8s, accum=0/2]2026-02-17 07:27:25,016 - INFO - Step 51 (accum 1/2): rollout done in 37.0s
+2026-02-17 07:27:27,321 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 34.6
+Training Progress:  20%|██        | 50/250 [51:05<3:36:26, 64.93s/it, rollout=37.0s, backprop=0.0s, accum=1/2] Training Progress:  20%|██        | 51/250 [51:05<3:09:52, 57.25s/it, rollout=37.0s, backprop=0.0s, accum=1/2]2026-02-17 07:28:04,998 - INFO - Step 52 (accum 2/2): rollout done in 37.7s
+2026-02-17 07:28:07,370 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 23.1
+2026-02-17 07:28:50,112 - INFO - Step 52: backprop done in 42.7s (accumulated 2 batches, 64 samples, total rollout time: 74.7s)
+Training Progress:  20%|██        | 51/250 [52:27<3:09:52, 57.25s/it, rollout=37.7s, backprop=42.7s, accum=0/2]Training Progress:  21%|██        | 52/250 [52:27<3:34:12, 64.91s/it, rollout=37.7s, backprop=42.7s, accum=0/2]2026-02-17 07:29:27,960 - INFO - Step 53 (accum 1/2): rollout done in 37.8s
+2026-02-17 07:29:30,003 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 110.9
+Training Progress:  21%|██        | 52/250 [53:07<3:34:12, 64.91s/it, rollout=37.8s, backprop=0.0s, accum=1/2] Training Progress:  21%|██        | 53/250 [53:07<3:08:28, 57.40s/it, rollout=37.8s, backprop=0.0s, accum=1/2]2026-02-17 07:30:08,235 - INFO - Step 54 (accum 2/2): rollout done in 38.2s
+2026-02-17 07:30:10,610 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 198.9
+2026-02-17 07:30:50,184 - INFO - Step 54: backprop done in 39.6s (accumulated 2 batches, 64 samples, total rollout time: 76.1s)
+Training Progress:  21%|██        | 53/250 [54:27<3:08:28, 57.40s/it, rollout=38.2s, backprop=39.6s, accum=0/2]Training Progress:  22%|██▏       | 54/250 [54:27<3:29:50, 64.24s/it, rollout=38.2s, backprop=39.6s, accum=0/2]2026-02-17 07:31:28,183 - INFO - Step 55 (accum 1/2): rollout done in 38.0s
+2026-02-17 07:31:30,607 - INFO - Truncated 13/32 responses at first \boxed{}. Mean tokens dropped: 108.3
+Training Progress:  22%|██▏       | 54/250 [55:08<3:29:50, 64.24s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  22%|██▏       | 55/250 [55:08<3:05:34, 57.10s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 07:32:07,849 - INFO - Step 56 (accum 2/2): rollout done in 37.2s
+2026-02-17 07:32:10,232 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 81.1
+2026-02-17 07:32:49,391 - INFO - Step 56: backprop done in 39.2s (accumulated 2 batches, 64 samples, total rollout time: 75.2s)
+Training Progress:  22%|██▏       | 55/250 [56:27<3:05:34, 57.10s/it, rollout=37.2s, backprop=39.2s, accum=0/2]Training Progress:  22%|██▏       | 56/250 [56:27<3:25:38, 63.60s/it, rollout=37.2s, backprop=39.2s, accum=0/2]2026-02-17 07:33:27,814 - INFO - Step 57 (accum 1/2): rollout done in 38.4s
+2026-02-17 07:33:30,250 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 159.9
+Training Progress:  22%|██▏       | 56/250 [57:08<3:25:38, 63.60s/it, rollout=38.4s, backprop=0.0s, accum=1/2] Training Progress:  23%|██▎       | 57/250 [57:08<3:02:37, 56.78s/it, rollout=38.4s, backprop=0.0s, accum=1/2]2026-02-17 07:34:07,263 - INFO - Step 58 (accum 2/2): rollout done in 37.0s
+2026-02-17 07:34:09,295 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 167.6
+2026-02-17 07:34:48,573 - INFO - Step 58: backprop done in 39.3s (accumulated 2 batches, 64 samples, total rollout time: 75.4s)
+Training Progress:  23%|██▎       | 57/250 [58:26<3:02:37, 56.78s/it, rollout=37.0s, backprop=39.3s, accum=0/2]Training Progress:  23%|██▎       | 58/250 [58:26<3:22:22, 63.24s/it, rollout=37.0s, backprop=39.3s, accum=0/2]2026-02-17 07:35:27,532 - INFO - Step 59 (accum 1/2): rollout done in 39.0s
+2026-02-17 07:35:29,761 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 120.9
+Training Progress:  23%|██▎       | 58/250 [59:07<3:22:22, 63.24s/it, rollout=39.0s, backprop=0.0s, accum=1/2] Training Progress:  24%|██▎       | 59/250 [59:07<3:00:15, 56.63s/it, rollout=39.0s, backprop=0.0s, accum=1/2]2026-02-17 07:36:06,506 - INFO - Step 60 (accum 2/2): rollout done in 36.7s
+2026-02-17 07:36:09,042 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 109.7
+2026-02-17 07:36:51,968 - INFO - Step 60: backprop done in 42.9s (accumulated 2 batches, 64 samples, total rollout time: 75.7s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:36:54,640:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:36:54,694:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:36:54,665:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:36:54,662:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:36:55,647:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:36:55,649:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/extra_state_world_size_4_rank_0.pt
+Training Progress:  24%|██▎       | 59/250 [1:00:33<3:00:15, 56.63s/it, rollout=36.7s, backprop=42.9s, accum=0/2]Training Progress:  24%|██▍       | 60/250 [1:00:33<3:27:10, 65.42s/it, rollout=36.7s, backprop=42.9s, accum=0/2][36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:36:55,691:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/huggingface
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:36:55,707:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:36:55,708:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:36:55,673:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:36:55,674:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:36:55,667:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:36:55,669:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_60/actor/extra_state_world_size_4_rank_1.pt
+2026-02-17 07:37:33,442 - INFO - Step 61 (accum 1/2): rollout done in 37.7s
+2026-02-17 07:37:36,452 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 66.0
+Training Progress:  24%|██▍       | 60/250 [1:01:14<3:27:10, 65.42s/it, rollout=37.7s, backprop=0.0s, accum=1/2] Training Progress:  24%|██▍       | 61/250 [1:01:14<3:02:45, 58.02s/it, rollout=37.7s, backprop=0.0s, accum=1/2]2026-02-17 07:38:14,046 - INFO - Step 62 (accum 2/2): rollout done in 37.6s
+2026-02-17 07:38:16,666 - INFO - Truncated 13/32 responses at first \boxed{}. Mean tokens dropped: 79.9
+2026-02-17 07:39:00,280 - INFO - Step 62: backprop done in 43.6s (accumulated 2 batches, 64 samples, total rollout time: 75.3s)
+Training Progress:  24%|██▍       | 61/250 [1:02:38<3:02:45, 58.02s/it, rollout=37.6s, backprop=43.6s, accum=0/2]Training Progress:  25%|██▍       | 62/250 [1:02:38<3:26:03, 65.76s/it, rollout=37.6s, backprop=43.6s, accum=0/2]2026-02-17 07:39:36,369 - INFO - Step 63 (accum 1/2): rollout done in 36.1s
+2026-02-17 07:39:38,400 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 40.0
+Training Progress:  25%|██▍       | 62/250 [1:03:16<3:26:03, 65.76s/it, rollout=36.1s, backprop=0.0s, accum=1/2] Training Progress:  25%|██▌       | 63/250 [1:03:16<2:59:06, 57.47s/it, rollout=36.1s, backprop=0.0s, accum=1/2]2026-02-17 07:40:15,637 - INFO - Step 64 (accum 2/2): rollout done in 37.2s
+2026-02-17 07:40:17,675 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 26.4
+2026-02-17 07:40:57,095 - INFO - Step 64: backprop done in 39.4s (accumulated 2 batches, 64 samples, total rollout time: 73.3s)
+Training Progress:  25%|██▌       | 63/250 [1:04:34<2:59:06, 57.47s/it, rollout=37.2s, backprop=39.4s, accum=0/2]Training Progress:  26%|██▌       | 64/250 [1:04:34<3:17:53, 63.84s/it, rollout=37.2s, backprop=39.4s, accum=0/2]2026-02-17 07:41:34,129 - INFO - Step 65 (accum 1/2): rollout done in 37.0s
+2026-02-17 07:41:36,485 - INFO - Truncated 17/32 responses at first \boxed{}. Mean tokens dropped: 105.8
+Training Progress:  26%|██▌       | 64/250 [1:05:14<3:17:53, 63.84s/it, rollout=37.0s, backprop=0.0s, accum=1/2] Training Progress:  26%|██▌       | 65/250 [1:05:14<2:54:13, 56.50s/it, rollout=37.0s, backprop=0.0s, accum=1/2]2026-02-17 07:42:14,827 - INFO - Step 66 (accum 2/2): rollout done in 38.3s
+2026-02-17 07:42:17,383 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 47.3
+2026-02-17 07:42:59,525 - INFO - Step 66: backprop done in 42.1s (accumulated 2 batches, 64 samples, total rollout time: 75.4s)
+Training Progress:  26%|██▌       | 65/250 [1:06:37<2:54:13, 56.50s/it, rollout=38.3s, backprop=42.1s, accum=0/2]Training Progress:  26%|██▋       | 66/250 [1:06:37<3:17:41, 64.46s/it, rollout=38.3s, backprop=42.1s, accum=0/2]2026-02-17 07:43:38,565 - INFO - Step 67 (accum 1/2): rollout done in 39.0s
+2026-02-17 07:43:40,713 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 172.3
+Training Progress:  26%|██▋       | 66/250 [1:07:18<3:17:41, 64.46s/it, rollout=39.0s, backprop=0.0s, accum=1/2] Training Progress:  27%|██▋       | 67/250 [1:07:18<2:55:18, 57.48s/it, rollout=39.0s, backprop=0.0s, accum=1/2]2026-02-17 07:44:17,294 - INFO - Step 68 (accum 2/2): rollout done in 36.6s
+2026-02-17 07:44:19,320 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 89.6
+2026-02-17 07:44:58,277 - INFO - Step 68: backprop done in 39.0s (accumulated 2 batches, 64 samples, total rollout time: 75.6s)
+Training Progress:  27%|██▋       | 67/250 [1:08:36<2:55:18, 57.48s/it, rollout=36.6s, backprop=39.0s, accum=0/2]Training Progress:  27%|██▋       | 68/250 [1:08:36<3:12:42, 63.53s/it, rollout=36.6s, backprop=39.0s, accum=0/2]2026-02-17 07:45:36,726 - INFO - Step 69 (accum 1/2): rollout done in 38.4s
+2026-02-17 07:45:38,733 - INFO - Truncated 14/32 responses at first \boxed{}. Mean tokens dropped: 93.6
+Training Progress:  27%|██▋       | 68/250 [1:09:16<3:12:42, 63.53s/it, rollout=38.4s, backprop=0.0s, accum=1/2] Training Progress:  28%|██▊       | 69/250 [1:09:16<2:50:41, 56.58s/it, rollout=38.4s, backprop=0.0s, accum=1/2]2026-02-17 07:46:15,268 - INFO - Step 70 (accum 2/2): rollout done in 36.5s
+2026-02-17 07:46:17,299 - INFO - Truncated 21/32 responses at first \boxed{}. Mean tokens dropped: 88.6
+2026-02-17 07:46:55,704 - INFO - Step 70: backprop done in 38.4s (accumulated 2 batches, 64 samples, total rollout time: 74.9s)
+Training Progress:  28%|██▊       | 69/250 [1:10:33<2:50:41, 56.58s/it, rollout=36.5s, backprop=38.4s, accum=0/2]Training Progress:  28%|██▊       | 70/250 [1:10:33<3:08:05, 62.70s/it, rollout=36.5s, backprop=38.4s, accum=0/2]2026-02-17 07:47:33,033 - INFO - Step 71 (accum 1/2): rollout done in 37.3s
+2026-02-17 07:47:36,553 - INFO - Truncated 19/32 responses at first \boxed{}. Mean tokens dropped: 201.0
+Training Progress:  28%|██▊       | 70/250 [1:11:14<3:08:05, 62.70s/it, rollout=37.3s, backprop=0.0s, accum=1/2] Training Progress:  28%|██▊       | 71/250 [1:11:14<2:47:29, 56.14s/it, rollout=37.3s, backprop=0.0s, accum=1/2]2026-02-17 07:48:15,522 - INFO - Step 72 (accum 2/2): rollout done in 39.0s
+2026-02-17 07:48:17,749 - INFO - Truncated 12/32 responses at first \boxed{}. Mean tokens dropped: 104.0
+2026-02-17 07:49:00,784 - INFO - Step 72: backprop done in 43.0s (accumulated 2 batches, 64 samples, total rollout time: 76.3s)
+Training Progress:  28%|██▊       | 71/250 [1:12:38<2:47:29, 56.14s/it, rollout=39.0s, backprop=43.0s, accum=0/2]Training Progress:  29%|██▉       | 72/250 [1:12:38<3:11:33, 64.57s/it, rollout=39.0s, backprop=43.0s, accum=0/2]2026-02-17 07:49:37,523 - INFO - Step 73 (accum 1/2): rollout done in 36.7s
+2026-02-17 07:49:39,932 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 51.9
+Training Progress:  29%|██▉       | 72/250 [1:13:17<3:11:33, 64.57s/it, rollout=36.7s, backprop=0.0s, accum=1/2] Training Progress:  29%|██▉       | 73/250 [1:13:17<2:47:59, 56.94s/it, rollout=36.7s, backprop=0.0s, accum=1/2]2026-02-17 07:50:16,920 - INFO - Step 74 (accum 2/2): rollout done in 37.0s
+2026-02-17 07:50:19,102 - INFO - Truncated 11/32 responses at first \boxed{}. Mean tokens dropped: 87.6
+2026-02-17 07:51:01,206 - INFO - Step 74: backprop done in 42.1s (accumulated 2 batches, 64 samples, total rollout time: 73.7s)
+Training Progress:  29%|██▉       | 73/250 [1:14:39<2:47:59, 56.94s/it, rollout=37.0s, backprop=42.1s, accum=0/2]Training Progress:  30%|██▉       | 74/250 [1:14:39<3:08:26, 64.24s/it, rollout=37.0s, backprop=42.1s, accum=0/2]2026-02-17 07:51:38,797 - INFO - Step 75 (accum 1/2): rollout done in 37.6s
+2026-02-17 07:51:40,845 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 43.6
+Training Progress:  30%|██▉       | 74/250 [1:15:18<3:08:26, 64.24s/it, rollout=37.6s, backprop=0.0s, accum=1/2] Training Progress:  30%|███       | 75/250 [1:15:18<2:45:50, 56.86s/it, rollout=37.6s, backprop=0.0s, accum=1/2]2026-02-17 07:52:17,565 - INFO - Step 76 (accum 2/2): rollout done in 36.7s
+2026-02-17 07:52:19,810 - INFO - Truncated 20/32 responses at first \boxed{}. Mean tokens dropped: 120.7
+2026-02-17 07:52:59,738 - INFO - Step 76: backprop done in 39.9s (accumulated 2 batches, 64 samples, total rollout time: 74.3s)
+Training Progress:  30%|███       | 75/250 [1:16:37<2:45:50, 56.86s/it, rollout=36.7s, backprop=39.9s, accum=0/2]Training Progress:  30%|███       | 76/250 [1:16:37<3:04:03, 63.47s/it, rollout=36.7s, backprop=39.9s, accum=0/2]2026-02-17 07:53:38,914 - INFO - Step 77 (accum 1/2): rollout done in 39.2s
+2026-02-17 07:53:41,463 - INFO - Truncated 12/32 responses at first \boxed{}. Mean tokens dropped: 88.8
+Training Progress:  30%|███       | 76/250 [1:17:19<3:04:03, 63.47s/it, rollout=39.2s, backprop=0.0s, accum=1/2] Training Progress:  31%|███       | 77/250 [1:17:19<2:44:11, 56.95s/it, rollout=39.2s, backprop=0.0s, accum=1/2]2026-02-17 07:54:18,267 - INFO - Step 78 (accum 2/2): rollout done in 36.8s
+2026-02-17 07:54:20,463 - INFO - Truncated 18/32 responses at first \boxed{}. Mean tokens dropped: 52.9
+2026-02-17 07:55:01,869 - INFO - Step 78: backprop done in 41.4s (accumulated 2 batches, 64 samples, total rollout time: 76.0s)
+Training Progress:  31%|███       | 77/250 [1:18:39<2:44:11, 56.95s/it, rollout=36.8s, backprop=41.4s, accum=0/2]Training Progress:  31%|███       | 78/250 [1:18:39<3:03:25, 63.98s/it, rollout=36.8s, backprop=41.4s, accum=0/2]2026-02-17 07:55:40,923 - INFO - Step 79 (accum 1/2): rollout done in 39.0s
+2026-02-17 07:55:42,981 - INFO - Truncated 12/32 responses at first \boxed{}. Mean tokens dropped: 151.6
+Training Progress:  31%|███       | 78/250 [1:19:20<3:03:25, 63.98s/it, rollout=39.0s, backprop=0.0s, accum=1/2] Training Progress:  32%|███▏      | 79/250 [1:19:20<2:42:48, 57.12s/it, rollout=39.0s, backprop=0.0s, accum=1/2]2026-02-17 07:56:21,449 - INFO - Step 80 (accum 2/2): rollout done in 38.5s
+2026-02-17 07:56:23,995 - INFO - Truncated 8/32 responses at first \boxed{}. Mean tokens dropped: 75.4
+2026-02-17 07:57:05,661 - INFO - Step 80: backprop done in 41.7s (accumulated 2 batches, 64 samples, total rollout time: 77.5s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:57:08,235:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:57:08,239:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:57:08,244:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:57:08,237:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:57:09,267:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:57:09,269:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:57:09,252:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 07:57:09,253:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:57:09,264:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 07:57:09,265:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:57:09,248:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 07:57:09,250:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 07:57:09,308:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_80/actor/huggingface
+Training Progress:  32%|███▏      | 79/250 [1:20:47<2:42:48, 57.12s/it, rollout=38.5s, backprop=41.7s, accum=0/2]Training Progress:  32%|███▏      | 80/250 [1:20:47<3:06:40, 65.89s/it, rollout=38.5s, backprop=41.7s, accum=0/2]2026-02-17 07:57:47,358 - INFO - Step 81 (accum 1/2): rollout done in 38.0s
+2026-02-17 07:57:49,776 - INFO - Truncated 16/32 responses at first \boxed{}. Mean tokens dropped: 205.3
+Training Progress:  32%|███▏      | 80/250 [1:21:27<3:06:40, 65.89s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  32%|███▏      | 81/250 [1:21:27<2:44:05, 58.26s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 07:58:28,223 - INFO - Step 82 (accum 2/2): rollout done in 38.4s
+2026-02-17 07:58:30,596 - INFO - Truncated 10/32 responses at first \boxed{}. Mean tokens dropped: 71.4
+2026-02-17 07:59:13,127 - INFO - Step 82: backprop done in 42.5s (accumulated 2 batches, 64 samples, total rollout time: 76.5s)
+Training Progress:  32%|███▏      | 81/250 [1:22:50<2:44:05, 58.26s/it, rollout=38.4s, backprop=42.5s, accum=0/2]Training Progress:  33%|███▎      | 82/250 [1:22:50<3:04:12, 65.79s/it, rollout=38.4s, backprop=42.5s, accum=0/2]2026-02-17 07:59:52,178 - INFO - Step 83 (accum 1/2): rollout done in 39.0s
+2026-02-17 07:59:54,535 - INFO - Truncated 6/32 responses at first \boxed{}. Mean tokens dropped: 236.0
+Training Progress:  33%|███▎      | 82/250 [1:23:32<3:04:12, 65.79s/it, rollout=39.0s, backprop=0.0s, accum=1/2] Training Progress:  33%|███▎      | 83/250 [1:23:32<2:42:45, 58.47s/it, rollout=39.0s, backprop=0.0s, accum=1/2]2026-02-17 08:00:33,810 - INFO - Step 84 (accum 2/2): rollout done in 39.3s
+2026-02-17 08:00:36,859 - INFO - Truncated 6/32 responses at first \boxed{}. Mean tokens dropped: 141.7
+2026-02-17 08:01:20,574 - INFO - Step 84: backprop done in 43.7s (accumulated 2 batches, 64 samples, total rollout time: 78.3s)
+Training Progress:  33%|███▎      | 83/250 [1:24:58<2:42:45, 58.47s/it, rollout=39.3s, backprop=43.7s, accum=0/2]Training Progress:  34%|███▎      | 84/250 [1:24:58<3:04:39, 66.74s/it, rollout=39.3s, backprop=43.7s, accum=0/2]2026-02-17 08:01:58,736 - INFO - Step 85 (accum 1/2): rollout done in 38.2s
+2026-02-17 08:02:01,714 - INFO - Truncated 8/32 responses at first \boxed{}. Mean tokens dropped: 161.1
+Training Progress:  34%|███▎      | 84/250 [1:25:39<3:04:39, 66.74s/it, rollout=38.2s, backprop=0.0s, accum=1/2] Training Progress:  34%|███▍      | 85/250 [1:25:39<2:42:25, 59.06s/it, rollout=38.2s, backprop=0.0s, accum=1/2]2026-02-17 08:02:39,611 - INFO - Step 86 (accum 2/2): rollout done in 37.9s
+2026-02-17 08:02:41,757 - INFO - Truncated 3/32 responses at first \boxed{}. Mean tokens dropped: 349.0
+2026-02-17 08:03:26,767 - INFO - Step 86: backprop done in 45.0s (accumulated 2 batches, 64 samples, total rollout time: 76.0s)
+Training Progress:  34%|███▍      | 85/250 [1:27:04<2:42:25, 59.06s/it, rollout=37.9s, backprop=45.0s, accum=0/2]Training Progress:  34%|███▍      | 86/250 [1:27:04<3:02:44, 66.86s/it, rollout=37.9s, backprop=45.0s, accum=0/2]2026-02-17 08:04:09,022 - INFO - Step 87 (accum 1/2): rollout done in 42.2s
+2026-02-17 08:04:11,569 - INFO - Truncated 4/32 responses at first \boxed{}. Mean tokens dropped: 250.8
+Training Progress:  34%|███▍      | 86/250 [1:27:49<3:02:44, 66.86s/it, rollout=42.2s, backprop=0.0s, accum=1/2] Training Progress:  35%|███▍      | 87/250 [1:27:49<2:43:39, 60.24s/it, rollout=42.2s, backprop=0.0s, accum=1/2]2026-02-17 08:04:50,614 - INFO - Step 88 (accum 2/2): rollout done in 39.0s
+2026-02-17 08:04:52,806 - INFO - Truncated 7/32 responses at first \boxed{}. Mean tokens dropped: 255.4
+2026-02-17 08:05:37,416 - INFO - Step 88: backprop done in 44.6s (accumulated 2 batches, 64 samples, total rollout time: 81.3s)
+Training Progress:  35%|███▍      | 87/250 [1:29:15<2:43:39, 60.24s/it, rollout=39.0s, backprop=44.6s, accum=0/2]Training Progress:  35%|███▌      | 88/250 [1:29:15<3:03:23, 67.92s/it, rollout=39.0s, backprop=44.6s, accum=0/2]2026-02-17 08:06:16,955 - INFO - Step 89 (accum 1/2): rollout done in 39.5s
+2026-02-17 08:06:19,109 - INFO - Truncated 4/32 responses at first \boxed{}. Mean tokens dropped: 297.5
+Training Progress:  35%|███▌      | 88/250 [1:29:56<3:03:23, 67.92s/it, rollout=39.5s, backprop=0.0s, accum=1/2] Training Progress:  36%|███▌      | 89/250 [1:29:56<2:41:09, 60.06s/it, rollout=39.5s, backprop=0.0s, accum=1/2]2026-02-17 08:06:59,899 - INFO - Step 90 (accum 2/2): rollout done in 40.8s
+2026-02-17 08:07:02,095 - INFO - Truncated 4/32 responses at first \boxed{}. Mean tokens dropped: 227.0
+2026-02-17 08:07:47,132 - INFO - Step 90: backprop done in 45.0s (accumulated 2 batches, 64 samples, total rollout time: 80.3s)
+Training Progress:  36%|███▌      | 89/250 [1:31:24<2:41:09, 60.06s/it, rollout=40.8s, backprop=45.0s, accum=0/2]Training Progress:  36%|███▌      | 90/250 [1:31:24<3:02:30, 68.44s/it, rollout=40.8s, backprop=45.0s, accum=0/2]2026-02-17 08:08:26,282 - INFO - Step 91 (accum 1/2): rollout done in 39.1s
+2026-02-17 08:08:28,853 - INFO - Truncated 8/32 responses at first \boxed{}. Mean tokens dropped: 280.9
+Training Progress:  36%|███▌      | 90/250 [1:32:06<3:02:30, 68.44s/it, rollout=39.1s, backprop=0.0s, accum=1/2] Training Progress:  36%|███▋      | 91/250 [1:32:06<2:40:07, 60.43s/it, rollout=39.1s, backprop=0.0s, accum=1/2]2026-02-17 08:09:08,653 - INFO - Step 92 (accum 2/2): rollout done in 39.8s
+2026-02-17 08:09:10,843 - INFO - Truncated 8/32 responses at first \boxed{}. Mean tokens dropped: 541.0
+2026-02-17 08:09:55,102 - INFO - Step 92: backprop done in 44.3s (accumulated 2 batches, 64 samples, total rollout time: 78.9s)
+Training Progress:  36%|███▋      | 91/250 [1:33:32<2:40:07, 60.43s/it, rollout=39.8s, backprop=44.3s, accum=0/2]Training Progress:  37%|███▋      | 92/250 [1:33:32<2:59:31, 68.18s/it, rollout=39.8s, backprop=44.3s, accum=0/2]2026-02-17 08:10:32,280 - INFO - Step 93 (accum 1/2): rollout done in 37.2s
+2026-02-17 08:10:35,291 - INFO - Truncated 3/32 responses at first \boxed{}. Mean tokens dropped: 398.0
+Training Progress:  37%|███▋      | 92/250 [1:34:13<2:59:31, 68.18s/it, rollout=37.2s, backprop=0.0s, accum=1/2] Training Progress:  37%|███▋      | 93/250 [1:34:13<2:36:25, 59.78s/it, rollout=37.2s, backprop=0.0s, accum=1/2]2026-02-17 08:11:14,179 - INFO - Step 94 (accum 2/2): rollout done in 38.9s
+2026-02-17 08:11:16,745 - INFO - Truncated 3/32 responses at first \boxed{}. Mean tokens dropped: 305.0
+2026-02-17 08:12:00,918 - INFO - Step 94: backprop done in 44.2s (accumulated 2 batches, 64 samples, total rollout time: 76.0s)
+Training Progress:  37%|███▋      | 93/250 [1:35:38<2:36:25, 59.78s/it, rollout=38.9s, backprop=44.2s, accum=0/2]Training Progress:  38%|███▊      | 94/250 [1:35:38<2:55:35, 67.53s/it, rollout=38.9s, backprop=44.2s, accum=0/2]2026-02-17 08:12:40,034 - INFO - Step 95 (accum 1/2): rollout done in 39.1s
+2026-02-17 08:12:42,583 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 304.0
+Training Progress:  38%|███▊      | 94/250 [1:36:20<2:55:35, 67.53s/it, rollout=39.1s, backprop=0.0s, accum=1/2] Training Progress:  38%|███▊      | 95/250 [1:36:20<2:34:24, 59.77s/it, rollout=39.1s, backprop=0.0s, accum=1/2]2026-02-17 08:13:20,109 - INFO - Step 96 (accum 2/2): rollout done in 37.5s
+2026-02-17 08:13:22,293 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 341.0
+2026-02-17 08:14:06,522 - INFO - Step 96: backprop done in 44.2s (accumulated 2 batches, 64 samples, total rollout time: 76.6s)
+Training Progress:  38%|███▊      | 95/250 [1:37:44<2:34:24, 59.77s/it, rollout=37.5s, backprop=44.2s, accum=0/2]Training Progress:  38%|███▊      | 96/250 [1:37:44<2:52:01, 67.02s/it, rollout=37.5s, backprop=44.2s, accum=0/2]2026-02-17 08:14:44,344 - INFO - Step 97 (accum 1/2): rollout done in 37.8s
+2026-02-17 08:14:46,614 - INFO - Truncated 6/32 responses at first \boxed{}. Mean tokens dropped: 271.8
+Training Progress:  38%|███▊      | 96/250 [1:38:24<2:52:01, 67.02s/it, rollout=37.8s, backprop=0.0s, accum=1/2] Training Progress:  39%|███▉      | 97/250 [1:38:24<2:30:18, 58.94s/it, rollout=37.8s, backprop=0.0s, accum=1/2]2026-02-17 08:15:24,192 - INFO - Step 98 (accum 2/2): rollout done in 37.6s
+2026-02-17 08:15:26,347 - INFO - Truncated 5/32 responses at first \boxed{}. Mean tokens dropped: 136.8
+2026-02-17 08:16:11,844 - INFO - Step 98: backprop done in 45.5s (accumulated 2 batches, 64 samples, total rollout time: 75.4s)
+Training Progress:  39%|███▉      | 97/250 [1:39:49<2:30:18, 58.94s/it, rollout=37.6s, backprop=45.5s, accum=0/2]Training Progress:  39%|███▉      | 98/250 [1:39:49<2:49:17, 66.83s/it, rollout=37.6s, backprop=45.5s, accum=0/2]2026-02-17 08:16:49,205 - INFO - Step 99 (accum 1/2): rollout done in 37.4s
+2026-02-17 08:16:51,353 - INFO - Truncated 2/32 responses at first \boxed{}. Mean tokens dropped: 502.0
+Training Progress:  39%|███▉      | 98/250 [1:40:29<2:49:17, 66.83s/it, rollout=37.4s, backprop=0.0s, accum=1/2] Training Progress:  40%|███▉      | 99/250 [1:40:29<2:27:33, 58.63s/it, rollout=37.4s, backprop=0.0s, accum=1/2]2026-02-17 08:17:30,008 - INFO - Step 100 (accum 2/2): rollout done in 38.6s
+2026-02-17 08:17:32,597 - INFO - Truncated 4/32 responses at first \boxed{}. Mean tokens dropped: 565.2
+2026-02-17 08:18:15,765 - INFO - Step 100: backprop done in 43.2s (accumulated 2 batches, 64 samples, total rollout time: 76.0s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:18:18,373:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 08:18:18,315:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 08:18:18,346:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 08:18:18,332:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 08:18:19,328:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 08:18:19,330:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:18:19,400:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:18:19,401:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 08:18:19,346:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 08:18:19,348:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 08:18:19,347:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 08:18:19,349:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/extra_state_world_size_4_rank_1.pt
+Training Progress:  40%|███▉      | 99/250 [1:41:57<2:27:33, 58.63s/it, rollout=38.6s, backprop=43.2s, accum=0/2]Training Progress:  40%|████      | 100/250 [1:41:57<2:48:44, 67.50s/it, rollout=38.6s, backprop=43.2s, accum=0/2][36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:18:19,443:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_100/actor/huggingface
+2026-02-17 08:18:57,683 - INFO - Step 101 (accum 1/2): rollout done in 38.1s
+2026-02-17 08:18:59,742 - INFO - Truncated 4/32 responses at first \boxed{}. Mean tokens dropped: 323.5
+Training Progress:  40%|████      | 100/250 [1:42:37<2:48:44, 67.50s/it, rollout=38.1s, backprop=0.0s, accum=1/2] Training Progress:  40%|████      | 101/250 [1:42:37<2:27:17, 59.31s/it, rollout=38.1s, backprop=0.0s, accum=1/2]2026-02-17 08:19:36,998 - INFO - Step 102 (accum 2/2): rollout done in 37.2s
+2026-02-17 08:19:39,144 - INFO - Truncated 3/32 responses at first \boxed{}. Mean tokens dropped: 342.0
+2026-02-17 08:20:25,154 - INFO - Step 102: backprop done in 46.0s (accumulated 2 batches, 64 samples, total rollout time: 75.4s)
+Training Progress:  40%|████      | 101/250 [1:44:02<2:27:17, 59.31s/it, rollout=37.2s, backprop=46.0s, accum=0/2]Training Progress:  41%|████      | 102/250 [1:44:02<2:45:36, 67.14s/it, rollout=37.2s, backprop=46.0s, accum=0/2]2026-02-17 08:21:02,385 - INFO - Step 103 (accum 1/2): rollout done in 37.2s
+2026-02-17 08:21:05,385 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 6.0
+Training Progress:  41%|████      | 102/250 [1:44:43<2:45:36, 67.14s/it, rollout=37.2s, backprop=0.0s, accum=1/2] Training Progress:  41%|████      | 103/250 [1:44:43<2:24:43, 59.07s/it, rollout=37.2s, backprop=0.0s, accum=1/2]2026-02-17 08:21:42,639 - INFO - Step 104 (accum 2/2): rollout done in 37.2s
+2026-02-17 08:21:45,139 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 4.0
+2026-02-17 08:22:29,686 - INFO - Step 104: backprop done in 44.5s (accumulated 2 batches, 64 samples, total rollout time: 74.5s)
+Training Progress:  41%|████      | 103/250 [1:46:07<2:24:43, 59.07s/it, rollout=37.2s, backprop=44.5s, accum=0/2]Training Progress:  42%|████▏     | 104/250 [1:46:07<2:42:09, 66.64s/it, rollout=37.2s, backprop=44.5s, accum=0/2]2026-02-17 08:23:07,671 - INFO - Step 105 (accum 1/2): rollout done in 38.0s
+2026-02-17 08:23:10,177 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 11.0
+Training Progress:  42%|████▏     | 104/250 [1:46:47<2:42:09, 66.64s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  42%|████▏     | 105/250 [1:46:47<2:22:05, 58.79s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 08:23:46,797 - INFO - Step 106 (accum 2/2): rollout done in 36.6s
+2026-02-17 08:23:49,292 - INFO - Truncated 2/32 responses at first \boxed{}. Mean tokens dropped: 25.0
+2026-02-17 08:24:31,742 - INFO - Step 106: backprop done in 42.4s (accumulated 2 batches, 64 samples, total rollout time: 74.6s)
+Training Progress:  42%|████▏     | 105/250 [1:48:09<2:22:05, 58.79s/it, rollout=36.6s, backprop=42.4s, accum=0/2]Training Progress:  42%|████▏     | 106/250 [1:48:09<2:37:29, 65.62s/it, rollout=36.6s, backprop=42.4s, accum=0/2]2026-02-17 08:25:10,067 - INFO - Step 107 (accum 1/2): rollout done in 38.3s
+Training Progress:  42%|████▏     | 106/250 [1:48:49<2:37:29, 65.62s/it, rollout=38.3s, backprop=0.0s, accum=1/2] Training Progress:  43%|████▎     | 107/250 [1:48:49<2:18:24, 58.07s/it, rollout=38.3s, backprop=0.0s, accum=1/2]2026-02-17 08:25:49,441 - INFO - Step 108 (accum 2/2): rollout done in 37.2s
+2026-02-17 08:25:51,926 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 1876.0
+2026-02-17 08:26:37,342 - INFO - Step 108: backprop done in 45.4s (accumulated 2 batches, 64 samples, total rollout time: 75.6s)
+Training Progress:  43%|████▎     | 107/250 [1:50:15<2:18:24, 58.07s/it, rollout=37.2s, backprop=45.4s, accum=0/2]Training Progress:  43%|████▎     | 108/250 [1:50:15<2:36:39, 66.20s/it, rollout=37.2s, backprop=45.4s, accum=0/2]2026-02-17 08:27:17,658 - INFO - Step 109 (accum 1/2): rollout done in 40.3s
+Training Progress:  43%|████▎     | 108/250 [1:50:57<2:36:39, 66.20s/it, rollout=40.3s, backprop=0.0s, accum=1/2] Training Progress:  44%|████▎     | 109/250 [1:50:57<2:18:49, 59.08s/it, rollout=40.3s, backprop=0.0s, accum=1/2]2026-02-17 08:27:56,814 - INFO - Step 110 (accum 2/2): rollout done in 37.0s
+2026-02-17 08:28:44,634 - INFO - Step 110: backprop done in 45.7s (accumulated 2 batches, 64 samples, total rollout time: 77.3s)
+Training Progress:  44%|████▎     | 109/250 [1:52:22<2:18:49, 59.08s/it, rollout=37.0s, backprop=45.7s, accum=0/2]Training Progress:  44%|████▍     | 110/250 [1:52:22<2:35:52, 66.80s/it, rollout=37.0s, backprop=45.7s, accum=0/2]2026-02-17 08:29:22,766 - INFO - Step 111 (accum 1/2): rollout done in 38.1s
+Training Progress:  44%|████▍     | 110/250 [1:53:02<2:35:52, 66.80s/it, rollout=38.1s, backprop=0.0s, accum=1/2] Training Progress:  44%|████▍     | 111/250 [1:53:02<2:16:20, 58.85s/it, rollout=38.1s, backprop=0.0s, accum=1/2]2026-02-17 08:30:02,758 - INFO - Step 112 (accum 2/2): rollout done in 37.8s
+2026-02-17 08:30:49,490 - INFO - Step 112: backprop done in 43.7s (accumulated 2 batches, 64 samples, total rollout time: 75.9s)
+Training Progress:  44%|████▍     | 111/250 [1:54:27<2:16:20, 58.85s/it, rollout=37.8s, backprop=43.7s, accum=0/2]Training Progress:  45%|████▍     | 112/250 [1:54:27<2:33:05, 66.56s/it, rollout=37.8s, backprop=43.7s, accum=0/2]2026-02-17 08:31:30,020 - INFO - Step 113 (accum 1/2): rollout done in 40.5s
+Training Progress:  45%|████▍     | 112/250 [1:55:10<2:33:05, 66.56s/it, rollout=40.5s, backprop=0.0s, accum=1/2] Training Progress:  45%|████▌     | 113/250 [1:55:10<2:15:43, 59.44s/it, rollout=40.5s, backprop=0.0s, accum=1/2]2026-02-17 08:32:12,857 - INFO - Step 114 (accum 2/2): rollout done in 40.5s
+2026-02-17 08:33:00,289 - INFO - Step 114: backprop done in 45.3s (accumulated 2 batches, 64 samples, total rollout time: 81.1s)
+Training Progress:  45%|████▌     | 113/250 [1:56:38<2:15:43, 59.44s/it, rollout=40.5s, backprop=45.3s, accum=0/2]Training Progress:  46%|████▌     | 114/250 [1:56:38<2:34:07, 68.00s/it, rollout=40.5s, backprop=45.3s, accum=0/2]2026-02-17 08:33:39,149 - INFO - Step 115 (accum 1/2): rollout done in 38.9s
+Training Progress:  46%|████▌     | 114/250 [1:57:19<2:34:07, 68.00s/it, rollout=38.9s, backprop=0.0s, accum=1/2] Training Progress:  46%|████▌     | 115/250 [1:57:19<2:14:46, 59.90s/it, rollout=38.9s, backprop=0.0s, accum=1/2]2026-02-17 08:34:19,559 - INFO - Step 116 (accum 2/2): rollout done in 38.3s
+2026-02-17 08:34:22,220 - INFO - Truncated 2/32 responses at first \boxed{}. Mean tokens dropped: 974.5
+2026-02-17 08:35:10,520 - INFO - Step 116: backprop done in 48.3s (accumulated 2 batches, 64 samples, total rollout time: 77.1s)
+Training Progress:  46%|████▌     | 115/250 [1:58:48<2:14:46, 59.90s/it, rollout=38.3s, backprop=48.3s, accum=0/2]Training Progress:  46%|████▋     | 116/250 [1:58:48<2:33:25, 68.70s/it, rollout=38.3s, backprop=48.3s, accum=0/2]2026-02-17 08:35:47,956 - INFO - Step 117 (accum 1/2): rollout done in 37.4s
+Training Progress:  46%|████▋     | 116/250 [1:59:27<2:33:25, 68.70s/it, rollout=37.4s, backprop=0.0s, accum=1/2] Training Progress:  47%|████▋     | 117/250 [1:59:27<2:12:48, 59.92s/it, rollout=37.4s, backprop=0.0s, accum=1/2]2026-02-17 08:36:29,778 - INFO - Step 118 (accum 2/2): rollout done in 39.8s
+2026-02-17 08:37:16,715 - INFO - Step 118: backprop done in 44.4s (accumulated 2 batches, 64 samples, total rollout time: 77.3s)
+Training Progress:  47%|████▋     | 117/250 [2:00:54<2:12:48, 59.92s/it, rollout=39.8s, backprop=44.4s, accum=0/2]Training Progress:  47%|████▋     | 118/250 [2:00:54<2:29:32, 67.97s/it, rollout=39.8s, backprop=44.4s, accum=0/2]2026-02-17 08:37:56,379 - INFO - Step 119 (accum 1/2): rollout done in 39.7s
+2026-02-17 08:37:58,536 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 40.0
+Training Progress:  47%|████▋     | 118/250 [2:01:36<2:29:32, 67.97s/it, rollout=39.7s, backprop=0.0s, accum=1/2] Training Progress:  48%|████▊     | 119/250 [2:01:36<2:11:16, 60.13s/it, rollout=39.7s, backprop=0.0s, accum=1/2]2026-02-17 08:38:37,414 - INFO - Step 120 (accum 2/2): rollout done in 38.9s
+2026-02-17 08:39:26,743 - INFO - Step 120: backprop done in 46.7s (accumulated 2 batches, 64 samples, total rollout time: 78.5s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:39:29,697:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 08:39:29,685:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 08:39:29,675:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 08:39:29,711:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:39:30,686:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:39:30,687:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 08:39:30,679:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 08:39:30,680:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 08:39:30,706:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 08:39:30,707:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 08:39:30,728:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/huggingface
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 08:39:30,926:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 08:39:30,927:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_120/actor/extra_state_world_size_4_rank_1.pt
+Training Progress:  48%|████▊     | 119/250 [2:03:08<2:11:16, 60.13s/it, rollout=38.9s, backprop=46.7s, accum=0/2]Training Progress:  48%|████▊     | 120/250 [2:03:08<2:31:15, 69.81s/it, rollout=38.9s, backprop=46.7s, accum=0/2]2026-02-17 08:40:10,858 - INFO - Step 121 (accum 1/2): rollout done in 39.9s
+Training Progress:  48%|████▊     | 120/250 [2:03:51<2:31:15, 69.81s/it, rollout=39.9s, backprop=0.0s, accum=1/2] Training Progress:  48%|████▊     | 121/250 [2:03:51<2:12:25, 61.60s/it, rollout=39.9s, backprop=0.0s, accum=1/2]2026-02-17 08:40:52,542 - INFO - Step 122 (accum 2/2): rollout done in 39.2s
+2026-02-17 08:40:55,095 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 2.0
+2026-02-17 08:41:40,353 - INFO - Step 122: backprop done in 45.3s (accumulated 2 batches, 64 samples, total rollout time: 79.1s)
+Training Progress:  48%|████▊     | 121/250 [2:05:18<2:12:25, 61.60s/it, rollout=39.2s, backprop=45.3s, accum=0/2]Training Progress:  49%|████▉     | 122/250 [2:05:18<2:27:39, 69.21s/it, rollout=39.2s, backprop=45.3s, accum=0/2]2026-02-17 08:42:18,813 - INFO - Step 123 (accum 1/2): rollout done in 38.5s
+Training Progress:  49%|████▉     | 122/250 [2:05:58<2:27:39, 69.21s/it, rollout=38.5s, backprop=0.0s, accum=1/2] Training Progress:  49%|████▉     | 123/250 [2:05:58<2:08:27, 60.69s/it, rollout=38.5s, backprop=0.0s, accum=1/2]2026-02-17 08:43:00,032 - INFO - Step 124 (accum 2/2): rollout done in 38.9s
+2026-02-17 08:43:02,537 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 2017.0
+2026-02-17 08:43:43,030 - INFO - Step 124: backprop done in 40.5s (accumulated 2 batches, 64 samples, total rollout time: 77.3s)
+Training Progress:  49%|████▉     | 123/250 [2:07:20<2:08:27, 60.69s/it, rollout=38.9s, backprop=40.5s, accum=0/2]Training Progress:  50%|████▉     | 124/250 [2:07:20<2:20:47, 67.05s/it, rollout=38.9s, backprop=40.5s, accum=0/2]2026-02-17 08:44:21,016 - INFO - Step 125 (accum 1/2): rollout done in 38.0s
+2026-02-17 08:44:23,707 - INFO - Truncated 2/32 responses at first \boxed{}. Mean tokens dropped: 2.5
+Training Progress:  50%|████▉     | 124/250 [2:08:01<2:20:47, 67.05s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  50%|█████     | 125/250 [2:08:01<2:03:11, 59.13s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 08:45:00,872 - INFO - Step 126 (accum 2/2): rollout done in 37.2s
+2026-02-17 08:45:49,581 - INFO - Step 126: backprop done in 46.7s (accumulated 2 batches, 64 samples, total rollout time: 75.1s)
+Training Progress:  50%|█████     | 125/250 [2:09:27<2:03:11, 59.13s/it, rollout=37.2s, backprop=46.7s, accum=0/2]Training Progress:  50%|█████     | 126/250 [2:09:27<2:18:47, 67.16s/it, rollout=37.2s, backprop=46.7s, accum=0/2]2026-02-17 08:46:27,009 - INFO - Step 127 (accum 1/2): rollout done in 37.4s
+Training Progress:  50%|█████     | 126/250 [2:10:06<2:18:47, 67.16s/it, rollout=37.4s, backprop=0.0s, accum=1/2] Training Progress:  51%|█████     | 127/250 [2:10:06<2:00:42, 58.88s/it, rollout=37.4s, backprop=0.0s, accum=1/2]2026-02-17 08:47:09,119 - INFO - Step 128 (accum 2/2): rollout done in 40.0s
+2026-02-17 08:47:55,438 - INFO - Step 128: backprop done in 44.0s (accumulated 2 batches, 64 samples, total rollout time: 77.4s)
+Training Progress:  51%|█████     | 127/250 [2:11:33<2:00:42, 58.88s/it, rollout=40.0s, backprop=44.0s, accum=0/2]Training Progress:  51%|█████     | 128/250 [2:11:33<2:16:26, 67.10s/it, rollout=40.0s, backprop=44.0s, accum=0/2]2026-02-17 08:48:34,109 - INFO - Step 129 (accum 1/2): rollout done in 38.7s
+2026-02-17 08:48:36,938 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 2008.0
+Training Progress:  51%|█████     | 128/250 [2:12:14<2:16:26, 67.10s/it, rollout=38.7s, backprop=0.0s, accum=1/2] Training Progress:  52%|█████▏    | 129/250 [2:12:14<1:59:50, 59.42s/it, rollout=38.7s, backprop=0.0s, accum=1/2]2026-02-17 08:49:15,922 - INFO - Step 130 (accum 2/2): rollout done in 39.0s
+2026-02-17 08:50:02,109 - INFO - Step 130: backprop done in 43.7s (accumulated 2 batches, 64 samples, total rollout time: 77.6s)
+Training Progress:  52%|█████▏    | 129/250 [2:13:39<1:59:50, 59.42s/it, rollout=39.0s, backprop=43.7s, accum=0/2]Training Progress:  52%|█████▏    | 130/250 [2:13:39<2:14:17, 67.15s/it, rollout=39.0s, backprop=43.7s, accum=0/2]2026-02-17 08:50:41,871 - INFO - Step 131 (accum 1/2): rollout done in 39.8s
+Training Progress:  52%|█████▏    | 130/250 [2:14:22<2:14:17, 67.15s/it, rollout=39.8s, backprop=0.0s, accum=1/2] Training Progress:  52%|█████▏    | 131/250 [2:14:22<1:58:20, 59.67s/it, rollout=39.8s, backprop=0.0s, accum=1/2]2026-02-17 08:51:21,345 - INFO - Step 132 (accum 2/2): rollout done in 37.0s
+2026-02-17 08:52:10,527 - INFO - Step 132: backprop done in 46.8s (accumulated 2 batches, 64 samples, total rollout time: 76.8s)
+Training Progress:  52%|█████▏    | 131/250 [2:15:48<1:58:20, 59.67s/it, rollout=37.0s, backprop=46.8s, accum=0/2]Training Progress:  53%|█████▎    | 132/250 [2:15:48<2:12:59, 67.63s/it, rollout=37.0s, backprop=46.8s, accum=0/2]2026-02-17 08:52:48,434 - INFO - Step 133 (accum 1/2): rollout done in 37.9s
+2026-02-17 08:52:50,578 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 2004.0
+Training Progress:  53%|█████▎    | 132/250 [2:16:28<2:12:59, 67.63s/it, rollout=37.9s, backprop=0.0s, accum=1/2] Training Progress:  53%|█████▎    | 133/250 [2:16:28<1:55:44, 59.35s/it, rollout=37.9s, backprop=0.0s, accum=1/2]2026-02-17 08:53:28,320 - INFO - Step 134 (accum 2/2): rollout done in 37.7s
+2026-02-17 08:54:15,505 - INFO - Step 134: backprop done in 44.1s (accumulated 2 batches, 64 samples, total rollout time: 75.6s)
+Training Progress:  53%|█████▎    | 133/250 [2:17:53<1:55:44, 59.35s/it, rollout=37.7s, backprop=44.1s, accum=0/2]Training Progress:  54%|█████▎    | 134/250 [2:17:53<2:09:34, 67.03s/it, rollout=37.7s, backprop=44.1s, accum=0/2]2026-02-17 08:54:51,104 - INFO - Step 135 (accum 1/2): rollout done in 35.6s
+Training Progress:  54%|█████▎    | 134/250 [2:18:31<2:09:34, 67.03s/it, rollout=35.6s, backprop=0.0s, accum=1/2] Training Progress:  54%|█████▍    | 135/250 [2:18:31<1:51:44, 58.30s/it, rollout=35.6s, backprop=0.0s, accum=1/2]2026-02-17 08:55:30,198 - INFO - Step 136 (accum 2/2): rollout done in 36.7s
+2026-02-17 08:56:18,494 - INFO - Step 136: backprop done in 46.1s (accumulated 2 batches, 64 samples, total rollout time: 72.3s)
+Training Progress:  54%|█████▍    | 135/250 [2:19:56<1:51:44, 58.30s/it, rollout=36.7s, backprop=46.1s, accum=0/2]Training Progress:  54%|█████▍    | 136/250 [2:19:56<2:06:00, 66.32s/it, rollout=36.7s, backprop=46.1s, accum=0/2]2026-02-17 08:56:58,388 - INFO - Step 137 (accum 1/2): rollout done in 39.9s
+Training Progress:  54%|█████▍    | 136/250 [2:20:38<2:06:00, 66.32s/it, rollout=39.9s, backprop=0.0s, accum=1/2] Training Progress:  55%|█████▍    | 137/250 [2:20:38<1:51:28, 59.19s/it, rollout=39.9s, backprop=0.0s, accum=1/2]2026-02-17 08:57:38,564 - INFO - Step 138 (accum 2/2): rollout done in 37.5s
+2026-02-17 08:57:40,714 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 1.0
+2026-02-17 08:58:27,904 - INFO - Step 138: backprop done in 47.2s (accumulated 2 batches, 64 samples, total rollout time: 77.4s)
+Training Progress:  55%|█████▍    | 137/250 [2:22:05<1:51:28, 59.19s/it, rollout=37.5s, backprop=47.2s, accum=0/2]Training Progress:  55%|█████▌    | 138/250 [2:22:05<2:05:59, 67.49s/it, rollout=37.5s, backprop=47.2s, accum=0/2]2026-02-17 08:59:07,402 - INFO - Step 139 (accum 1/2): rollout done in 39.5s
+Training Progress:  55%|█████▌    | 138/250 [2:22:47<2:05:59, 67.49s/it, rollout=39.5s, backprop=0.0s, accum=1/2] Training Progress:  56%|█████▌    | 139/250 [2:22:47<1:50:41, 59.84s/it, rollout=39.5s, backprop=0.0s, accum=1/2]2026-02-17 08:59:47,778 - INFO - Step 140 (accum 2/2): rollout done in 37.9s
+2026-02-17 09:00:36,817 - INFO - Step 140: backprop done in 46.6s (accumulated 2 batches, 64 samples, total rollout time: 77.4s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:00:39,483:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:00:39,486:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:00:39,479:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:00:39,466:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:00:40,643:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:00:40,645:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:00:40,647:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:00:40,649:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:00:40,691:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/huggingface
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:00:40,647:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:00:40,649:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/extra_state_world_size_4_rank_2.pt
+Training Progress:  56%|█████▌    | 139/250 [2:24:18<1:50:41, 59.84s/it, rollout=37.9s, backprop=46.6s, accum=0/2]Training Progress:  56%|█████▌    | 140/250 [2:24:18<2:06:51, 69.20s/it, rollout=37.9s, backprop=46.6s, accum=0/2][36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:00:40,898:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:00:40,900:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_140/actor/extra_state_world_size_4_rank_3.pt
+2026-02-17 09:01:18,493 - INFO - Step 141 (accum 1/2): rollout done in 37.6s
+2026-02-17 09:01:20,541 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 33.0
+Training Progress:  56%|█████▌    | 140/250 [2:24:58<2:06:51, 69.20s/it, rollout=37.6s, backprop=0.0s, accum=1/2] Training Progress:  56%|█████▋    | 141/250 [2:24:58<1:49:35, 60.33s/it, rollout=37.6s, backprop=0.0s, accum=1/2]2026-02-17 09:02:00,066 - INFO - Step 142 (accum 2/2): rollout done in 39.5s
+2026-02-17 09:02:50,077 - INFO - Step 142: backprop done in 47.5s (accumulated 2 batches, 64 samples, total rollout time: 77.1s)
+Training Progress:  56%|█████▋    | 141/250 [2:26:27<1:49:35, 60.33s/it, rollout=39.5s, backprop=47.5s, accum=0/2]Training Progress:  57%|█████▋    | 142/250 [2:26:27<2:04:21, 69.09s/it, rollout=39.5s, backprop=47.5s, accum=0/2]2026-02-17 09:03:30,707 - INFO - Step 143 (accum 1/2): rollout done in 40.6s
+Training Progress:  57%|█████▋    | 142/250 [2:27:11<2:04:21, 69.09s/it, rollout=40.6s, backprop=0.0s, accum=1/2] Training Progress:  57%|█████▋    | 143/250 [2:27:11<1:49:20, 61.31s/it, rollout=40.6s, backprop=0.0s, accum=1/2]2026-02-17 09:04:11,196 - INFO - Step 144 (accum 2/2): rollout done in 37.9s
+2026-02-17 09:04:56,822 - INFO - Step 144: backprop done in 43.4s (accumulated 2 batches, 64 samples, total rollout time: 78.6s)
+Training Progress:  57%|█████▋    | 143/250 [2:28:34<1:49:20, 61.31s/it, rollout=37.9s, backprop=43.4s, accum=0/2]Training Progress:  58%|█████▊    | 144/250 [2:28:34<2:00:07, 67.99s/it, rollout=37.9s, backprop=43.4s, accum=0/2]2026-02-17 09:05:36,376 - INFO - Step 145 (accum 1/2): rollout done in 39.5s
+Training Progress:  58%|█████▊    | 144/250 [2:29:16<2:00:07, 67.99s/it, rollout=39.5s, backprop=0.0s, accum=1/2] Training Progress:  58%|█████▊    | 145/250 [2:29:16<1:45:11, 60.11s/it, rollout=39.5s, backprop=0.0s, accum=1/2]2026-02-17 09:06:17,037 - INFO - Step 146 (accum 2/2): rollout done in 38.5s
+2026-02-17 09:07:00,563 - INFO - Step 146: backprop done in 41.2s (accumulated 2 batches, 64 samples, total rollout time: 78.0s)
+Training Progress:  58%|█████▊    | 145/250 [2:30:38<1:45:11, 60.11s/it, rollout=38.5s, backprop=41.2s, accum=0/2]Training Progress:  58%|█████▊    | 146/250 [2:30:38<1:55:35, 66.68s/it, rollout=38.5s, backprop=41.2s, accum=0/2]2026-02-17 09:07:38,758 - INFO - Step 147 (accum 1/2): rollout done in 38.2s
+Training Progress:  58%|█████▊    | 146/250 [2:31:19<1:55:35, 66.68s/it, rollout=38.2s, backprop=0.0s, accum=1/2] Training Progress:  59%|█████▉    | 147/250 [2:31:19<1:41:05, 58.89s/it, rollout=38.2s, backprop=0.0s, accum=1/2]2026-02-17 09:08:19,184 - INFO - Step 148 (accum 2/2): rollout done in 37.9s
+2026-02-17 09:09:03,429 - INFO - Step 148: backprop done in 42.1s (accumulated 2 batches, 64 samples, total rollout time: 76.1s)
+Training Progress:  59%|█████▉    | 147/250 [2:32:41<1:41:05, 58.89s/it, rollout=37.9s, backprop=42.1s, accum=0/2]Training Progress:  59%|█████▉    | 148/250 [2:32:41<1:51:59, 65.87s/it, rollout=37.9s, backprop=42.1s, accum=0/2]2026-02-17 09:09:44,506 - INFO - Step 149 (accum 1/2): rollout done in 41.1s
+Training Progress:  59%|█████▉    | 148/250 [2:33:24<1:51:59, 65.87s/it, rollout=41.1s, backprop=0.0s, accum=1/2] Training Progress:  60%|█████▉    | 149/250 [2:33:24<1:39:32, 59.13s/it, rollout=41.1s, backprop=0.0s, accum=1/2]2026-02-17 09:10:24,222 - INFO - Step 150 (accum 2/2): rollout done in 37.4s
+2026-02-17 09:11:12,626 - INFO - Step 150: backprop done in 45.9s (accumulated 2 batches, 64 samples, total rollout time: 78.5s)
+Training Progress:  60%|█████▉    | 149/250 [2:34:50<1:39:32, 59.13s/it, rollout=37.4s, backprop=45.9s, accum=0/2]Training Progress:  60%|██████    | 150/250 [2:34:50<1:51:53, 67.13s/it, rollout=37.4s, backprop=45.9s, accum=0/2]2026-02-17 09:11:50,481 - INFO - Step 151 (accum 1/2): rollout done in 37.8s
+Training Progress:  60%|██████    | 150/250 [2:35:30<1:51:53, 67.13s/it, rollout=37.8s, backprop=0.0s, accum=1/2] Training Progress:  60%|██████    | 151/250 [2:35:30<1:37:25, 59.05s/it, rollout=37.8s, backprop=0.0s, accum=1/2]2026-02-17 09:12:32,968 - INFO - Step 152 (accum 2/2): rollout done in 40.1s
+2026-02-17 09:12:36,213 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 1.0
+2026-02-17 09:13:20,071 - INFO - Step 152: backprop done in 43.9s (accumulated 2 batches, 64 samples, total rollout time: 78.0s)
+Training Progress:  60%|██████    | 151/250 [2:36:57<1:37:25, 59.05s/it, rollout=40.1s, backprop=43.9s, accum=0/2]Training Progress:  61%|██████    | 152/250 [2:36:57<1:50:15, 67.51s/it, rollout=40.1s, backprop=43.9s, accum=0/2]2026-02-17 09:13:58,527 - INFO - Step 153 (accum 1/2): rollout done in 38.5s
+Training Progress:  61%|██████    | 152/250 [2:37:38<1:50:15, 67.51s/it, rollout=38.5s, backprop=0.0s, accum=1/2] Training Progress:  61%|██████    | 153/250 [2:37:38<1:36:15, 59.55s/it, rollout=38.5s, backprop=0.0s, accum=1/2]2026-02-17 09:14:39,829 - INFO - Step 154 (accum 2/2): rollout done in 38.8s
+2026-02-17 09:15:27,981 - INFO - Step 154: backprop done in 45.8s (accumulated 2 batches, 64 samples, total rollout time: 77.2s)
+Training Progress:  61%|██████    | 153/250 [2:39:05<1:36:15, 59.55s/it, rollout=38.8s, backprop=45.8s, accum=0/2]Training Progress:  62%|██████▏   | 154/250 [2:39:05<1:48:25, 67.77s/it, rollout=38.8s, backprop=45.8s, accum=0/2]2026-02-17 09:16:06,548 - INFO - Step 155 (accum 1/2): rollout done in 38.6s
+Training Progress:  62%|██████▏   | 154/250 [2:39:46<1:48:25, 67.77s/it, rollout=38.6s, backprop=0.0s, accum=1/2] Training Progress:  62%|██████▏   | 155/250 [2:39:46<1:34:22, 59.61s/it, rollout=38.6s, backprop=0.0s, accum=1/2]2026-02-17 09:16:46,658 - INFO - Step 156 (accum 2/2): rollout done in 38.1s
+2026-02-17 09:17:34,572 - INFO - Step 156: backprop done in 45.8s (accumulated 2 batches, 64 samples, total rollout time: 76.7s)
+Training Progress:  62%|██████▏   | 155/250 [2:41:12<1:34:22, 59.61s/it, rollout=38.1s, backprop=45.8s, accum=0/2]Training Progress:  62%|██████▏   | 156/250 [2:41:12<1:45:50, 67.56s/it, rollout=38.1s, backprop=45.8s, accum=0/2]2026-02-17 09:18:14,561 - INFO - Step 157 (accum 1/2): rollout done in 39.9s
+Training Progress:  62%|██████▏   | 156/250 [2:41:54<1:45:50, 67.56s/it, rollout=39.9s, backprop=0.0s, accum=1/2] Training Progress:  63%|██████▎   | 157/250 [2:41:54<1:32:51, 59.91s/it, rollout=39.9s, backprop=0.0s, accum=1/2]2026-02-17 09:18:55,262 - INFO - Step 158 (accum 2/2): rollout done in 38.5s
+2026-02-17 09:19:46,495 - INFO - Step 158: backprop done in 48.7s (accumulated 2 batches, 64 samples, total rollout time: 78.4s)
+Training Progress:  63%|██████▎   | 157/250 [2:43:24<1:32:51, 59.91s/it, rollout=38.5s, backprop=48.7s, accum=0/2]Training Progress:  63%|██████▎   | 158/250 [2:43:24<1:45:35, 68.87s/it, rollout=38.5s, backprop=48.7s, accum=0/2]2026-02-17 09:20:24,540 - INFO - Step 159 (accum 1/2): rollout done in 38.0s
+Training Progress:  63%|██████▎   | 158/250 [2:44:04<1:45:35, 68.87s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  64%|██████▎   | 159/250 [2:44:04<1:31:19, 60.22s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 09:21:04,065 - INFO - Step 160 (accum 2/2): rollout done in 37.5s
+2026-02-17 09:21:46,369 - INFO - Step 160: backprop done in 39.6s (accumulated 2 batches, 64 samples, total rollout time: 75.6s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:21:49,161:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:21:49,170:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:21:49,148:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:21:49,161:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/model_world_size_4_rank_1.pt
+Training Progress:  64%|██████▎   | 159/250 [2:45:28<1:31:19, 60.22s/it, rollout=37.5s, backprop=39.6s, accum=0/2]Training Progress:  64%|██████▍   | 160/250 [2:45:28<1:40:56, 67.29s/it, rollout=37.5s, backprop=39.6s, accum=0/2][36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:21:50,276:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:21:50,278:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:21:50,320:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/huggingface
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:21:50,288:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:21:50,289:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:21:50,268:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:21:50,269:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:21:50,274:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:21:50,275:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_160/actor/extra_state_world_size_4_rank_1.pt
+2026-02-17 09:22:29,176 - INFO - Step 161 (accum 1/2): rollout done in 38.8s
+Training Progress:  64%|██████▍   | 160/250 [2:46:09<1:40:56, 67.29s/it, rollout=38.8s, backprop=0.0s, accum=1/2] Training Progress:  64%|██████▍   | 161/250 [2:46:09<1:28:25, 59.61s/it, rollout=38.8s, backprop=0.0s, accum=1/2]2026-02-17 09:23:10,317 - INFO - Step 162 (accum 2/2): rollout done in 38.3s
+2026-02-17 09:23:57,338 - INFO - Step 162: backprop done in 45.0s (accumulated 2 batches, 64 samples, total rollout time: 77.1s)
+Training Progress:  64%|██████▍   | 161/250 [2:47:35<1:28:25, 59.61s/it, rollout=38.3s, backprop=45.0s, accum=0/2]Training Progress:  65%|██████▍   | 162/250 [2:47:35<1:38:44, 67.33s/it, rollout=38.3s, backprop=45.0s, accum=0/2]2026-02-17 09:24:35,642 - INFO - Step 163 (accum 1/2): rollout done in 38.3s
+Training Progress:  65%|██████▍   | 162/250 [2:48:15<1:38:44, 67.33s/it, rollout=38.3s, backprop=0.0s, accum=1/2] Training Progress:  65%|██████▌   | 163/250 [2:48:15<1:25:52, 59.22s/it, rollout=38.3s, backprop=0.0s, accum=1/2]2026-02-17 09:25:18,227 - INFO - Step 164 (accum 2/2): rollout done in 40.6s
+2026-02-17 09:26:05,674 - INFO - Step 164: backprop done in 45.3s (accumulated 2 batches, 64 samples, total rollout time: 78.9s)
+Training Progress:  65%|██████▌   | 163/250 [2:49:43<1:25:52, 59.22s/it, rollout=40.6s, backprop=45.3s, accum=0/2]Training Progress:  66%|██████▌   | 164/250 [2:49:43<1:37:16, 67.87s/it, rollout=40.6s, backprop=45.3s, accum=0/2]2026-02-17 09:26:43,246 - INFO - Step 165 (accum 1/2): rollout done in 37.5s
+Training Progress:  66%|██████▌   | 164/250 [2:50:23<1:37:16, 67.87s/it, rollout=37.5s, backprop=0.0s, accum=1/2] Training Progress:  66%|██████▌   | 165/250 [2:50:23<1:24:07, 59.38s/it, rollout=37.5s, backprop=0.0s, accum=1/2]2026-02-17 09:27:24,489 - INFO - Step 166 (accum 2/2): rollout done in 39.2s
+2026-02-17 09:28:06,754 - INFO - Step 166: backprop done in 39.9s (accumulated 2 batches, 64 samples, total rollout time: 76.8s)
+Training Progress:  66%|██████▌   | 165/250 [2:51:44<1:24:07, 59.38s/it, rollout=39.2s, backprop=39.9s, accum=0/2]Training Progress:  66%|██████▋   | 166/250 [2:51:44<1:32:25, 66.01s/it, rollout=39.2s, backprop=39.9s, accum=0/2]2026-02-17 09:28:45,738 - INFO - Step 167 (accum 1/2): rollout done in 39.0s
+Training Progress:  66%|██████▋   | 166/250 [2:52:26<1:32:25, 66.01s/it, rollout=39.0s, backprop=0.0s, accum=1/2] Training Progress:  67%|██████▋   | 167/250 [2:52:26<1:21:08, 58.65s/it, rollout=39.0s, backprop=0.0s, accum=1/2]2026-02-17 09:29:25,500 - INFO - Step 168 (accum 2/2): rollout done in 37.3s
+2026-02-17 09:30:10,531 - INFO - Step 168: backprop done in 42.9s (accumulated 2 batches, 64 samples, total rollout time: 76.2s)
+Training Progress:  67%|██████▋   | 167/250 [2:53:48<1:21:08, 58.65s/it, rollout=37.3s, backprop=42.9s, accum=0/2]Training Progress:  67%|██████▋   | 168/250 [2:53:48<1:29:51, 65.75s/it, rollout=37.3s, backprop=42.9s, accum=0/2]2026-02-17 09:30:48,580 - INFO - Step 169 (accum 1/2): rollout done in 38.0s
+Training Progress:  67%|██████▋   | 168/250 [2:54:28<1:29:51, 65.75s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  68%|██████▊   | 169/250 [2:54:28<1:18:32, 58.18s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 09:31:28,821 - INFO - Step 170 (accum 2/2): rollout done in 37.7s
+2026-02-17 09:32:15,144 - INFO - Step 170: backprop done in 44.3s (accumulated 2 batches, 64 samples, total rollout time: 75.8s)
+Training Progress:  68%|██████▊   | 169/250 [2:55:52<1:18:32, 58.18s/it, rollout=37.7s, backprop=44.3s, accum=0/2]Training Progress:  68%|██████▊   | 170/250 [2:55:52<1:27:56, 65.95s/it, rollout=37.7s, backprop=44.3s, accum=0/2]2026-02-17 09:32:54,095 - INFO - Step 171 (accum 1/2): rollout done in 38.9s
+Training Progress:  68%|██████▊   | 170/250 [2:56:33<1:27:56, 65.95s/it, rollout=38.9s, backprop=0.0s, accum=1/2] Training Progress:  68%|██████▊   | 171/250 [2:56:33<1:16:58, 58.46s/it, rollout=38.9s, backprop=0.0s, accum=1/2]2026-02-17 09:33:34,674 - INFO - Step 172 (accum 2/2): rollout done in 38.5s
+2026-02-17 09:34:19,323 - INFO - Step 172: backprop done in 42.0s (accumulated 2 batches, 64 samples, total rollout time: 77.5s)
+Training Progress:  68%|██████▊   | 171/250 [2:57:57<1:16:58, 58.46s/it, rollout=38.5s, backprop=42.0s, accum=0/2]Training Progress:  69%|██████▉   | 172/250 [2:57:57<1:25:38, 65.88s/it, rollout=38.5s, backprop=42.0s, accum=0/2]2026-02-17 09:34:58,767 - INFO - Step 173 (accum 1/2): rollout done in 39.4s
+Training Progress:  69%|██████▉   | 172/250 [2:58:38<1:25:38, 65.88s/it, rollout=39.4s, backprop=0.0s, accum=1/2] Training Progress:  69%|██████▉   | 173/250 [2:58:38<1:15:11, 58.59s/it, rollout=39.4s, backprop=0.0s, accum=1/2]2026-02-17 09:35:39,439 - INFO - Step 174 (accum 2/2): rollout done in 38.5s
+2026-02-17 09:36:27,726 - INFO - Step 174: backprop done in 45.6s (accumulated 2 batches, 64 samples, total rollout time: 78.0s)
+Training Progress:  69%|██████▉   | 173/250 [3:00:05<1:15:11, 58.59s/it, rollout=38.5s, backprop=45.6s, accum=0/2]Training Progress:  70%|██████▉   | 174/250 [3:00:05<1:24:56, 67.06s/it, rollout=38.5s, backprop=45.6s, accum=0/2]2026-02-17 09:37:06,880 - INFO - Step 175 (accum 1/2): rollout done in 39.2s
+Training Progress:  70%|██████▉   | 174/250 [3:00:46<1:24:56, 67.06s/it, rollout=39.2s, backprop=0.0s, accum=1/2] Training Progress:  70%|███████   | 175/250 [3:00:46<1:14:10, 59.34s/it, rollout=39.2s, backprop=0.0s, accum=1/2]2026-02-17 09:37:47,140 - INFO - Step 176 (accum 2/2): rollout done in 38.1s
+2026-02-17 09:38:33,532 - INFO - Step 176: backprop done in 43.9s (accumulated 2 batches, 64 samples, total rollout time: 77.2s)
+Training Progress:  70%|███████   | 175/250 [3:02:11<1:14:10, 59.34s/it, rollout=38.1s, backprop=43.9s, accum=0/2]Training Progress:  70%|███████   | 176/250 [3:02:11<1:22:31, 66.91s/it, rollout=38.1s, backprop=43.9s, accum=0/2]2026-02-17 09:39:12,280 - INFO - Step 177 (accum 1/2): rollout done in 38.6s
+2026-02-17 09:39:14,356 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 1472.0
+Training Progress:  70%|███████   | 176/250 [3:02:52<1:22:31, 66.91s/it, rollout=38.6s, backprop=0.0s, accum=1/2] Training Progress:  71%|███████   | 177/250 [3:02:52<1:11:51, 59.06s/it, rollout=38.6s, backprop=0.0s, accum=1/2]2026-02-17 09:39:53,739 - INFO - Step 178 (accum 2/2): rollout done in 39.4s
+2026-02-17 09:40:42,139 - INFO - Step 178: backprop done in 46.1s (accumulated 2 batches, 64 samples, total rollout time: 78.0s)
+Training Progress:  71%|███████   | 177/250 [3:04:19<1:11:51, 59.06s/it, rollout=39.4s, backprop=46.1s, accum=0/2]Training Progress:  71%|███████   | 178/250 [3:04:19<1:21:12, 67.67s/it, rollout=39.4s, backprop=46.1s, accum=0/2]2026-02-17 09:41:22,756 - INFO - Step 179 (accum 1/2): rollout done in 40.6s
+Training Progress:  71%|███████   | 178/250 [3:05:03<1:21:12, 67.67s/it, rollout=40.6s, backprop=0.0s, accum=1/2] Training Progress:  72%|███████▏  | 179/250 [3:05:03<1:11:22, 60.32s/it, rollout=40.6s, backprop=0.0s, accum=1/2]2026-02-17 09:42:06,821 - INFO - Step 180 (accum 2/2): rollout done in 41.5s
+2026-02-17 09:42:55,549 - INFO - Step 180: backprop done in 46.4s (accumulated 2 batches, 64 samples, total rollout time: 82.1s)
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:42:58,372:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/model_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:42:58,381:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:42:58,385:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:42:58,390:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:42:59,551:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:42:59,553:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:42:59,523:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 09:42:59,525:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:42:59,545:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 09:42:59,547:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:42:59,523:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 09:42:59,524:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/extra_state_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 09:42:59,605:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_180/actor/huggingface
+Training Progress:  72%|███████▏  | 179/250 [3:06:37<1:11:22, 60.32s/it, rollout=41.5s, backprop=46.4s, accum=0/2]Training Progress:  72%|███████▏  | 180/250 [3:06:37<1:22:16, 70.52s/it, rollout=41.5s, backprop=46.4s, accum=0/2]2026-02-17 09:43:37,849 - INFO - Step 181 (accum 1/2): rollout done in 38.2s
+Training Progress:  72%|███████▏  | 180/250 [3:07:17<1:22:16, 70.52s/it, rollout=38.2s, backprop=0.0s, accum=1/2] Training Progress:  72%|███████▏  | 181/250 [3:07:17<1:10:42, 61.49s/it, rollout=38.2s, backprop=0.0s, accum=1/2]2026-02-17 09:44:17,904 - INFO - Step 182 (accum 2/2): rollout done in 37.9s
+2026-02-17 09:45:04,336 - INFO - Step 182: backprop done in 44.4s (accumulated 2 batches, 64 samples, total rollout time: 76.1s)
+Training Progress:  72%|███████▏  | 181/250 [3:08:42<1:10:42, 61.49s/it, rollout=37.9s, backprop=44.4s, accum=0/2]Training Progress:  73%|███████▎  | 182/250 [3:08:42<1:17:28, 68.36s/it, rollout=37.9s, backprop=44.4s, accum=0/2]2026-02-17 09:45:46,213 - INFO - Step 183 (accum 1/2): rollout done in 41.8s
+Training Progress:  73%|███████▎  | 182/250 [3:09:26<1:17:28, 68.36s/it, rollout=41.8s, backprop=0.0s, accum=1/2] Training Progress:  73%|███████▎  | 183/250 [3:09:26<1:08:16, 61.15s/it, rollout=41.8s, backprop=0.0s, accum=1/2]2026-02-17 09:46:26,958 - INFO - Step 184 (accum 2/2): rollout done in 38.2s
+2026-02-17 09:47:13,223 - INFO - Step 184: backprop done in 44.1s (accumulated 2 batches, 64 samples, total rollout time: 80.0s)
+Training Progress:  73%|███████▎  | 183/250 [3:10:51<1:08:16, 61.15s/it, rollout=38.2s, backprop=44.1s, accum=0/2]Training Progress:  74%|███████▎  | 184/250 [3:10:51<1:14:57, 68.15s/it, rollout=38.2s, backprop=44.1s, accum=0/2]2026-02-17 09:47:52,476 - INFO - Step 185 (accum 1/2): rollout done in 39.2s
+Training Progress:  74%|███████▎  | 184/250 [3:11:32<1:14:57, 68.15s/it, rollout=39.2s, backprop=0.0s, accum=1/2] Training Progress:  74%|███████▍  | 185/250 [3:11:32<1:05:05, 60.09s/it, rollout=39.2s, backprop=0.0s, accum=1/2]2026-02-17 09:48:32,007 - INFO - Step 186 (accum 2/2): rollout done in 37.5s
+2026-02-17 09:49:20,613 - INFO - Step 186: backprop done in 45.1s (accumulated 2 batches, 64 samples, total rollout time: 76.7s)
+Training Progress:  74%|███████▍  | 185/250 [3:12:58<1:05:05, 60.09s/it, rollout=37.5s, backprop=45.1s, accum=0/2]Training Progress:  74%|███████▍  | 186/250 [3:12:58<1:12:25, 67.89s/it, rollout=37.5s, backprop=45.1s, accum=0/2]2026-02-17 09:50:01,522 - INFO - Step 187 (accum 1/2): rollout done in 40.9s
+2026-02-17 09:50:04,714 - INFO - Truncated 1/32 responses at first \boxed{}. Mean tokens dropped: 2017.0
+Training Progress:  74%|███████▍  | 186/250 [3:13:42<1:12:25, 67.89s/it, rollout=40.9s, backprop=0.0s, accum=1/2] Training Progress:  75%|███████▍  | 187/250 [3:13:42<1:03:48, 60.77s/it, rollout=40.9s, backprop=0.0s, accum=1/2]2026-02-17 09:50:43,109 - INFO - Step 188 (accum 2/2): rollout done in 38.3s
+2026-02-17 09:51:32,113 - INFO - Step 188: backprop done in 46.7s (accumulated 2 batches, 64 samples, total rollout time: 79.2s)
+Training Progress:  75%|███████▍  | 187/250 [3:15:09<1:03:48, 60.77s/it, rollout=38.3s, backprop=46.7s, accum=0/2]Training Progress:  75%|███████▌  | 188/250 [3:15:09<1:11:02, 68.74s/it, rollout=38.3s, backprop=46.7s, accum=0/2]2026-02-17 09:52:13,786 - INFO - Step 189 (accum 1/2): rollout done in 41.7s
+Training Progress:  75%|███████▌  | 188/250 [3:15:53<1:11:02, 68.74s/it, rollout=41.7s, backprop=0.0s, accum=1/2] Training Progress:  76%|███████▌  | 189/250 [3:15:53<1:02:17, 61.27s/it, rollout=41.7s, backprop=0.0s, accum=1/2]2026-02-17 09:52:56,970 - INFO - Step 190 (accum 2/2): rollout done in 41.0s
+2026-02-17 09:53:43,370 - INFO - Step 190: backprop done in 44.2s (accumulated 2 batches, 64 samples, total rollout time: 82.7s)
+Training Progress:  76%|███████▌  | 189/250 [3:17:21<1:02:17, 61.27s/it, rollout=41.0s, backprop=44.2s, accum=0/2]Training Progress:  76%|███████▌  | 190/250 [3:17:21<1:09:06, 69.12s/it, rollout=41.0s, backprop=44.2s, accum=0/2]2026-02-17 09:54:22,062 - INFO - Step 191 (accum 1/2): rollout done in 38.7s
+Training Progress:  76%|███████▌  | 190/250 [3:18:02<1:09:06, 69.12s/it, rollout=38.7s, backprop=0.0s, accum=1/2] Training Progress:  76%|███████▋  | 191/250 [3:18:02<59:40, 60.69s/it, rollout=38.7s, backprop=0.0s, accum=1/2]  2026-02-17 09:55:03,172 - INFO - Step 192 (accum 2/2): rollout done in 38.8s
+2026-02-17 09:55:50,517 - INFO - Step 192: backprop done in 44.2s (accumulated 2 batches, 64 samples, total rollout time: 77.4s)
+Training Progress:  76%|███████▋  | 191/250 [3:19:28<59:40, 60.69s/it, rollout=38.8s, backprop=44.2s, accum=0/2]Training Progress:  77%|███████▋  | 192/250 [3:19:28<1:06:02, 68.32s/it, rollout=38.8s, backprop=44.2s, accum=0/2]2026-02-17 09:56:28,617 - INFO - Step 193 (accum 1/2): rollout done in 38.1s
+Training Progress:  77%|███████▋  | 192/250 [3:20:09<1:06:02, 68.32s/it, rollout=38.1s, backprop=0.0s, accum=1/2] Training Progress:  77%|███████▋  | 193/250 [3:20:09<57:02, 60.04s/it, rollout=38.1s, backprop=0.0s, accum=1/2]  2026-02-17 09:57:13,530 - INFO - Step 194 (accum 2/2): rollout done in 42.3s
+2026-02-17 09:57:57,126 - INFO - Step 194: backprop done in 41.4s (accumulated 2 batches, 64 samples, total rollout time: 80.4s)
+Training Progress:  77%|███████▋  | 193/250 [3:21:34<57:02, 60.04s/it, rollout=42.3s, backprop=41.4s, accum=0/2]Training Progress:  78%|███████▊  | 194/250 [3:21:34<1:03:16, 67.79s/it, rollout=42.3s, backprop=41.4s, accum=0/2]2026-02-17 09:58:36,007 - INFO - Step 195 (accum 1/2): rollout done in 38.9s
+Training Progress:  78%|███████▊  | 194/250 [3:22:15<1:03:16, 67.79s/it, rollout=38.9s, backprop=0.0s, accum=1/2] Training Progress:  78%|███████▊  | 195/250 [3:22:15<54:46, 59.76s/it, rollout=38.9s, backprop=0.0s, accum=1/2]  2026-02-17 09:59:16,133 - INFO - Step 196 (accum 2/2): rollout done in 38.0s
+2026-02-17 10:00:04,919 - INFO - Step 196: backprop done in 46.1s (accumulated 2 batches, 64 samples, total rollout time: 76.8s)
+Training Progress:  78%|███████▊  | 195/250 [3:23:42<54:46, 59.76s/it, rollout=38.0s, backprop=46.1s, accum=0/2]Training Progress:  78%|███████▊  | 196/250 [3:23:42<1:01:06, 67.90s/it, rollout=38.0s, backprop=46.1s, accum=0/2]2026-02-17 10:00:47,598 - INFO - Step 197 (accum 1/2): rollout done in 42.6s
+Training Progress:  78%|███████▊  | 196/250 [3:24:27<1:01:06, 67.90s/it, rollout=42.6s, backprop=0.0s, accum=1/2] Training Progress:  79%|███████▉  | 197/250 [3:24:27<53:56, 61.06s/it, rollout=42.6s, backprop=0.0s, accum=1/2]  2026-02-17 10:01:30,510 - INFO - Step 198 (accum 2/2): rollout done in 40.4s
+2026-02-17 10:02:19,392 - INFO - Step 198: backprop done in 46.5s (accumulated 2 batches, 64 samples, total rollout time: 82.9s)
+Training Progress:  79%|███████▉  | 197/250 [3:25:57<53:56, 61.06s/it, rollout=40.4s, backprop=46.5s, accum=0/2]Training Progress:  79%|███████▉  | 198/250 [3:25:57<1:00:15, 69.52s/it, rollout=40.4s, backprop=46.5s, accum=0/2]2026-02-17 10:02:58,004 - INFO - Step 199 (accum 1/2): rollout done in 38.6s
+Training Progress:  79%|███████▉  | 198/250 [3:26:37<1:00:15, 69.52s/it, rollout=38.6s, backprop=0.0s, accum=1/2] Training Progress:  80%|███████▉  | 199/250 [3:26:37<51:42, 60.84s/it, rollout=38.6s, backprop=0.0s, accum=1/2]  2026-02-17 10:03:37,970 - INFO - Step 200 (accum 2/2): rollout done in 38.0s
+2026-02-17 10:04:24,673 - INFO - Step 200: backprop done in 44.2s (accumulated 2 batches, 64 samples, total rollout time: 76.6s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:04:27,266:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 10:04:27,265:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 10:04:27,275:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 10:04:27,277:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/model_world_size_4_rank_1.pt
+Training Progress:  80%|███████▉  | 199/250 [3:28:06<51:42, 60.84s/it, rollout=38.0s, backprop=44.2s, accum=0/2]Training Progress:  80%|████████  | 200/250 [3:28:06<57:36, 69.12s/it, rollout=38.0s, backprop=44.2s, accum=0/2][36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:04:28,382:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:04:28,384:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:04:28,424:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/huggingface
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 10:04:28,350:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 10:04:28,352:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 10:04:28,360:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 10:04:28,362:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 10:04:28,363:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 10:04:28,365:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_200/actor/extra_state_world_size_4_rank_1.pt
+2026-02-17 10:05:06,356 - INFO - Step 201 (accum 1/2): rollout done in 37.9s
+Training Progress:  80%|████████  | 200/250 [3:28:46<57:36, 69.12s/it, rollout=37.9s, backprop=0.0s, accum=1/2] Training Progress:  80%|████████  | 201/250 [3:28:46<49:17, 60.36s/it, rollout=37.9s, backprop=0.0s, accum=1/2]2026-02-17 10:05:46,813 - INFO - Step 202 (accum 2/2): rollout done in 38.4s
+2026-02-17 10:06:36,025 - INFO - Step 202: backprop done in 46.7s (accumulated 2 batches, 64 samples, total rollout time: 76.4s)
+Training Progress:  80%|████████  | 201/250 [3:30:13<49:17, 60.36s/it, rollout=38.4s, backprop=46.7s, accum=0/2]Training Progress:  81%|████████  | 202/250 [3:30:13<54:50, 68.56s/it, rollout=38.4s, backprop=46.7s, accum=0/2]2026-02-17 10:07:15,996 - INFO - Step 203 (accum 1/2): rollout done in 40.0s
+Training Progress:  81%|████████  | 202/250 [3:30:55<54:50, 68.56s/it, rollout=40.0s, backprop=0.0s, accum=1/2] Training Progress:  81%|████████  | 203/250 [3:30:55<47:29, 60.64s/it, rollout=40.0s, backprop=0.0s, accum=1/2]2026-02-17 10:07:58,216 - INFO - Step 204 (accum 2/2): rollout done in 40.0s
+2026-02-17 10:08:45,825 - INFO - Step 204: backprop done in 45.5s (accumulated 2 batches, 64 samples, total rollout time: 80.0s)
+Training Progress:  81%|████████  | 203/250 [3:32:23<47:29, 60.64s/it, rollout=40.0s, backprop=45.5s, accum=0/2]Training Progress:  82%|████████▏ | 204/250 [3:32:23<52:41, 68.74s/it, rollout=40.0s, backprop=45.5s, accum=0/2]2026-02-17 10:09:24,936 - INFO - Step 205 (accum 1/2): rollout done in 39.1s
+Training Progress:  82%|████████▏ | 204/250 [3:33:04<52:41, 68.74s/it, rollout=39.1s, backprop=0.0s, accum=1/2] Training Progress:  82%|████████▏ | 205/250 [3:33:04<45:20, 60.45s/it, rollout=39.1s, backprop=0.0s, accum=1/2]2026-02-17 10:10:05,592 - INFO - Step 206 (accum 2/2): rollout done in 38.7s
+2026-02-17 10:10:51,010 - INFO - Step 206: backprop done in 42.9s (accumulated 2 batches, 64 samples, total rollout time: 77.8s)
+Training Progress:  82%|████████▏ | 205/250 [3:34:28<45:20, 60.45s/it, rollout=38.7s, backprop=42.9s, accum=0/2]Training Progress:  82%|████████▏ | 206/250 [3:34:28<49:31, 67.54s/it, rollout=38.7s, backprop=42.9s, accum=0/2]2026-02-17 10:11:30,202 - INFO - Step 207 (accum 1/2): rollout done in 39.2s
+Training Progress:  82%|████████▏ | 206/250 [3:35:10<49:31, 67.54s/it, rollout=39.2s, backprop=0.0s, accum=1/2] Training Progress:  83%|████████▎ | 207/250 [3:35:10<42:50, 59.78s/it, rollout=39.2s, backprop=0.0s, accum=1/2]2026-02-17 10:12:10,556 - INFO - Step 208 (accum 2/2): rollout done in 37.8s
+2026-02-17 10:12:56,393 - INFO - Step 208: backprop done in 43.7s (accumulated 2 batches, 64 samples, total rollout time: 77.0s)
+Training Progress:  83%|████████▎ | 207/250 [3:36:34<42:50, 59.78s/it, rollout=37.8s, backprop=43.7s, accum=0/2]Training Progress:  83%|████████▎ | 208/250 [3:36:34<46:52, 66.96s/it, rollout=37.8s, backprop=43.7s, accum=0/2]2026-02-17 10:13:35,411 - INFO - Step 209 (accum 1/2): rollout done in 39.0s
+Training Progress:  83%|████████▎ | 208/250 [3:37:15<46:52, 66.96s/it, rollout=39.0s, backprop=0.0s, accum=1/2] Training Progress:  84%|████████▎ | 209/250 [3:37:15<40:27, 59.22s/it, rollout=39.0s, backprop=0.0s, accum=1/2]2026-02-17 10:14:13,624 - INFO - Step 210 (accum 2/2): rollout done in 36.1s
+2026-02-17 10:15:01,464 - INFO - Step 210: backprop done in 45.5s (accumulated 2 batches, 64 samples, total rollout time: 75.1s)
+Training Progress:  84%|████████▎ | 209/250 [3:38:39<40:27, 59.22s/it, rollout=36.1s, backprop=45.5s, accum=0/2]Training Progress:  84%|████████▍ | 210/250 [3:38:39<44:25, 66.63s/it, rollout=36.1s, backprop=45.5s, accum=0/2]2026-02-17 10:15:39,539 - INFO - Step 211 (accum 1/2): rollout done in 38.1s
+Training Progress:  84%|████████▍ | 210/250 [3:39:19<44:25, 66.63s/it, rollout=38.1s, backprop=0.0s, accum=1/2] Training Progress:  84%|████████▍ | 211/250 [3:39:19<38:11, 58.75s/it, rollout=38.1s, backprop=0.0s, accum=1/2]2026-02-17 10:16:21,815 - INFO - Step 212 (accum 2/2): rollout done in 40.0s
+2026-02-17 10:17:10,732 - INFO - Step 212: backprop done in 46.7s (accumulated 2 batches, 64 samples, total rollout time: 78.0s)
+Training Progress:  84%|████████▍ | 211/250 [3:40:48<38:11, 58.75s/it, rollout=40.0s, backprop=46.7s, accum=0/2]Training Progress:  85%|████████▍ | 212/250 [3:40:48<42:56, 67.79s/it, rollout=40.0s, backprop=46.7s, accum=0/2]2026-02-17 10:17:49,393 - INFO - Step 213 (accum 1/2): rollout done in 38.7s
+Training Progress:  85%|████████▍ | 212/250 [3:41:29<42:56, 67.79s/it, rollout=38.7s, backprop=0.0s, accum=1/2] Training Progress:  85%|████████▌ | 213/250 [3:41:29<36:46, 59.65s/it, rollout=38.7s, backprop=0.0s, accum=1/2]2026-02-17 10:18:30,864 - INFO - Step 214 (accum 2/2): rollout done in 39.5s
+2026-02-17 10:19:20,822 - INFO - Step 214: backprop done in 47.6s (accumulated 2 batches, 64 samples, total rollout time: 78.1s)
+Training Progress:  85%|████████▌ | 213/250 [3:42:58<36:46, 59.65s/it, rollout=39.5s, backprop=47.6s, accum=0/2]Training Progress:  86%|████████▌ | 214/250 [3:42:58<41:09, 68.59s/it, rollout=39.5s, backprop=47.6s, accum=0/2]2026-02-17 10:19:58,875 - INFO - Step 215 (accum 1/2): rollout done in 38.0s
+Training Progress:  86%|████████▌ | 214/250 [3:43:38<41:09, 68.59s/it, rollout=38.0s, backprop=0.0s, accum=1/2] Training Progress:  86%|████████▌ | 215/250 [3:43:38<35:02, 60.07s/it, rollout=38.0s, backprop=0.0s, accum=1/2]2026-02-17 10:20:39,658 - INFO - Step 216 (accum 2/2): rollout done in 38.6s
+2026-02-17 10:21:25,311 - INFO - Step 216: backprop done in 43.7s (accumulated 2 batches, 64 samples, total rollout time: 76.7s)
+Training Progress:  86%|████████▌ | 215/250 [3:45:03<35:02, 60.07s/it, rollout=38.6s, backprop=43.7s, accum=0/2]Training Progress:  86%|████████▋ | 216/250 [3:45:03<38:09, 67.34s/it, rollout=38.6s, backprop=43.7s, accum=0/2]2026-02-17 10:22:03,694 - INFO - Step 217 (accum 1/2): rollout done in 38.4s
+Training Progress:  86%|████████▋ | 216/250 [3:45:44<38:09, 67.34s/it, rollout=38.4s, backprop=0.0s, accum=1/2] Training Progress:  87%|████████▋ | 217/250 [3:45:44<32:46, 59.60s/it, rollout=38.4s, backprop=0.0s, accum=1/2]2026-02-17 10:22:45,211 - INFO - Step 218 (accum 2/2): rollout done in 38.4s
+2026-02-17 10:23:31,068 - INFO - Step 218: backprop done in 43.9s (accumulated 2 batches, 64 samples, total rollout time: 76.7s)
+Training Progress:  87%|████████▋ | 217/250 [3:47:08<32:46, 59.60s/it, rollout=38.4s, backprop=43.9s, accum=0/2]Training Progress:  87%|████████▋ | 218/250 [3:47:08<35:43, 66.99s/it, rollout=38.4s, backprop=43.9s, accum=0/2]2026-02-17 10:24:10,514 - INFO - Step 219 (accum 1/2): rollout done in 39.4s
+Training Progress:  87%|████████▋ | 218/250 [3:47:50<35:43, 66.99s/it, rollout=39.4s, backprop=0.0s, accum=1/2] Training Progress:  88%|████████▊ | 219/250 [3:47:50<30:40, 59.37s/it, rollout=39.4s, backprop=0.0s, accum=1/2]2026-02-17 10:24:50,008 - INFO - Step 220 (accum 2/2): rollout done in 37.3s
+2026-02-17 10:25:36,821 - INFO - Step 220: backprop done in 44.3s (accumulated 2 batches, 64 samples, total rollout time: 76.8s)
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:25:39,386:[Rank 0] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/model_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 10:25:39,386:[Rank 2] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/model_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 10:25:39,350:[Rank 3] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/model_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 10:25:39,382:[Rank 1] Saved model to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/model_world_size_4_rank_1.pt
+Training Progress:  88%|████████▊ | 219/250 [3:49:18<30:40, 59.37s/it, rollout=37.3s, backprop=44.3s, accum=0/2]Training Progress:  88%|████████▊ | 220/250 [3:49:18<33:57, 67.91s/it, rollout=37.3s, backprop=44.3s, accum=0/2][36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:25:40,450:[Rank 0] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/optim_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:25:40,451:[Rank 0] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/extra_state_world_size_4_rank_0.pt
+[36m(WorkerDict pid=2675687)[0m INFO:2026-02-17 10:25:40,491:[Rank 0] Saved model config and tokenizer class to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/huggingface
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 10:25:40,438:[Rank 2] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/optim_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675689)[0m INFO:2026-02-17 10:25:40,440:[Rank 2] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/extra_state_world_size_4_rank_2.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 10:25:40,418:[Rank 3] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/optim_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675690)[0m INFO:2026-02-17 10:25:40,420:[Rank 3] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/extra_state_world_size_4_rank_3.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 10:25:40,452:[Rank 1] Saved optim to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/optim_world_size_4_rank_1.pt
+[36m(WorkerDict pid=2675688)[0m INFO:2026-02-17 10:25:40,453:[Rank 1] Saved extra_state to /scratch/gpfs/OLGARUS/jw4199/distillation/LLOPSD/llopsd_experiments/llopsd_output/4761780/global_step_220/actor/extra_state_world_size_4_rank_1.pt
+2026-02-17 10:26:18,992 - INFO - Step 221 (accum 1/2): rollout done in 38.5s
+Training Progress:  88%|████████▊ | 220/250 [3:49:58<33:57, 67.91s/it, rollout=38.5s, backprop=0.0s, accum=1/2] Training Progress:  88%|████████▊ | 221/250 [3:49:58<28:52, 59.74s/it, rollout=38.5s, backprop=0.0s, accum=1/2]2026-02-17 10:26:59,454 - INFO - Step 222 (accum 2/2): rollout done in 38.3s
+2026-02-17 10:27:49,257 - INFO - Step 222: backprop done in 47.2s (accumulated 2 batches, 64 samples, total rollout time: 76.7s)
+Training Progress:  88%|████████▊ | 221/250 [3:51:27<28:52, 59.74s/it, rollout=38.3s, backprop=47.2s, accum=0/2]Training Progress:  89%|████████▉ | 222/250 [3:51:27<31:50, 68.24s/it, rollout=38.3s, backprop=47.2s, accum=0/2]2026-02-17 10:28:27,729 - INFO - Step 223 (accum 1/2): rollout done in 38.5s
+Training Progress:  89%|████████▉ | 222/250 [3:52:07<31:50, 68.24s/it, rollout=38.5s, backprop=0.0s, accum=1/2] Training Progress:  89%|████████▉ | 223/250 [3:52:07<26:58, 59.96s/it, rollout=38.5s, backprop=0.0s, accum=1/2]2026-02-17 10:29:08,960 - INFO - Step 224 (accum 2/2): rollout done in 39.0s
+2026-02-17 10:29:55,692 - INFO - Step 224: backprop done in 44.5s (accumulated 2 batches, 64 samples, total rollout time: 77.5s)
+Training Progress:  89%|████████▉ | 223/250 [3:53:33<26:58, 59.96s/it, rollout=39.0s, backprop=44.5s, accum=0/2]Training Progress:  90%|████████▉ | 224/250 [3:53:33<29:20, 67.71s/it, rollout=39.0s, backprop=44.5s, accum=0/2]2026-02-17 10:30:34,226 - INFO - Step 225 (accum 1/2): rollout done in 38.5s
+Training Progress:  90%|████████▉ | 224/250 [3:54:14<29:20, 67.71s/it, rollout=38.5s, backprop=0.0s, accum=1/2] Training Progress:  90%|█████████ | 225/250 [3:54:14<24:52, 59.71s/it, rollout=38.5s, backprop=0.0s, accum=1/2]2026-02-17 10:31:13,783 - INFO - Step 226 (accum 2/2): rollout done in 37.0s
+2026-02-17 10:32:01,680 - INFO - Step 226: backprop done in 45.7s (accumulated 2 batches, 64 samples, total rollout time: 75.6s)
+Training Progress:  90%|█████████ | 225/250 [3:55:39<24:52, 59.71s/it, rollout=37.0s, backprop=45.7s, accum=0/2]Training Progress:  90%|█████████ | 226/250 [3:55:39<26:54, 67.28s/it, rollout=37.0s, backprop=45.7s, accum=0/2]2026-02-17 10:32:41,271 - INFO - Step 227 (accum 1/2): rollout done in 39.6s
+Training Progress:  90%|█████████ | 226/250 [3:56:21<26:54, 67.28s/it, rollout=39.6s, backprop=0.0s, accum=1/2] Training Progress:  91%|█████████ | 227/250 [3:56:21<22:53, 59.72s/it, rollout=39.6s, backprop=0.0s, accum=1/2]2026-02-17 10:33:21,663 - INFO - Step 228 (accum 2/2): rollout done in 37.9s
+2026-02-17 10:34:10,712 - INFO - Step 228: backprop done in 46.7s (accumulated 2 batches, 64 samples, total rollout time: 77.5s)
+Training Progress:  91%|█████████ | 227/250 [3:57:48<22:53, 59.72s/it, rollout=37.9s, backprop=46.7s, accum=0/2]Training Progress:  91%|█████████ | 228/250 [3:57:48<24:53, 67.89s/it, rollout=37.9s, backprop=46.7s, accum=0/2]2026-02-17 10:34:47,758 - INFO - Step 229 (accum 1/2): rollout done in 37.0s
+Training Progress:  91%|█████████ | 228/250 [3:58:27<24:53, 67.89s/it, rollout=37.0s, backprop=0.0s, accum=1/2] Training Progress:  92%|█████████▏| 229/250 [3:58:27<20:44, 59.28s/it, rollout=37.0s, backprop=0.0s, accum=1/2]2026-02-17 10:35:30,259 - INFO - Step 230 (accum 2/2): rollout done in 40.3s
+2026-02-17 10:36:17,959 - INFO - Step 230: backprop done in 45.6s (accumulated 2 batches, 64 samples, total rollout time: 77.4s)
+Training Progress:  92%|█████████▏| 229/250 [3:59:55<20:44, 59.28s/it, rollout=40.3s, backprop=45.6s, accum=0/2]Training Progress:  92%|█████████▏| 230/250 [3:59:55<22:38, 67.91s/it, rollout=40.3s, backprop=45.6s, accum=0/2]2026-02-17 10:36:56,352 - INFO - Step 231 (accum 1/2): rollout done in 38.4s
+Training Progress:  92%|█████████▏| 230/250 [4:00:36<22:38, 67.91s/it, rollout=38.4s, backprop=0.0s, accum=1/2] Training Progress:  92%|█████████▏| 231/250 [4:00:36<18:54, 59.70s/it, rollout=38.4s, backprop=0.0s, accum=1/2]2026-02-17 10:37:40,458 - INFO - Step 232 (accum 2/2): rollout done in 42.0s
+2026-02-17 10:38:26,747 - INFO - Step 232: backprop done in 44.1s (accumulated 2 batches, 64 samples, total rollout time: 80.3s)
+Training Progress:  92%|█████████▏| 231/250 [4:02:04<18:54, 59.70s/it, rollout=42.0s, backprop=44.1s, accum=0/2]Training Progress:  93%|█████████▎| 232/250 [4:02:04<20:28, 68.26s/it, rollout=42.0s, backprop=44.1s, accum=0/2]2026-02-17 10:39:05,512 - INFO - Step 233 (accum 1/2): rollout done in 38.8s
+Training Progress:  93%|█████████▎| 232/250 [4:02:45<20:28, 68.26s/it, rollout=38.8s, backprop=0.0s, accum=1/2] Training Progress:  93%|█████████▎| 233/250 [4:02:45<17:01, 60.06s/it, rollout=38.8s, backprop=0.0s, accum=1/2]2026-02-17 10:39:07,736 - INFO - Epoch 1 Timing Summary:
+2026-02-17 10:39:07,737 - INFO -   Total rollout time: 8920.1s
+2026-02-17 10:39:07,737 - INFO -   Total backprop time: 5047.6s
+Training Progress:  93%|█████████▎| 233/250 [4:02:45<17:42, 62.51s/it, rollout=38.8s, backprop=0.0s, accum=1/2]
+wandb: WARNING The `quiet` argument to `wandb.run.finish()` is deprecated, use `wandb.Settings(quiet=...)` to set this instead.
+wandb: 
+wandb: Run history:
+wandb:          actor/entropy ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▃▄▆▇▇█▇████████████▇▇▇▇
+wandb:        actor/grad_norm ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▁▂▂▁▁▁▂▃█▂▄▃▁▅▁▁▁▁
+wandb:               actor/lr ▁▂▃▃▃▅▆▇████████████████████████████████
+wandb:  critic/advantages/max ████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: critic/advantages/mean ▇▆▆█▆▆▇▅▆▆▆▆▆▆▇▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:  critic/advantages/min ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:     critic/returns/max ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:    critic/returns/mean █▇▅▇▆▆▆▇▄▅▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:     critic/returns/min ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:     critic/rewards/max ████████████████▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                    +53 ...
+wandb: 
+wandb: Run summary:
+wandb:          actor/entropy 8.79383
+wandb:        actor/grad_norm 0.00292
+wandb:               actor/lr 0.0
+wandb:  critic/advantages/max 0
+wandb: critic/advantages/mean 0
+wandb:  critic/advantages/min 0
+wandb:     critic/returns/max 0
+wandb:    critic/returns/mean 0
+wandb:     critic/returns/min 0
+wandb:     critic/rewards/max 0
+wandb:                    +53 ...
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /scratch/gpfs/OLGARUS/jw4199/model_weights_path/wandb/offline-run-20260217_063619-638vxwzx
+wandb: Find logs at: /scratch/gpfs/OLGARUS/jw4199/model_weights_path/wandb/offline-run-20260217_063619-638vxwzx/logs
+2026-02-17 10:39:08,093 - INFO - LLOPSD verl training completed successfully!
+2026-02-17 10:39:08,093 - INFO - Output directory: ./llopsd_output/4761780

@@ -8,7 +8,7 @@ into a student (running R~ < R loops) using loop-aligned KL divergence.
 
 Key differences from RLTT:
 - Teacher/student loop asymmetry (teacher_loops R vs student_loops R~)
-- Loop mapping strategies (shift, linear, fixed) to align teacher and student loops
+- Loop mapping strategies (shift, linear, offset_linear, fixed) to align teacher and student loops
 - Per-loop distillation weight schedules (uniform, late_heavy, terminal_only)
 - Divergence choice (forward_kl, reverse_kl, jsd)
 - Teacher mode (frozen, ema, same) with optional EMA decay
@@ -111,6 +111,8 @@ class LLOPSDConfig:
     #            i.e., student loops map to the last R~ teacher loops
     # - "linear": linearly interpolate student loops onto the teacher loop range,
     #             e.g., student loop r~ maps to teacher loop round(r~ * (R-1) / (R~-1))
+    # - "offset_linear": linearly interpolate across [1, R-1], skipping teacher loop 0,
+    #             e.g., student loop r~ maps to teacher loop round(1 + r~ * (R-2) / (R~-1))
     # - "fixed": each student loop r~ distills from the same fixed teacher loop (the last one, R)
     loop_mapping: str = "shift"
 

@@ -5,9 +5,9 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=128G
+#SBATCH --mem=175G
 #SBATCH --gres=gpu:4
-#SBATCH --time=60:00:00
+#SBATCH --time=24:00:00
 
 # Adjust partition/account as needed
 #SBATCH --partition=ailab
@@ -40,12 +40,12 @@
 # === LLOPSD-specific hyperparameters ===
 TEACHER_LOOPS=${TEACHER_LOOPS:-4}
 STUDENT_LOOPS=${STUDENT_LOOPS:-2}
-LOOP_MAPPING=${LOOP_MAPPING:-"shift"}          # shift, linear, fixed
-WEIGHT_SCHEDULE=${WEIGHT_SCHEDULE:-"uniform"}   # uniform, late_heavy, terminal_only
+LOOP_MAPPING=${LOOP_MAPPING:-"offset_linear"}          # shift, linear, offset_linear, fixed
+WEIGHT_SCHEDULE=${WEIGHT_SCHEDULE:-"late_heavy"}   # uniform, late_heavy, terminal_only
 WEIGHT_GAMMA=${WEIGHT_GAMMA:-1.0}
 DIVERGENCE=${DIVERGENCE:-"jsd"}         # forward_kl, reverse_kl, jsd
 TEACHER_CONTEXT=${TEACHER_CONTEXT:-"opsd"}
-TEACHER_MODE=${TEACHER_MODE:-"same"}           # frozen, ema, same
+TEACHER_MODE=${TEACHER_MODE:-"ema"}           # frozen, ema, same
 EMA_DECAY=${EMA_DECAY:-0.99}
 
 # === RL hyperparameters ===
@@ -64,11 +64,11 @@ LR_SCHEDULER_TYPE=${LR_SCHEDULER_TYPE:-constant}  # cosine or constant (both inc
 GRAD_ACCUM_STEPS=${GRAD_ACCUM_STEPS:-2}
 # Max tokens per micro-batch during actor update (with dynamic batching)
 # Controls memory usage during backprop. Lower = less memory but slower.
-PPO_MAX_TOKEN_LEN=${PPO_MAX_TOKEN_LEN:-8192} 
+PPO_MAX_TOKEN_LEN=${PPO_MAX_TOKEN_LEN:-4096} 
 # Max tokens per micro-batch during log-prob computation (rollout/ref)
 # Controls memory usage during forward pass for log-prob calculation.
 # Lower = less memory but slower.
-LOG_PROB_MAX_TOKEN_LEN=${LOG_PROB_MAX_TOKEN_LEN:-8192} 
+LOG_PROB_MAX_TOKEN_LEN=${LOG_PROB_MAX_TOKEN_LEN:-4096} 
 # Number of dataloader workers (reduce to save CPU RAM if OOM)
 DATALOADER_NUM_WORKERS=${DATALOADER_NUM_WORKERS:-4}
 
@@ -122,7 +122,7 @@ SFT_OUTPUT_DIR=${SFT_OUTPUT_DIR:-""}
 
 # === Logging ===
 LOGGING_STEPS=${LOGGING_STEPS:-1}
-SAVE_STEPS=${SAVE_STEPS:-20}
+SAVE_STEPS=${SAVE_STEPS:-10}
 WANDB_PROJECT=${WANDB_PROJECT:-LLOPSD}
 
 # === vLLM configuration ===
@@ -345,6 +345,9 @@ if [ "$LOOP_MAPPING" = "shift" ]; then
 elif [ "$LOOP_MAPPING" = "linear" ]; then
     echo "  Using LINEAR mapping: student loops are linearly spaced across teacher loops"
     echo "  Student R~=$STUDENT_LOOPS loops map proportionally to teacher R=$TEACHER_LOOPS loops"
+elif [ "$LOOP_MAPPING" = "offset_linear" ]; then
+    echo "  Using OFFSET_LINEAR mapping: student loops linearly spaced across teacher loops [1, R-1]"
+    echo "  Student R~=$STUDENT_LOOPS loops map proportionally to teacher R=$TEACHER_LOOPS loops, skipping loop 0"
 elif [ "$LOOP_MAPPING" = "fixed" ]; then
     echo "  Using FIXED mapping: all student loops distill from the final teacher loop"
     echo "  Student R~=$STUDENT_LOOPS loops all target teacher loop R=$TEACHER_LOOPS"
